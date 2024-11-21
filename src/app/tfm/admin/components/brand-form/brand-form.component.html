@@ -62,41 +62,52 @@
             <label for="production" class="form-label">Producción</label>
             <textarea class="form-control" id="production" name="production" rows="3" required></textarea>
         </div>
-
-        <!-- Categories -->
+        
         <div class="mb-3">
-            <label class="form-label">Categoría</label>
-            <select class="form-select" id="category" (change)="showSubcategoriesFunc()">
-                <option value="">Seleccionar categoría</option>
-                <option *ngFor="let category of categories" [value]="category">{{ category | titlecase }}</option>
-            </select>
-        </div>
-
-        <!-- Subcategories -->
-        <div class="mb-3" *ngIf="showSubcategories">
-            <label class="form-label">Subcategorías</label>
-            <div *ngFor="let subcategory of subcategoriesForCategory[selectedCategory]">
-              <div class="form-check">
-                <input 
-                  type="checkbox" 
-                  class="form-check-input" 
-                  [id]="subcategory" 
-                  [value]="subcategory" 
-                  [(ngModel)]="selectedSubcategories[subcategory]"
-                  [ngModelOptions]="{standalone: true}">
-                <label class="form-check-label" [for]="subcategory">
-                  {{ subcategory }}
-                </label>
-              </div>
+            <!-- Categories -->
+            <div class="mb-3">
+                <label class="form-label">Categoría</label>
+                <select class="form-select" id="category" 
+                    [(ngModel)]="selectedCategory"
+                    [ngModelOptions]="{standalone: true}"
+                    (change)="selectedSubcategories={}">
+                    <option value="">Seleccionar categoría</option>
+                    <option 
+                        *ngFor="let category of categories" [value]="category">
+                        {{ category | titlecase }}
+                    </option>
+                </select>
             </div>
+
+            <!-- Subcategories -->
+            <div class="mb-3" *ngIf="subcategoriesForCategory[selectedCategory] != undefined">
+                <label class="form-label">Subcategorías</label>
+                <div *ngFor="let subcategory of subcategoriesForCategory[selectedCategory]">
+                <div class="form-check">
+                    <input 
+                    type="checkbox" 
+                    class="form-check-input" 
+                    [id]="subcategory" 
+                    [value]="subcategory" 
+                    [(ngModel)]="selectedSubcategories[subcategory]"
+                    [ngModelOptions]="{standalone: true}">
+                    <label class="form-check-label" [for]="subcategory">
+                    {{ subcategory }}
+                    </label>
+                </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary mt-2" (click)="addCategory()">Agregar categoría</button>
         </div>
-
-        <button type="button" class="btn btn-primary mt-2" (click)="addCategory()">Agregar categoría</button>
-
+        
         <!-- List of categories and subcategories selected -->
-        <div class="mt-3" id="selectedContainer">
+        <div class="mb-3" id="selectedContainer">
             <h5>Categorías y Subcategorías seleccionadas:</h5>
-            <ul id="selectedList"></ul>
+            <ul id="selectedList">
+                <li *ngFor="let item of addedList">{{ item }}</li>
+            </ul>
+            <button type="button" class="btn btn-primary mt-2" (click)="deleteCategoriesSelected()">Eliminar las categorías seleccionadas</button>
         </div>
 
         <!-- Labels -->

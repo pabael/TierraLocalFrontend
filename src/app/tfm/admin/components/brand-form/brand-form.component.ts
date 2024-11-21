@@ -9,6 +9,27 @@ import { Category } from '../../models/Category';
 })
 export class BrandFormComponent {
 
+  @Input() public brand: Brand = {
+    name:        null,
+    summary:     null,
+    url:         null,
+    materials:   null,
+    crueltyFree: null,
+    vegan:       null,
+    commitment:  null,
+    production:  null,
+    categories:  null,
+    labels:      null,
+    consumers:   null,
+    price:       1,
+    locations:   null
+  };
+
+  @Output()
+  //Envio selectedSubcategories
+  public onAddCategory: EventEmitter<{ subcategories: { [key: string]: boolean }, category: string }> = new EventEmitter();
+
+
   /*BORRAR*/
   //Se recogeran de la base de datos
   subcategoriesForCategory: { [key: string]: string[] } = {
@@ -23,40 +44,26 @@ export class BrandFormComponent {
 
   selectedCategory: string = '';
   selectedSubcategories: { [key: string]: boolean } = {};
+
   categoriesAndSubcategoriesAdded: { [category: string]: string[] } = {};
-
-  showSubcategories: boolean = false;
-
-  showSubcategoriesFunc(): void {
-    const category = (document.getElementById('category') as HTMLSelectElement).value;
-    
-    this.selectedCategory = category;
-    this.showSubcategories = category ? true : false;
-    
-    this.selectedSubcategories = {};
-  }
+  addedList: String[] = [];
 
   addCategory(): void {
-
     if(this.selectedCategory == "") return;
-
-    const selectedList = document.getElementById('selectedList') as HTMLElement;
-    selectedList.innerHTML = "";
-
+    this.addedList = [];
     this.categoriesAndSubcategoriesAdded[this.selectedCategory] = Object.keys(this.selectedSubcategories).filter(subcategory => this.selectedSubcategories[subcategory]);
-    
     Object.entries(this.categoriesAndSubcategoriesAdded).forEach(([category, subcategories]) => {
-      
-      const li = document.createElement('li');
-      
       if (subcategories.length > 0) {
-        li.textContent = `Categoría: ${category} - Subcategorías: ${subcategories.join(', ')}`;
+        this.addedList.push(`Categoría: ${category} - Subcategorías: ${subcategories.join(', ')}`);
       } else {
-        li.textContent = `Categoría: ${category} - Sin subcategorías seleccionadas.`;
+        this.addedList.push(`Categoría: ${category}`);
       }
-      
-      selectedList.appendChild(li);
     });
+  }
+
+  deleteCategoriesSelected(): void {
+    this.categoriesAndSubcategoriesAdded= {};
+    this.addedList = [];
   }
 
 }
