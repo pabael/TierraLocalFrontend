@@ -1,0 +1,198 @@
+<div class="container mt-5">
+    <h2>Formulario de Producto</h2>
+    <form>
+        <!-- Name -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <!-- Summary -->
+        <div class="mb-3">
+            <label for="summary" class="form-label">Resumen</label>
+            <textarea class="form-control" id="summary" name="summary" rows="3" required></textarea>
+        </div>
+
+        <!-- URL -->
+        <div class="mb-3">
+            <label for="url" class="form-label">URL</label>
+            <input type="url" class="form-control" id="url" name="url" required>
+        </div>
+
+        <!-- Materials -->
+        <div class="mb-3">
+            <label for="materials" class="form-label">Materiales</label>
+            <textarea class="form-control" id="materials" name="materials" rows="3" required></textarea>
+        </div>
+
+        <!-- CrueltyFree -->
+        <div class="mb-3">
+            <label class="form-label">No probado en animales</label>
+            <div>
+                <label class="form-check-label me-3">
+                    <input type="radio" class="form-check-input" name="crueltyFree" value="yes" required> Sí
+                </label>
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="crueltyFree" value="no" required> No
+                </label>
+            </div>
+        </div>
+
+        <!-- Vegan -->
+        <div class="mb-3">
+            <label class="form-label">Vegano</label>
+            <div>
+                <label class="form-check-label me-3">
+                    <input type="radio" class="form-check-input" name="vegan" value="yes" required> Sí
+                </label>
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="vegan" value="no" required> No
+                </label>
+            </div>
+        </div>
+
+        <!-- Commitment -->
+        <div class="mb-3">
+            <label for="commitment" class="form-label">Compromiso</label>
+            <textarea class="form-control" id="commitment" name="commitment" rows="3" required></textarea>
+        </div>
+
+        <!-- Production -->
+        <div class="mb-3">
+            <label for="production" class="form-label">Producción</label>
+            <textarea class="form-control" id="production" name="production" rows="3" required></textarea>
+        </div>
+
+        <!-- Categories -->
+        <div class="mb-3">
+            <label class="form-label">Categoría</label>
+            <select class="form-select" id="category" (change)="showSubcategoriesFunc()">
+                <option value="">Seleccionar categoría</option>
+                <option *ngFor="let category of categories" [value]="category">{{ category | titlecase }}</option>
+            </select>
+        </div>
+
+        <!-- Subcategories -->
+        <div class="mb-3" *ngIf="showSubcategories">
+            <label class="form-label">Subcategorías</label>
+            <div *ngFor="let subcategory of subcategoriesForCategory[selectedCategory]">
+              <div class="form-check">
+                <input 
+                  type="checkbox" 
+                  class="form-check-input" 
+                  [id]="subcategory" 
+                  [value]="subcategory" 
+                  [(ngModel)]="selectedSubcategories[subcategory]"
+                  [ngModelOptions]="{standalone: true}">
+                <label class="form-check-label" [for]="subcategory">
+                  {{ subcategory }}
+                </label>
+              </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary mt-2" (click)="addCategory()">Agregar categoría</button>
+
+        <!-- List of categories and subcategories selected -->
+        <div class="mt-3" id="selectedContainer">
+            <h5>Categorías y Subcategorías seleccionadas:</h5>
+            <ul id="selectedList"></ul>
+        </div>
+
+        <!-- Labels -->
+        <div class="mb-3">
+            <label for="labels" class="form-label">Etiquetas</label>
+            <select class="form-select" id="labels" name="labels" multiple required>
+                <option value="nuevo">Nuevo</option>
+                <option value="oferta">Oferta</option>
+                <option value="exclusivo">Exclusivo</option>
+            </select>
+        </div>
+
+        <!-- Consumer -->
+        <div class="mb-3">
+            <label class="form-label">Consumidor</label>
+            <div class="d-flex">
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" name="consumer" id="consumidorMujer" value="mujer">
+                    <label class="form-check-label" for="consumidorMujer">
+                        Mujer
+                    </label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="checkbox" name="consumer" id="consumidorHombre" value="hombre">
+                    <label class="form-check-label" for="consumidorHombre">
+                        Hombre
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="consumer" id="consumidorNino" value="nino">
+                    <label class="form-check-label" for="consumidorNino">
+                        Niño/Adolescente
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Price -->
+        <div class="mb-3">
+            <label class="form-label">Precio</label>
+            <div class="d-flex">
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="radio" name="price" id="precioBajo" value="bajo" required>
+                    <label class="form-check-label" for="precioBajo">
+                        Bajo
+                    </label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="radio" name="price" id="precioMedio" value="medio" required>
+                    <label class="form-check-label" for="precioMedio">
+                        Medio
+                    </label>
+                </div>
+                <div class="form-check me-3">
+                    <input class="form-check-input" type="radio" name="price" id="precioAlto" value="alto" required>
+                    <label class="form-check-label" for="precioAlto">
+                        Alto
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="price" id="precioMuyAlto" value="muyAlto" required>
+                    <label class="form-check-label" for="precioMuyAlto">
+                        Muy Alto
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Autonomous community -->
+        <div class="mb-3">
+            <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
+            <select class="form-select" id="autonomousCommunity" name="autonomousCommunity" required>
+                <option value="">Seleccione una Comunidad Autónoma</option>
+                <option value="madrid">Madrid</option>
+                <option value="barcelona">Barcelona</option>
+                <option value="valencia">Valencia</option>
+            </select>
+        </div>
+
+        <!-- Province -->
+        <div class="mb-3">
+            <label for="province" class="form-label">Provincia</label>
+            <select class="form-select" id="province" name="province" required>
+                <option value="">Seleccione una provincia</option>
+                <option value="madrid">Madrid</option>
+                <option value="barcelona">Barcelona</option>
+                <option value="valencia">Valencia</option>
+            </select>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-3">
+            <label for="location" class="form-label">Localización</label>
+            <input type="text" class="form-control" id="location" name="location" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Añadir</button>
+    </form>
+</div>
