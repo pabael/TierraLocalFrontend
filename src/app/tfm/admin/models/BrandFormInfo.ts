@@ -2,9 +2,9 @@ import { Category } from "./Category";
 
 export interface BrandFormInfo {
   allCategories:              Category[];
-  allLabels:                  String[];
-  allConsumers:               String[];
+  allLabels:                  string[];
+  allConsumers:               string[];
   allPrices:                  number[];
-  allAutonomousCommunities:   String[];
-  allProvinces:               String[];
+  allAutonomousCommunities:   string[];
+  allProvinces:               string[];
 }

@@ -10,19 +10,19 @@
         <!-- Summary -->
         <div class="mb-3">
             <label for="summary" class="form-label">Resumen</label>
-            <textarea class="form-control" id="summary" formControlName="summary" rows="3" required></textarea>
+            <textarea class="form-control" id="summary" formControlName="summary" rows="3"></textarea>
         </div>
     
         <!-- URL -->
         <div class="mb-3">
             <label for="url" class="form-label">URL</label>
-            <input type="url" class="form-control" id="url" formControlName="url" required>
+            <input type="url" class="form-control" id="url" formControlName="url">
         </div>
     
         <!-- Materials -->
         <div class="mb-3">
             <label for="materials" class="form-label">Materiales</label>
-            <textarea class="form-control" id="materials" formControlName="materials" rows="3" required></textarea>
+            <textarea class="form-control" id="materials" formControlName="materials" rows="3"></textarea>
         </div>
     
         <!-- CrueltyFree -->
@@ -60,17 +60,19 @@
         <!-- Commitment -->
         <div class="mb-3">
             <label for="commitment" class="form-label">Compromiso</label>
-            <textarea class="form-control" id="commitment" formControlName="commitment" rows="3" required></textarea>
+            <textarea class="form-control" id="commitment" formControlName="commitment" rows="3"></textarea>
         </div>
     
         <!-- Production -->
         <div class="mb-3">
             <label for="production" class="form-label">Producción</label>
-            <textarea class="form-control" id="production" formControlName="production" rows="3" required></textarea>
+            <textarea class="form-control" id="production" formControlName="production" rows="3"></textarea>
         </div>
 
-        <!-- Selección de categorías y subcategorías -->
+        <!-- Categories and subcategories -->
         <div class="mb-3">
+            
+            <!-- Categories -->
             <div class="mb-3">
                 <label class="form-label" for="category">Category:</label>
                 <div class="d-flex">
@@ -79,7 +81,8 @@
                     </select>
                 </div>
             </div>
-    
+            
+            <!-- Subcategories -->
             <div *ngIf="currentSubcategories && currentSubcategories.length > 0" class="mb-3">
                 <label class="form-label">Subcategories:</label>
                 <div *ngFor="let subcat of currentSubcategories">
@@ -96,7 +99,7 @@
             <button type="button" class="btn btn-secondary mt-2" (click)="addCategory()">Add Category</button>
         </div>
 
-        <!-- Listado de categorías seleccionadas -->
+        <!-- Categories selected -->
         <div class="mb-3">
             <label class="form-label" for="selected">Categorías seleccionadas:</label>
             <ul style="list-style-type: none">
@@ -112,29 +115,29 @@
         <div class="mb-3">
             <label for="labels" class="form-label">Etiquetas</label>
             <div class="d-flex" formGroupName="labels">
-              <div *ngFor="let label of labels" class="form-check me-3">
-                <input 
-                  type="checkbox" 
-                  class="form-check-input" 
-                  [id]="label" 
-                  [formControlName]="label">
-                <label class="form-check-label" [for]="label">
-                  {{ label }}
-                </label>
-              </div>
+                <div *ngFor="let label of labels" class="form-check me-3">
+                    <input 
+                        type="checkbox" 
+                        class="form-check-input" 
+                        [id]="label" 
+                        [formControlName]="label">
+                    <label class="form-check-label" [for]="label">
+                        {{ label }}
+                    </label>
+                </div>
             </div>
         </div>
 
         <!-- Consumer -->
         <div class="mb-3">
             <label for="consumers" class="form-label">Consumidores</label>
-            <div class="d-flex">
+            <div class="d-flex" formGroupName="consumers">
                 <div *ngFor="let consumer of consumers" class="form-check me-3">
                     <input 
                         type="checkbox" 
                         class="form-check-input" 
                         [id]="consumer" 
-                        [value]="consumer">
+                        [formControlName]="consumer">
                     <label class="form-check-label" [for]="consumer">
                         {{ consumer }}
                     </label>
@@ -144,57 +147,57 @@
 
         <!-- Price -->
         <div class="mb-3">
-            <label class="form-label ">Price</label>
+            <label class="form-label">Price</label>
             <div class="d-flex">
                 <div *ngFor="let price of prices" class="form-check me-3">
                     <label class="form-check-label me-3">
                         <input 
-                        type="radio" 
-                        class="form-check-input" 
-                        formControlName="price" 
-                        [value]="price">
+                            type="radio" 
+                            class="form-check-input" 
+                            formControlName="price" 
+                            [value]="price">
                         {{ price }}
                     </label>
                 </div>
             </div>
         </div>
 
-        <!-- Autonomous community -->
+        <!-- Selección de Comunidad Autónoma -->
         <div class="mb-3">
-            <label for="autonomousCommunities" class="form-label">Comunidad Autónoma</label>
-            <div class="d-flex">
-                <select class="form-select" id="autonomousCommunity" name="autonomousCommunity" required>
-                    <option value="">Seleccione una Comunidad Autónoma</option>
-                    <option 
-                    *ngFor="let autonomousCommunity of autonomousCommunities" [value]="autonomousCommunity">
-                    {{ autonomousCommunity | titlecase }}
-                    </option>
-                </select>
-            </div>
+            <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
+            <select class="form-select" id="autonomousCommunity" [formControl]="autonomousCommunityControl" (change)="onAutonomousCommunityChange($event)">
+                <option *ngFor="let community of autonomousCommunities" [value]="community">{{ community }}</option>
+            </select>
         </div>
-
-        <!-- Province -->
-        <div class="mb-3">
+        
+        <!-- Selección de Provincia -->
+        <div class="mb-3" *ngIf="currentProvinces.length > 0">
             <label for="province" class="form-label">Provincia</label>
-            <div class="d-flex">
-                <select class="form-select" id="province" name="province" required>
-                    <option value="">Seleccione una Provincia</option>
-                    <option 
-                    *ngFor="let province of provinces" [value]="province">
-                    {{ province | titlecase }}
-                    </option>
-                </select>
-            </div>
+            <select class="form-select" id="province" [formControl]="provinceControl" (change)="onProvinceChange($event)">
+                <option *ngFor="let province of currentProvinces" [value]="province">{{ province }}</option>
+            </select>
         </div>
-
-        <!-- Location -->
-        <div class="mb-3">
+        
+        <!-- Entrada de Localización -->
+        <div class="mb-3" *ngIf="provinceControl.value">
             <label for="location" class="form-label">Localización</label>
-            <input type="text" class="form-control" id="location" name="location" required>
+            <textarea class="form-control" id="location" [formControl]="locationControl" rows="1"></textarea>
+            <button type="button" class="btn btn-secondary mt-2" (click)="addLocation()">Añadir Localización</button>
         </div>
 
+        
+        <!-- Listado de Localizaciones -->
+        <div class="mb-3" *ngIf="locationsArray.controls.length > 0">
+            <label for="locationsList" class="form-label">Localizaciones Añadidas</label>
+            <ul id="locationsList" style="list-style-type: none">
+            <li *ngFor="let location of locationsArray.controls; let i = index" class="mt-2">
+                <button type="button" class="btn btn-danger btn-sm ms-2" (click)="removeLocation(i)">X</button>
+                {{ location.value.name }}, {{ location.value.province }}, {{ location.value.autonomousCommunity }}
+            </li>
+            </ul>
+        </div>
 
-      <!-- Submit button -->
+        <!-- Submit button -->
       <button type="submit" class="btn btn-primary mt-2">Añadir</button>
     </form>
 </div>

@@ -47,11 +47,14 @@ export class BrandFormComponent {
           return acc;
         }, {})
       ),
-      consumers: new FormArray([]),
+      consumers: this.fb.group(
+        this.consumers.reduce((acc, consumer) => {
+          acc[consumer] = false;
+          return acc;
+        }, {})
+      ),
       price: new FormControl(1),
-      autonomousCommunity: new FormControl(''),
-      province: new FormControl(''),
-      location: new FormControl('')
+      location: this.fb.array([])
     });
   }
 
@@ -63,27 +66,38 @@ export class BrandFormComponent {
     {name:"electronica", subcategories:["Televisores", "Laptops"]}
   ];
 
-  currentSubcategories: string[] | null = null;
-  selectedSubcategories: string[] = [];
-
-  categoryControl = new FormControl('');
-  subcategoryControl = new FormControl([]);
-
   /*BORRAR*/ 
   // Se recogeran de la base de datos
   labels: string[] = ["nuevo", "viejo", "oferta", "otro"];
   consumers: string[] = ["hombre", "mujer"];
   prices: string[] = ["1", "2", "3"];
-  autonomousCommunities: string[] = ["Aragon", "Madrid"];
-  provinces: string[] = ["Zaragoza", "Huesca"];
+  autonomousCommunities: string[] = ['Aragon', 'Madrid', 'Catalunya'];
+  provincesByCommunity = {
+    'Aragon': ['Zaragoza', 'Huesca', 'Teruel'],
+    'Madrid': ['Madrid'],
+    'Catalunya': ['Barcelona', 'Girona', 'Tarragona']
+  };
 
-   
-  // Getter para el FormArray de categorías
+  //-------//
+  currentSubcategories: string[] | null = null;
+  selectedSubcategories: string[] = [];
+
+  categoryControl = new FormControl('');
+  subcategoryControl = new FormControl([]);
+  //-------//
+  autonomousCommunityControl = new FormControl('');
+  provinceControl = new FormControl('');
+  locationControl = new FormControl('');
+
+  currentProvinces: string[] = [];
+  locations: string[] = [];
+  //-------//
+
+  //Categories and subcategories
   get categoriesArray(): FormArray {
     return this.form.get('categories') as FormArray;
   }
 
-  // Cambio de categoría seleccionada
   onCategoryChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     const categoryName = selectElement.value;
@@ -98,17 +112,14 @@ export class BrandFormComponent {
     const value = checkbox.value;
   
     if (checkbox.checked) {
-      // Agregar subcategoría seleccionada
       this.selectedSubcategories.push(value);
     } else {
-      // Remover subcategoría deseleccionada
       this.selectedSubcategories = this.selectedSubcategories.filter(
         (subcat) => subcat !== value
       );
     }
   }
 
-  // Añadir categoría y subcategorías seleccionadas al FormArray
   addCategory(): void {
     const selectedCategory = this.categoryControl.value;
 
@@ -131,29 +142,61 @@ export class BrandFormComponent {
 
     this.categoriesArray.push(this.fb.group(categoryData));
 
-    // Reiniciar controles después de añadir
     this.categoryControl.reset();
     this.subcategoryControl.reset();
     this.currentSubcategories = null;
   }
-
-  // Eliminar categoría del FormArray
+  
   removeCategory(index: number): void {
     this.categoriesArray.removeAt(index);
   }
 
-  // Manejo del submit
-  onSubmit(): void {
-    console.log(this.form.value);
 
-    // if (this.form.valid) {
-    //   console.log(this.form.value);
-    // }
+  //Locations
+
+  get locationsArray(): FormArray {
+    return this.form.get('location') as FormArray;
   }
 
-  // getSelectedLabels(): string[] {
-  //   const labelsGroup = this.productForm.get('labels')?.value || {};
-  //   return Object.keys(labelsGroup).filter(label => labelsGroup[label]);
-  // }
+  onAutonomousCommunityChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const communityName = selectElement.value;
+    this.currentProvinces = this.provincesByCommunity[communityName] || [];
+    this.provinceControl.reset(); 
+  }
 
+  onProvinceChange(event: Event): void {
+  }
+
+  addLocation(): void {
+    const location = this.locationControl.value;
+    const community = this.autonomousCommunityControl.value;
+    const province = this.provinceControl.value;
+
+    if (!location || !community || !province)  return;
+    
+    const locationData = {
+      name: location,
+      province: province,
+      autonomousCommunity: community
+    };
+
+    const locationExists = this.locationsArray.controls.some(control => control.value.name === location);
+
+    if (!locationExists) {
+      this.locationsArray.push(this.fb.group(locationData));
+    }
+    
+    this.locationControl.reset();
+  }
+
+  removeLocation(index: number): void {
+    this.locationsArray.removeAt(index);
+  }
+
+  onSubmit(): void {
+    if (this.form.valid) {
+      console.log(this.form.value);
+    }
+  }
 }

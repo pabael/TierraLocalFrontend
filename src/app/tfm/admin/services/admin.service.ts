@@ -16,24 +16,24 @@ export class AdminService {
     return this.http.get<Category[]>('http://localhost:8080/categories')
   }
 
-  getAllLabels(): Observable<String[]>{
-    return this.http.get<String[]>('http://localhost:8080/labels')
+  getAllLabels(): Observable<string[]>{
+    return this.http.get<string[]>('http://localhost:8080/labels')
   }
 
-  getAllConsumers(): Observable<String[]>{
-    return this.http.get<String[]>('http://localhost:8080/consumers')
+  getAllConsumers(): Observable<string[]>{
+    return this.http.get<string[]>('http://localhost:8080/consumers')
   }
 
   getAllPrices(): Observable<number[]>{
     return this.http.get<number[]>('http://localhost:8080/prices')
   }
 
-  getAllAutonomousCommunities(): Observable<String[]>{
-    return this.http.get<String[]>('http://localhost:8080/autonomousCommunities')
+  getAllAutonomousCommunities(): Observable<string[]>{
+    return this.http.get<string[]>('http://localhost:8080/autonomousCommunities')
   }
 
-  getAllProvinces(autonomousCommunity: String ): Observable<String[]>{
-    return this.http.get<String[]>(`http://localhost:8080/province?name=${autonomousCommunity}`)
+  getAllProvinces(autonomousCommunity: string ): Observable<string[]>{
+    return this.http.get<string[]>(`http://localhost:8080/province?name=${autonomousCommunity}`)
   }
 
   getAllDataForBrandForm() : BrandFormInfo{
