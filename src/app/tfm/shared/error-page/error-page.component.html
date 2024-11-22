@@ -1,5 +1,6 @@
 <div class="error-container">
   <p>Se ha producido un error</p>
   <h1>{{ error.status }}</h1>
-  <h2>{{ error.error }}</h2>
+  <h2>{{ error.error?.error }}</h2>
+  <h2>{{ error.error?.message }}</h2>
 </div>
