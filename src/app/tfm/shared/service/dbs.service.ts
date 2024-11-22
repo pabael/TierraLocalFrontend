@@ -63,6 +63,12 @@ export class DbsService {
     return this.http.get<Brand>(`${this.apiUrl}brand?brand=${brandName}`)
   }
 
+  createCategory(category: Category): any {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`${this.apiUrl}category`, category, { headers });
+  }
+
+
   getAllDataForBrandForm() : BrandFormInfo{
     
     let formInfo: BrandFormInfo = {

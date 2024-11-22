@@ -7,11 +7,21 @@ import { BrandFormPageComponent } from './pages/brand-form-page/brand-form-page.
 import { RouterModule } from "@angular/router";
 import { provideHttpClient } from "@angular/common/http";
 import { AdminRoutingModule } from "./admin-routing.module";
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { CreatePageComponent } from './pages/create-page/create-page.component';
+import { CategoriesFormComponent } from './components/categories-form/categories-form.component';
+import { LabelsFormComponent } from './components/labels-form/labels-form.component';
+import { ConsumersFormComponent } from './components/consumers-form/consumers-form.component';
 
 @NgModule({
   declarations: [
     BrandFormComponent,
-    BrandFormPageComponent
+    BrandFormPageComponent,
+    AdminPageComponent,
+    CreatePageComponent,
+    CategoriesFormComponent,
+    LabelsFormComponent,
+    ConsumersFormComponent
   ],
   imports: [
     CommonModule,
