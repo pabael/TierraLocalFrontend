@@ -17,6 +17,8 @@ export class SharedService {
 
   set setError(error:HttpErrorResponse){
     this.error = error;
+    console.log(error);
     this.router.navigate(['/error'])
   }
+
 }

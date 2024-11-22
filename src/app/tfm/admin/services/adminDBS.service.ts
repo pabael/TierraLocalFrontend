@@ -56,7 +56,7 @@ export class AdminDBSService {
 
   createBrand(brand: Brand): any {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(this.apiUrl, brand, { headers });
+    return this.http.post<any>(`${this.apiUrl}brand`, brand, { headers });
   }
 
   getAllDataForBrandForm() : BrandFormInfo{

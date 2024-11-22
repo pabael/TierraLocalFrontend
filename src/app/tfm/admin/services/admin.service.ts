@@ -13,6 +13,7 @@ export class AdminService {
   constructor(private DBSservice: AdminDBSService, private sharedService: SharedService, private router: Router) { }
   
   createBrand(brand: Brand): void{
+
     this.DBSservice.createBrand(brand).subscribe({
       next:() => {console.log("creada")},
       error: (error:HttpErrorResponse) => {
