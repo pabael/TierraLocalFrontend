@@ -1,145 +1,142 @@
 <div class="container mt-5">
     <h2>Formulario de Producto</h2>
-    <form>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <!-- Name -->
         <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="name" formControlName="name" required>
         </div>
-
+    
         <!-- Summary -->
         <div class="mb-3">
             <label for="summary" class="form-label">Resumen</label>
-            <textarea class="form-control" id="summary" name="summary" rows="3" required></textarea>
+            <textarea class="form-control" id="summary" formControlName="summary" rows="3" required></textarea>
         </div>
-
+    
         <!-- URL -->
         <div class="mb-3">
             <label for="url" class="form-label">URL</label>
-            <input type="url" class="form-control" id="url" name="url" required>
+            <input type="url" class="form-control" id="url" formControlName="url" required>
         </div>
-
+    
         <!-- Materials -->
         <div class="mb-3">
             <label for="materials" class="form-label">Materiales</label>
-            <textarea class="form-control" id="materials" name="materials" rows="3" required></textarea>
+            <textarea class="form-control" id="materials" formControlName="materials" rows="3" required></textarea>
         </div>
-
+    
         <!-- CrueltyFree -->
         <div class="mb-3">
             <label class="form-label">No probado en animales</label>
             <div>
                 <label class="form-check-label me-3">
-                    <input type="radio" class="form-check-input" name="crueltyFree" value="yes" required> Sí
+                    <input type="radio" class="form-check-input" formControlName="crueltyFree" value="1" required> Sí
                 </label>
-                <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="crueltyFree" value="no" required> No
+                <label class="form-check-label me-3">
+                    <input type="radio" class="form-check-input" formControlName="crueltyFree" value="0" required> No
+                </label>
+                <label class="form-check-label me-3">
+                    <input type="radio" class="form-check-input" formControlName="crueltyFree" value="null" required> No se sabe
                 </label>
             </div>
         </div>
-
+    
         <!-- Vegan -->
         <div class="mb-3">
             <label class="form-label">Vegano</label>
             <div>
                 <label class="form-check-label me-3">
-                    <input type="radio" class="form-check-input" name="vegan" value="yes" required> Sí
+                    <input type="radio" class="form-check-input" formControlName="vegan" value="1" required> Sí
                 </label>
-                <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="vegan" value="no" required> No
+                <label class="form-check-label me-3">
+                    <input type="radio" class="form-check-input" formControlName="vegan" value="0" required> No
+                </label>
+                <label class="form-check-label me-3">
+                    <input type="radio" class="form-check-input" formControlName="vegan" value="null" required> No se sabe
                 </label>
             </div>
         </div>
-
+    
         <!-- Commitment -->
         <div class="mb-3">
             <label for="commitment" class="form-label">Compromiso</label>
-            <textarea class="form-control" id="commitment" name="commitment" rows="3" required></textarea>
+            <textarea class="form-control" id="commitment" formControlName="commitment" rows="3" required></textarea>
         </div>
-
+    
         <!-- Production -->
         <div class="mb-3">
             <label for="production" class="form-label">Producción</label>
-            <textarea class="form-control" id="production" name="production" rows="3" required></textarea>
+            <textarea class="form-control" id="production" formControlName="production" rows="3" required></textarea>
         </div>
-        
+
+        <!-- Selección de categorías y subcategorías -->
         <div class="mb-3">
-            <!-- Categories -->
             <div class="mb-3">
-                <label class="form-label">Categoría</label>
-                <select class="form-select" id="category" 
-                    [(ngModel)]="selectedCategory"
-                    [ngModelOptions]="{standalone: true}"
-                    (change)="selectedSubcategories={}">
-                    <option value="">Seleccionar categoría</option>
-                    <option 
-                        *ngFor="let category of categories" [value]="category">
-                        {{ category | titlecase }}
-                    </option>
-                </select>
-            </div>
-
-            <!-- Subcategories -->
-            <div class="mb-3" *ngIf="subcategoriesForCategory[selectedCategory] != undefined">
-                <label class="form-label">Subcategorías</label>
-                <div *ngFor="let subcategory of subcategoriesForCategory[selectedCategory]">
-                <div class="form-check">
-                    <input 
-                    type="checkbox" 
-                    class="form-check-input" 
-                    [id]="subcategory" 
-                    [value]="subcategory" 
-                    [(ngModel)]="selectedSubcategories[subcategory]"
-                    [ngModelOptions]="{standalone: true}">
-                    <label class="form-check-label" [for]="subcategory">
-                    {{ subcategory }}
-                    </label>
-                </div>
+                <label class="form-label" for="category">Category:</label>
+                <div class="d-flex">
+                    <select class="form-select" id="category" [formControl]="categoryControl" (change)="onCategoryChange($event)">
+                        <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
+                    </select>
                 </div>
             </div>
-
-            <button type="button" class="btn btn-primary mt-2" (click)="addCategory()">Agregar categoría</button>
+    
+            <div *ngIf="currentSubcategories && currentSubcategories.length > 0" class="mb-3">
+                <label class="form-label">Subcategories:</label>
+                <div *ngFor="let subcat of currentSubcategories">
+                  <input
+                    type="checkbox"
+                    [value]="subcat"
+                    [checked]="subcategoryControl.value?.includes(subcat)"
+                    (change)="onSubcategoryChange($event)"
+                  >
+                  {{ subcat }}
+                </div>
+            </div>
+    
+            <button type="button" class="btn btn-secondary mt-2" (click)="addCategory()">Add Category</button>
         </div>
-        
-        <!-- List of categories and subcategories selected -->
-        <div class="mb-3" id="selectedContainer">
-            <h5>Categorías y Subcategorías seleccionadas:</h5>
-            <ul id="selectedList">
-                <li *ngFor="let item of addedList">{{ item }}</li>
+
+        <!-- Listado de categorías seleccionadas -->
+        <div class="mb-3">
+            <label class="form-label" for="selected">Categorías seleccionadas:</label>
+            <ul style="list-style-type: none">
+                <li *ngFor="let cat of categoriesArray.controls; let i = index" class="mt-2">
+                    <button type="button" class="btn btn-danger btn-sm" (click)="removeCategory(i)">X</button>
+                    {{ cat.value.name }} 
+                    <span *ngIf="cat.value.subcategories && cat.value.subcategories.length > 0">- {{ cat.value.subcategories }}</span>
+                </li>
             </ul>
-            <button type="button" class="btn btn-primary mt-2" (click)="deleteCategoriesSelected()">Eliminar las categorías seleccionadas</button>
         </div>
 
         <!-- Labels -->
         <div class="mb-3">
             <label for="labels" class="form-label">Etiquetas</label>
-            <select class="form-select" id="labels" name="labels" multiple required>
-                <option value="nuevo">Nuevo</option>
-                <option value="oferta">Oferta</option>
-                <option value="exclusivo">Exclusivo</option>
-            </select>
+            <div class="d-flex" formGroupName="labels">
+              <div *ngFor="let label of labels" class="form-check me-3">
+                <input 
+                  type="checkbox" 
+                  class="form-check-input" 
+                  [id]="label" 
+                  [formControlName]="label">
+                <label class="form-check-label" [for]="label">
+                  {{ label }}
+                </label>
+              </div>
+            </div>
         </div>
 
         <!-- Consumer -->
         <div class="mb-3">
-            <label class="form-label">Consumidor</label>
+            <label for="consumers" class="form-label">Consumidores</label>
             <div class="d-flex">
-                <div class="form-check me-3">
-                    <input class="form-check-input" type="checkbox" name="consumer" id="consumidorMujer" value="mujer">
-                    <label class="form-check-label" for="consumidorMujer">
-                        Mujer
-                    </label>
-                </div>
-                <div class="form-check me-3">
-                    <input class="form-check-input" type="checkbox" name="consumer" id="consumidorHombre" value="hombre">
-                    <label class="form-check-label" for="consumidorHombre">
-                        Hombre
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="consumer" id="consumidorNino" value="nino">
-                    <label class="form-check-label" for="consumidorNino">
-                        Niño/Adolescente
+                <div *ngFor="let consumer of consumers" class="form-check me-3">
+                    <input 
+                        type="checkbox" 
+                        class="form-check-input" 
+                        [id]="consumer" 
+                        [value]="consumer">
+                    <label class="form-check-label" [for]="consumer">
+                        {{ consumer }}
                     </label>
                 </div>
             </div>
@@ -147,30 +144,16 @@
 
         <!-- Price -->
         <div class="mb-3">
-            <label class="form-label">Precio</label>
+            <label class="form-label ">Price</label>
             <div class="d-flex">
-                <div class="form-check me-3">
-                    <input class="form-check-input" type="radio" name="price" id="precioBajo" value="bajo" required>
-                    <label class="form-check-label" for="precioBajo">
-                        Bajo
-                    </label>
-                </div>
-                <div class="form-check me-3">
-                    <input class="form-check-input" type="radio" name="price" id="precioMedio" value="medio" required>
-                    <label class="form-check-label" for="precioMedio">
-                        Medio
-                    </label>
-                </div>
-                <div class="form-check me-3">
-                    <input class="form-check-input" type="radio" name="price" id="precioAlto" value="alto" required>
-                    <label class="form-check-label" for="precioAlto">
-                        Alto
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="price" id="precioMuyAlto" value="muyAlto" required>
-                    <label class="form-check-label" for="precioMuyAlto">
-                        Muy Alto
+                <div *ngFor="let price of prices" class="form-check me-3">
+                    <label class="form-check-label me-3">
+                        <input 
+                        type="radio" 
+                        class="form-check-input" 
+                        formControlName="price" 
+                        [value]="price">
+                        {{ price }}
                     </label>
                 </div>
             </div>
@@ -178,24 +161,30 @@
 
         <!-- Autonomous community -->
         <div class="mb-3">
-            <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
-            <select class="form-select" id="autonomousCommunity" name="autonomousCommunity" required>
-                <option value="">Seleccione una Comunidad Autónoma</option>
-                <option value="madrid">Madrid</option>
-                <option value="barcelona">Barcelona</option>
-                <option value="valencia">Valencia</option>
-            </select>
+            <label for="autonomousCommunities" class="form-label">Comunidad Autónoma</label>
+            <div class="d-flex">
+                <select class="form-select" id="autonomousCommunity" name="autonomousCommunity" required>
+                    <option value="">Seleccione una Comunidad Autónoma</option>
+                    <option 
+                    *ngFor="let autonomousCommunity of autonomousCommunities" [value]="autonomousCommunity">
+                    {{ autonomousCommunity | titlecase }}
+                    </option>
+                </select>
+            </div>
         </div>
 
         <!-- Province -->
         <div class="mb-3">
             <label for="province" class="form-label">Provincia</label>
-            <select class="form-select" id="province" name="province" required>
-                <option value="">Seleccione una provincia</option>
-                <option value="madrid">Madrid</option>
-                <option value="barcelona">Barcelona</option>
-                <option value="valencia">Valencia</option>
-            </select>
+            <div class="d-flex">
+                <select class="form-select" id="province" name="province" required>
+                    <option value="">Seleccione una Provincia</option>
+                    <option 
+                    *ngFor="let province of provinces" [value]="province">
+                    {{ province | titlecase }}
+                    </option>
+                </select>
+            </div>
         </div>
 
         <!-- Location -->
@@ -204,6 +193,9 @@
             <input type="text" class="form-control" id="location" name="location" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Añadir</button>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary mt-2">Añadir</button>
     </form>
 </div>
+  
