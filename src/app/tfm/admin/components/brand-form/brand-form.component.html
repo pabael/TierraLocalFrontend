@@ -120,7 +120,7 @@
                         type="checkbox" 
                         class="form-check-input" 
                         [id]=label
-                        [checked]="this.form.get('labels').value?.includes(label)"
+                        [checked]="this.form.get('labels')?.value?.includes(label)"
                         (change)="onLabelChange($event, label)"
                     >
                     <label class="form-check-label" [for]="label">
@@ -139,7 +139,7 @@
                         type="checkbox" 
                         class="form-check-input" 
                         [id]=consumer
-                        [checked]="this.form.get('consumers').value?.includes(consumer)"
+                        [checked]="this.form.get('consumers')?.value?.includes(consumer)"
                         (change)="onConsumerChange($event, consumer)"
                     >
                     <label class="form-check-label" [for]="consumer">

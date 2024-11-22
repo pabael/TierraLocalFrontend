@@ -10,7 +10,8 @@ import { Brand } from '../../../shared/models/Brand';
 })
 export class BrandFormComponent implements OnInit{
 
-  @Input() public formInfo: BrandFormInfo = {
+  @Input() 
+  public formInfo: BrandFormInfo = {
     allCategories:              [],
     allLabels:                  [],
     allConsumers:               [],
@@ -29,7 +30,7 @@ export class BrandFormComponent implements OnInit{
   @Output()
   public onProvinceChange: EventEmitter<string> = new EventEmitter<string>();
 
-  form: FormGroup;
+  form: FormGroup = new FormGroup({});
 
   constructor(private fb: FormBuilder) {}
 
@@ -55,7 +56,7 @@ export class BrandFormComponent implements OnInit{
   currentSubcategories: string[] | null = null;
   selectedSubcategories: string[] = [];
   categoryControl = new FormControl('');
-  subcategoryControl = new FormControl([]);
+  subcategoryControl = new FormControl<string[]>([]);
 
   autonomousCommunityControl = new FormControl('');
   provinceControl = new FormControl('');
@@ -181,7 +182,7 @@ export class BrandFormComponent implements OnInit{
   }
 
   onLocationInput(): void {
-    const inputValue = this.locationControl.value.toLowerCase();
+    const inputValue = this.locationControl.value!.toLowerCase();
     this.filteredLocations = this.formInfo.allLocations.filter(location => 
       location.toLowerCase().includes(inputValue)
     );
