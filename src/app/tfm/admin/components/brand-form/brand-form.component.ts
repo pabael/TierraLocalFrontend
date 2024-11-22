@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { Brand } from '../../models/Brand';
-import { Category } from '../../models/Category';
 import { BrandFormInfo } from '../../models/BrandFormInfo';
 
 @Component({
@@ -23,6 +21,9 @@ export class BrandFormComponent implements OnInit{
 
   @Output()
   public onAutonomousCommunityChange: EventEmitter<string> = new EventEmitter<string>();
+
+  @Output()
+  public onProvinceChange: EventEmitter<string> = new EventEmitter<string>();
 
   form: FormGroup;
 
@@ -49,17 +50,15 @@ export class BrandFormComponent implements OnInit{
 
   currentSubcategories: string[] | null = null;
   selectedSubcategories: string[] = [];
-
   categoryControl = new FormControl('');
   subcategoryControl = new FormControl([]);
+
   autonomousCommunityControl = new FormControl('');
   provinceControl = new FormControl('');
   locationControl = new FormControl('');
+  filteredLocations: string[] = [];
 
-  currentProvinces: string[] = [];
-  locations: string[] = [];
-
-  // //LABEL
+  //label
   get labelsArray(): FormArray {
     return this.form.get('labels') as FormArray;
   }  
@@ -79,7 +78,7 @@ export class BrandFormComponent implements OnInit{
     }
   }
 
-  //CONSUMER
+  //Consumer
   get consumersArray(): FormArray {
     return this.form.get('consumers') as FormArray;
   }  
@@ -158,9 +157,7 @@ export class BrandFormComponent implements OnInit{
     this.categoriesArray.removeAt(index);
   }
 
-
   //Locations
-
   get locationsArray(): FormArray {
     return this.form.get('location') as FormArray;
   }
@@ -168,17 +165,29 @@ export class BrandFormComponent implements OnInit{
   autonomousCommunityChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     const communityName = selectElement.value;
-    this.currentProvinces = this.formInfo.allProvinces || [];
+    this.onAutonomousCommunityChange.emit(communityName);
+
     this.provinceControl.reset(); 
   }
 
-  onProvinceChange(event: Event): void {
+  provinceChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    const provinceName = selectElement.value;
+    this.onProvinceChange.emit(provinceName);
   }
 
-  addLocation(): void {
-    const location = this.locationControl.value;
+  onLocationInput(): void {
+    const inputValue = this.locationControl.value.toLowerCase();
+    this.filteredLocations = this.formInfo.allLocations.filter(location => 
+      location.toLowerCase().includes(inputValue)
+    );
+  }
+
+  addLocation(location: string): void {
     const community = this.autonomousCommunityControl.value;
     const province = this.provinceControl.value;
+
+    this.filteredLocations =[];
 
     if (!location || !community || !province)  return;
     

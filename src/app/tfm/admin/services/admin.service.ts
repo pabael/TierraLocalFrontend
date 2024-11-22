@@ -35,15 +35,21 @@ export class AdminService {
   }
 
   getAllAutonomousCommunities(): Observable<string[]>{
-    return this.http.get<string[]>('http://localhost:8080/autonomousCommunities')
+    return this.http.get<{ name: string }[]>('http://localhost:8080/autonomousCommunities').pipe(
+      map(autonomousCommunities => autonomousCommunities.map(autonomousCommunity => autonomousCommunity.name))
+    );  
   }
 
   getAllProvinces(autonomousCommunity: string ): Observable<string[]>{
-    return this.http.get<string[]>(`http://localhost:8080/provinces?autonomousCommunity=${autonomousCommunity}`)
+    return this.http.get<{ name: string }[]>(`http://localhost:8080/provinces?autonomousCommunity=${autonomousCommunity}`).pipe(
+      map(provinces => provinces.map(province => province.name))
+    );  
   }
 
   getAllLocations(province: string): Observable<string[]>{
-    return this.http.get<string[]>(`http://localhost:8080/locations?province=${province}`)
+    return this.http.get<{ name: string }[]>(`http://localhost:8080/locations?province=${province}`).pipe(
+      map(locations => locations.map(location => location.name))
+    );  
   }
 
   getAllDataForBrandForm() : BrandFormInfo{

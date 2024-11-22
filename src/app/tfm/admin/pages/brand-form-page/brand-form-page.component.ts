@@ -34,6 +34,14 @@ export class BrandFormPageComponent implements OnInit{
       }
     );
   }
+
+  provinceChange(province: string){
+    this.service.getAllLocations(province).subscribe(
+      (data) => {
+        this.formInfo.allLocations = data;
+      }
+    );
+  }
 }
 
 

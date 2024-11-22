@@ -175,20 +175,34 @@
         </div>
         
         <!-- Province -->
-        <div class="mb-3" *ngIf="currentProvinces.length > 0">
+        <div class="mb-3" *ngIf="formInfo.allProvinces.length > 0">
             <label for="province" class="form-label">Provincia</label>
-            <select class="form-select" id="province" [formControl]="provinceControl" (change)="onProvinceChange($event)">
-                <option *ngFor="let province of currentProvinces" [value]="province">{{ province }}</option>
+            <select class="form-select" id="province" [formControl]="provinceControl" (change)="provinceChange($event)">
+                <option *ngFor="let province of formInfo.allProvinces" [value]="province">{{ province }}</option>
             </select>
         </div>
         
         <!-- Location -->
-        <div class="mb-3" *ngIf="provinceControl.value">
-            <label for="location" class="form-label">Localización</label>
-            <textarea class="form-control" id="location" [formControl]="locationControl" rows="1"></textarea>
-            <button type="button" class="btn btn-secondary mt-2" (click)="addLocation()">Añadir Localización</button>
+        <div class="form-group" *ngIf="formInfo.allLocations.length > 0">
+            <label for="location">Location</label>
+            <input 
+            type="text" 
+            id="location" 
+            class="form-control" 
+            [formControl]="locationControl"
+            (input)="onLocationInput()"
+            placeholder="Type to search for a location"
+            >
+            
+            <!-- Locations Suggestions -->
+            <ul *ngIf="filteredLocations.length > 0" class="list-group mt-2">
+            <li *ngFor="let location of filteredLocations" 
+                class="list-group-item" 
+                (click)="addLocation(location)">
+                {{ location }}
+            </li>
+            </ul>
         </div>
-
         
         <!-- Locations selected -->
         <div class="mb-3" *ngIf="locationsArray.controls.length > 0">
