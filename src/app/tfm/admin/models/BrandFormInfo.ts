@@ -7,4 +7,5 @@ export interface BrandFormInfo {
   allPrices:                  number[];
   allAutonomousCommunities:   string[];
   allProvinces:               string[];
+  allLocations:               string[];
 }

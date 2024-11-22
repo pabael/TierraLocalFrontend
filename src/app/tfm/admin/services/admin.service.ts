@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from '../models/Category';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { BrandFormInfo } from '../models/BrandFormInfo';
 
 @Injectable({
@@ -17,15 +17,21 @@ export class AdminService {
   }
 
   getAllLabels(): Observable<string[]>{
-    return this.http.get<string[]>('http://localhost:8080/labels')
+    return this.http.get<{ name: string }[]>('http://localhost:8080/labels').pipe(
+      map(labels => labels.map(label => label.name))
+    );  
   }
 
   getAllConsumers(): Observable<string[]>{
-    return this.http.get<string[]>('http://localhost:8080/consumers')
+    return this.http.get<{ type: string }[]>('http://localhost:8080/consumers').pipe(
+      map(consumers => consumers.map(consumer => consumer.type))
+    );  
   }
 
   getAllPrices(): Observable<number[]>{
-    return this.http.get<number[]>('http://localhost:8080/prices')
+    return this.http.get<{ priceRange: number }[]>('http://localhost:8080/prices').pipe(
+      map(prices => prices.map(price => price.priceRange))
+    );  
   }
 
   getAllAutonomousCommunities(): Observable<string[]>{
@@ -33,7 +39,11 @@ export class AdminService {
   }
 
   getAllProvinces(autonomousCommunity: string ): Observable<string[]>{
-    return this.http.get<string[]>(`http://localhost:8080/province?name=${autonomousCommunity}`)
+    return this.http.get<string[]>(`http://localhost:8080/provinces?autonomousCommunity=${autonomousCommunity}`)
+  }
+
+  getAllLocations(province: string): Observable<string[]>{
+    return this.http.get<string[]>(`http://localhost:8080/locations?province=${province}`)
   }
 
   getAllDataForBrandForm() : BrandFormInfo{
@@ -45,6 +55,7 @@ export class AdminService {
       allPrices: [],
       allAutonomousCommunities: [],
       allProvinces: [],
+      allLocations: []
     };    
 
     this.getAllCategories().subscribe(
@@ -78,6 +89,5 @@ export class AdminService {
     );
     return formInfo;
   }
-
 
 }

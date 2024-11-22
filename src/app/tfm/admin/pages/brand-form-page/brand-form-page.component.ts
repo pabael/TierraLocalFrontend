@@ -17,13 +17,23 @@ export class BrandFormPageComponent implements OnInit{
     allPrices: [],
     allAutonomousCommunities: [],
     allProvinces: [],
+    allLocations: []
   }; 
 
   ngOnInit(){
     this.formInfo = this.service.getAllDataForBrandForm();
+  
   }
 
   constructor(private service: AdminService){}
+
+  autonomousCommunityChange(autonomousCommunity: string){
+    this.service.getAllProvinces(autonomousCommunity).subscribe(
+      (data) => {
+        this.formInfo.allProvinces = data;
+      }
+    );
+  }
 }
 
 

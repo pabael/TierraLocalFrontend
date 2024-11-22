@@ -77,7 +77,7 @@
                 <label class="form-label" for="category">Category:</label>
                 <div class="d-flex">
                     <select class="form-select" id="category" [formControl]="categoryControl" (change)="onCategoryChange($event)">
-                        <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
+                        <option *ngFor="let cat of formInfo.allCategories" [value]="cat.name">{{ cat.name }}</option>
                     </select>
                 </div>
             </div>
@@ -113,14 +113,16 @@
 
         <!-- Labels -->
         <div class="mb-3">
-            <label for="labels" class="form-label">Etiquetas</label>
+            <label class="form-label">Etiquetas</label>
             <div class="d-flex" formGroupName="labels">
-                <div *ngFor="let label of labels" class="form-check me-3">
+                <div *ngFor="let label of formInfo.allLabels" class="form-check me-3">
                     <input 
                         type="checkbox" 
                         class="form-check-input" 
-                        [id]="label" 
-                        [formControlName]="label">
+                        [id]=label
+                        [checked]="this.form.get('labels').value?.includes(label)"
+                        (change)="onLabelChange($event, label)"
+                    >
                     <label class="form-check-label" [for]="label">
                         {{ label }}
                     </label>
@@ -132,12 +134,14 @@
         <div class="mb-3">
             <label for="consumers" class="form-label">Consumidores</label>
             <div class="d-flex" formGroupName="consumers">
-                <div *ngFor="let consumer of consumers" class="form-check me-3">
+                <div *ngFor="let consumer of formInfo.allConsumers" class="form-check me-3">
                     <input 
                         type="checkbox" 
                         class="form-check-input" 
-                        [id]="consumer" 
-                        [formControlName]="consumer">
+                        [id]=consumer
+                        [checked]="this.form.get('consumers').value?.includes(consumer)"
+                        (change)="onConsumerChange($event, consumer)"
+                    >
                     <label class="form-check-label" [for]="consumer">
                         {{ consumer }}
                     </label>
@@ -149,7 +153,7 @@
         <div class="mb-3">
             <label class="form-label">Price</label>
             <div class="d-flex">
-                <div *ngFor="let price of prices" class="form-check me-3">
+                <div *ngFor="let price of formInfo.allPrices" class="form-check me-3">
                     <label class="form-check-label me-3">
                         <input 
                             type="radio" 
@@ -162,15 +166,15 @@
             </div>
         </div>
 
-        <!-- Selección de Comunidad Autónoma -->
+        <!-- Autonomous Community -->
         <div class="mb-3">
             <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
-            <select class="form-select" id="autonomousCommunity" [formControl]="autonomousCommunityControl" (change)="onAutonomousCommunityChange($event)">
-                <option *ngFor="let community of autonomousCommunities" [value]="community">{{ community }}</option>
+            <select class="form-select" id="autonomousCommunity" [formControl]="autonomousCommunityControl" (change)="autonomousCommunityChange($event)">
+                <option *ngFor="let community of formInfo.allAutonomousCommunities" [value]="community">{{ community }}</option>
             </select>
         </div>
         
-        <!-- Selección de Provincia -->
+        <!-- Province -->
         <div class="mb-3" *ngIf="currentProvinces.length > 0">
             <label for="province" class="form-label">Provincia</label>
             <select class="form-select" id="province" [formControl]="provinceControl" (change)="onProvinceChange($event)">
@@ -178,7 +182,7 @@
             </select>
         </div>
         
-        <!-- Entrada de Localización -->
+        <!-- Location -->
         <div class="mb-3" *ngIf="provinceControl.value">
             <label for="location" class="form-label">Localización</label>
             <textarea class="form-control" id="location" [formControl]="locationControl" rows="1"></textarea>
@@ -186,7 +190,7 @@
         </div>
 
         
-        <!-- Listado de Localizaciones -->
+        <!-- Locations selected -->
         <div class="mb-3" *ngIf="locationsArray.controls.length > 0">
             <label for="locationsList" class="form-label">Localizaciones Añadidas</label>
             <ul id="locationsList" style="list-style-type: none">
