@@ -197,7 +197,8 @@ export class BrandFormComponent implements OnInit{
     
     const locationData = {
       name: location,
-      province: province
+      province: province,
+      autonomousCommunity: community
     };
 
     const locationExists = this.locationsArray.controls.some(control => control.value.name === location);
