@@ -118,7 +118,7 @@ export class BrandFormComponent implements OnInit{
     const value = checkbox.value;
   
     if (checkbox.checked) {
-      this.selectedSubcategories.push();
+      this.selectedSubcategories.push(value);
     } else {
       this.selectedSubcategories = this.selectedSubcategories.filter(
         (subcat) => subcat !== value
