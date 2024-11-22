@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { BrandFormInfo } from '../../models/BrandFormInfo';
-import { Brand } from '../../models/Brand';
+import { Brand } from '../../../shared/models/Brand';
 
 @Component({
   selector: 'app-brand-form',

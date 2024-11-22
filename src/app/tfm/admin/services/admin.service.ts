@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AdminDBSService } from './adminDBS.service';
-import { Brand } from '../models/Brand';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared/service/shared.service';
+import { Brand } from '../../shared/models/Brand';
 
 @Injectable({
   providedIn: 'root'

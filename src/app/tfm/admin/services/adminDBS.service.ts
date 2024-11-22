@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Category } from '../models/Category';
 import { map, Observable } from 'rxjs';
 import { BrandFormInfo } from '../models/BrandFormInfo';
-import { Brand } from '../models/Brand';
+import { Category } from '../../shared/models/Category';
+import { Brand } from '../../shared/models/Brand';
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,4 @@
-import { Category } from "./Category";
+import { Category } from "../../shared/models/Category";
 
 export interface BrandFormInfo {
   allCategories:              Category[];

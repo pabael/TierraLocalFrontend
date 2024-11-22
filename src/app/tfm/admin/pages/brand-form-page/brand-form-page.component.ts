@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminDBSService } from '../../services/adminDBS.service';
 import { BrandFormInfo } from '../../models/BrandFormInfo';
-import { Brand } from '../../models/Brand';
 import { AdminService } from '../../services/admin.service';
+import { Brand } from '../../../shared/models/Brand';
 
 @Component({
   selector: 'app-brand-form-page',
