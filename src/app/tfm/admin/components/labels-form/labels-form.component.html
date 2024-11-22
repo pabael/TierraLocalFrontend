@@ -1,0 +1,12 @@
+<div class="container mt-5">
+  <h2>Añadir certificado</h2>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+      <div class="mb-3">
+          <label for="name" class="form-label">Certificado </label>
+          <input type="text" class="form-control" id="name" formControlName="name" required>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary mt-2">Añadir</button>
+  </form>
+</div>

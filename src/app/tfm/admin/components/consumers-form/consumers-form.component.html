@@ -1,0 +1,12 @@
+<div class="container mt-5">
+  <h2>Añadir tipo de consumidor</h2>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+      <div class="mb-3">
+          <label for="type" class="form-label">Tipo de consumidor </label>
+          <input type="text" class="form-control" id="type" formControlName="type" required>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary mt-2">Añadir</button>
+  </form>
+</div>

@@ -5,6 +5,8 @@ import { map, Observable } from 'rxjs';
 import { Category } from '../models/Category';
 import { Brand } from '../models/Brand';
 import { BrandFormInfo } from '../../admin/models/BrandFormInfo';
+import { Consumer } from '../models/Consumer';
+import { Label } from '../models/Label';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +68,16 @@ export class DbsService {
   createCategory(category: Category): any {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}category`, category, { headers });
+  }
+
+  createConsumer(consumer: Consumer): any {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`${this.apiUrl}consumer`, consumer, { headers });
+  }
+
+  createLabel(label: Label): any {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`${this.apiUrl}label`, label, { headers });
   }
 
 

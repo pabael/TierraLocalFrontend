@@ -5,6 +5,8 @@ import { SharedService } from '../../shared/service/shared.service';
 import { Brand } from '../../shared/models/Brand';
 import { DbsService } from '../../shared/service/dbs.service';
 import { Category } from '../../shared/models/Category';
+import { Consumer } from '../../shared/models/Consumer';
+import { Label } from '../../shared/models/Label';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +30,28 @@ export class AdminService {
     this.DbsService.createCategory(category).subscribe({
       next:() => {
         console.log("category created")
+      },
+      error: (error:HttpErrorResponse) => {
+        this.sharedService.setError = error;
+      }
+    })
+  }
+
+  createConsumer(consumer: Consumer): void{
+    this.DbsService.createConsumer(consumer).subscribe({
+      next:() => {
+        console.log("consumer created")
+      },
+      error: (error:HttpErrorResponse) => {
+        this.sharedService.setError = error;
+      }
+    })
+  }
+
+  createLabel(label: Label): void{
+    this.DbsService.createLabel(label).subscribe({
+      next:() => {
+        console.log("label created")
       },
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
