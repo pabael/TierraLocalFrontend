@@ -13,14 +13,9 @@ export class AdminService {
   constructor(private DbsService: DbsService, private sharedService: SharedService, private router: Router) { }
   
   createBrand(brand: Brand): void{
-
     this.DbsService.createBrand(brand).subscribe({
       next:() => {
-        if (brand.name) {
-          this.router.navigate(['/brand', brand.name]);
-        } else {
-          console.error('El nombre de la marca es inválido.');
-        }
+        this.router.navigate(['/brand', brand.name]);
       },
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
