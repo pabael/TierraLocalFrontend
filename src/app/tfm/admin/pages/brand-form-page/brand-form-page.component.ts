@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminDBSService } from '../../services/adminDBS.service';
 import { BrandFormInfo } from '../../models/BrandFormInfo';
 import { AdminService } from '../../services/admin.service';
 import { Brand } from '../../../shared/models/Brand';
+import { DbsService } from '../../../shared/service/dbs.service';
 
 @Component({
   selector: 'app-brand-form-page',
@@ -21,10 +21,10 @@ export class BrandFormPageComponent implements OnInit{
     allLocations: []
   }; 
 
-  constructor(private adminDBSservice: AdminDBSService, private adminService: AdminService){}
+  constructor(private dbsService: DbsService, private adminService: AdminService){}
 
   ngOnInit(){
-    this.formInfo = this.adminDBSservice.getAllDataForBrandForm();
+    this.formInfo = this.dbsService.getAllDataForBrandForm();
   }
 
   formSubmited(formResult: Brand){
@@ -32,7 +32,7 @@ export class BrandFormPageComponent implements OnInit{
   }
 
   autonomousCommunityChange(autonomousCommunity: string){
-    this.adminDBSservice.getAllProvinces(autonomousCommunity).subscribe(
+    this.dbsService.getAllProvinces(autonomousCommunity).subscribe(
       (data) => {
         this.formInfo.allProvinces = data;
       }
@@ -40,7 +40,7 @@ export class BrandFormPageComponent implements OnInit{
   }
 
   provinceChange(province: string){
-    this.adminDBSservice.getAllLocations(province).subscribe(
+    this.dbsService.getAllLocations(province).subscribe(
       (data) => {
         this.formInfo.allLocations = data;
       }

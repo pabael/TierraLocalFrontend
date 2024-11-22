@@ -2,14 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
-import { BrandFormInfo } from '../models/BrandFormInfo';
-import { Category } from '../../shared/models/Category';
-import { Brand } from '../../shared/models/Brand';
+import { Category } from '../models/Category';
+import { Brand } from '../models/Brand';
+import { BrandFormInfo } from '../../admin/models/BrandFormInfo';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminDBSService {
+export class DbsService {
 
   apiUrl: string = 'http://localhost:8080/';
   constructor(private http:HttpClient, private router: Router) { }
@@ -57,6 +57,10 @@ export class AdminDBSService {
   createBrand(brand: Brand): any {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}brand`, brand, { headers });
+  }
+
+  getBrand(brandName: string): Observable<Brand>{
+    return this.http.get<Brand>(`${this.apiUrl}brand?brand=${brandName}`)
   }
 
   getAllDataForBrandForm() : BrandFormInfo{
