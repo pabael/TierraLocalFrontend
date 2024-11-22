@@ -9,7 +9,8 @@ import { BrandDetailComponent } from './brand-detail/brand-detail.component';
     BrandDetailComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    PublicRoutingModule
   ],
   exports: [
   ]

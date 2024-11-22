@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrandFormPageComponent } from './pages/brand-form-page/brand-form-page.component';
 import { RouterModule } from "@angular/router";
 import { provideHttpClient } from "@angular/common/http";
+import { AdminRoutingModule } from "./admin-routing.module";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { provideHttpClient } from "@angular/common/http";
     CommonModule,
     FormsModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AdminRoutingModule
   ],
   providers: [
     provideHttpClient()
