@@ -1,4 +1,5 @@
 import { Category } from "./Category";
+import { Location } from "./Location";
 
 export interface Brand{
   name:                       string      | null;
@@ -13,5 +14,5 @@ export interface Brand{
   labels:                     string[]    | null;
   consumers:                  string[]    | null;
   price:                      number;
-  locations:                  string[]    | null;
+  locations:                  Location[]    | null;
 }

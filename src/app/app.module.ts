@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AdminModule } from './tfm/admin/admin.module';
 import { PublicModule } from './tfm/public/public.module';
+import { SharedModule } from './tfm/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { PublicModule } from './tfm/public/public.module';
     BrowserModule,
     AppRoutingModule,
     AdminModule,
-    PublicModule
+    PublicModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

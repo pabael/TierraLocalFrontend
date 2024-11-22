@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { BrandFormInfo } from '../../models/BrandFormInfo';
+import { Brand } from '../../models/Brand';
 
 @Component({
   selector: 'app-brand-form',
@@ -18,6 +19,9 @@ export class BrandFormComponent implements OnInit{
     allProvinces:               [],
     allLocations:               []
   };
+
+  @Output()
+  public onSubmit: EventEmitter<Brand> = new EventEmitter<Brand>();
 
   @Output()
   public onAutonomousCommunityChange: EventEmitter<string> = new EventEmitter<string>();
@@ -189,12 +193,11 @@ export class BrandFormComponent implements OnInit{
 
     this.filteredLocations =[];
 
-    if (!location || !community || !province)  return;
+    if (!location || !province)  return;
     
     const locationData = {
       name: location,
-      province: province,
-      autonomousCommunity: community
+      province: province
     };
 
     const locationExists = this.locationsArray.controls.some(control => control.value.name === location);
@@ -210,9 +213,9 @@ export class BrandFormComponent implements OnInit{
     this.locationsArray.removeAt(index);
   }
 
-  onSubmit(): void {
+  submitForm(): void {
     if (this.form.valid) {
-      console.log(this.form.value);
+      this.onSubmit.emit(this.form.value);
     }
   }
 }

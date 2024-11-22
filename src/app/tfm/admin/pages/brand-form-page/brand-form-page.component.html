@@ -1,5 +1,6 @@
 <app-brand-form
   [formInfo] = "formInfo"
+  (onSubmit)="formSubmited($event)"
   (onAutonomousCommunityChange)="autonomousCommunityChange($event)"
   (onProvinceChange)="provinceChange($event)">
 </app-brand-form>>
