@@ -49,7 +49,7 @@ export class BrandFormComponent implements OnInit{
         labels:                 this.fb.array([]),
         consumers:              this.fb.array([]),
         price:                  new FormControl(1),
-        location:               this.fb.array([])
+        locations:               this.fb.array([])
       });    
   }
 
@@ -164,7 +164,7 @@ export class BrandFormComponent implements OnInit{
 
   //Locations
   get locationsArray(): FormArray {
-    return this.form.get('location') as FormArray;
+    return this.form.get('locations') as FormArray;
   }
 
   autonomousCommunityChange(event: Event): void {

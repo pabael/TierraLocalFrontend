@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Brand } from '../../../shared/models/Brand';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DbsService } from '../../../shared/service/dbs.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from '../../../shared/service/shared.service';
@@ -13,22 +13,10 @@ import { SharedService } from '../../../shared/service/shared.service';
 export class BrandDetailComponent implements OnInit {
 
   public brand: Brand = {
-    name:                       '',
-    summary:                    '',
-    url:                        '',
-    materials:                  '',
-    crueltyFree:                null,
-    vegan:                      null,
-    commitment:                 '',
-    production:                 '',
-    categories:                 [],
-    labels:                     [],
-    consumers:                  [],
-    price:                      1,
-    locations:                  []
+    name:                       ''
   };
 
-  constructor(private route: ActivatedRoute, private router: Router, private dbsService: DbsService, private sharedService: SharedService) {
+  constructor(private route: ActivatedRoute, private dbsService: DbsService, private sharedService: SharedService) {
   }
 
   ngOnInit(): void {
