@@ -22,11 +22,12 @@
       <div class="mb-3">
         <strong>Atributos:</strong>
         <ul class="list-unstyled">
-          <li>
+          <li *ngIf="brand.crueltyFree != null">
             <i class="bi bi-check-circle text-success" *ngIf="brand.crueltyFree">Cruelty-Free</i>
             <i class="bi bi-x-circle text-danger" *ngIf="!brand.crueltyFree">No Cruelty-Free</i>
+
           </li>
-          <li>
+          <li *ngIf="brand.vegan != null">
             <i class="bi bi-check-circle text-success" *ngIf="brand.vegan">Vegan</i>
             <i class="bi bi-x-circle text-danger" *ngIf="!brand.vegan">No Vegan</i>
           </li>

@@ -1,16 +1,17 @@
 <div class="container mt-5">
-    <h2>Añadir Marca</h2>
+    <h2>{{ editBrand ? 'Editar Marca' : 'Añadir Marca' }}</h2>
     <form [formGroup]="form" (ngSubmit)="submitForm()">
         <!-- Name -->
         <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="name" formControlName="name" required>
+            <input type="text" class="form-control" id="name" formControlName="name" required [ngClass]="{'text-muted': editBrand}" 
+            >
         </div>
     
         <!-- Summary -->
         <div class="mb-3">
             <label for="summary" class="form-label">Resumen</label>
-            <textarea class="form-control" id="summary" formControlName="summary" rows="3"></textarea>
+            <textarea class="form-control" id="summary" formControlName="summary" rows="3" [ngClass]="{'text-muted': editBrand}"></textarea>
         </div>
     
         <!-- URL -->
@@ -22,7 +23,7 @@
         <!-- Materials -->
         <div class="mb-3">
             <label for="materials" class="form-label">Materiales</label>
-            <textarea class="form-control" id="materials" formControlName="materials" rows="3"></textarea>
+            <textarea class="form-control" id="materials" formControlName="materials" rows="3" [ngClass]="{'text-muted': editBrand}"></textarea>
         </div>
     
         <!-- CrueltyFree -->
@@ -30,13 +31,13 @@
             <label class="form-label">No probado en animales</label>
             <div>
                 <label class="form-check-label me-3">
-                    <input type="radio" class="form-check-input" formControlName="crueltyFree" value="true" required> Sí
+                    <input type="radio" class="form-check-input" formControlName="crueltyFree" [value]="true"> Sí
                 </label>
                 <label class="form-check-label me-3">
-                    <input type="radio" class="form-check-input" formControlName="crueltyFree" value="false" required> No
+                    <input type="radio" class="form-check-input" formControlName="crueltyFree" [value]="false"> No
                 </label>
                 <label class="form-check-label me-3">
-                    <input type="radio" class="form-check-input" formControlName="crueltyFree" value="null" required> No se sabe
+                    <input type="radio" class="form-check-input" formControlName="crueltyFree" [value]="null"> No se sabe
                 </label>
             </div>
         </div>
@@ -46,13 +47,13 @@
             <label class="form-label">Vegano</label>
             <div>
                 <label class="form-check-label me-3">
-                    <input type="radio" class="form-check-input" formControlName="vegan" value="true" required> Sí
+                    <input type="radio" class="form-check-input" formControlName="vegan" [value]="true"> Sí
                 </label>
                 <label class="form-check-label me-3">
-                    <input type="radio" class="form-check-input" formControlName="vegan" value="false" required> No
+                    <input type="radio" class="form-check-input" formControlName="vegan" [value]="false"> No
                 </label>
                 <label class="form-check-label me-3">
-                    <input type="radio" class="form-check-input" formControlName="vegan" value="null" required> No se sabe
+                    <input type="radio" class="form-check-input" formControlName="vegan" [value]="null"> No se sabe
                 </label>
             </div>
         </div>
@@ -60,13 +61,13 @@
         <!-- Commitment -->
         <div class="mb-3">
             <label for="commitment" class="form-label">Compromiso</label>
-            <textarea class="form-control" id="commitment" formControlName="commitment" rows="3"></textarea>
+            <textarea class="form-control" id="commitment" formControlName="commitment" rows="3" [ngClass]="{'text-muted': editBrand}"></textarea>
         </div>
     
         <!-- Production -->
         <div class="mb-3">
             <label for="production" class="form-label">Producción</label>
-            <textarea class="form-control" id="production" formControlName="production" rows="3"></textarea>
+            <textarea class="form-control" id="production" formControlName="production" rows="3" [ngClass]="{'text-muted': editBrand}"></textarea>
         </div>
 
         <!-- Categories and subcategories -->
@@ -103,7 +104,7 @@
         <div class="mb-3">
             <label class="form-label" for="selected">Categorías seleccionadas:</label>
             <ul style="list-style-type: none">
-                <li *ngFor="let cat of categoriesArray.controls; let i = index" class="mt-2">
+                <li *ngFor="let cat of categoriesArray.controls; let i = index" class="mt-2" [ngClass]="{'text-muted': editBrand}">
                     <button type="button" class="btn btn-danger btn-sm" (click)="removeCategory(i)">X</button>
                     {{ cat.value.name }} 
                     <span *ngIf="cat.value.subcategories && cat.value.subcategories.length > 0">- {{ cat.value.subcategories }}</span>
@@ -208,7 +209,7 @@
         <div class="mb-3" *ngIf="locationsArray.controls.length > 0">
             <label for="locationsList" class="form-label">Localizaciones Añadidas</label>
             <ul id="locationsList" style="list-style-type: none">
-            <li *ngFor="let location of locationsArray.controls; let i = index" class="mt-2">
+            <li *ngFor="let location of locationsArray.controls; let i = index" class="mt-2" [ngClass]="{'text-muted': editBrand}">
                 <button type="button" class="btn btn-danger btn-sm ms-2" (click)="removeLocation(i)">X</button>
                 {{ location.value.name }}, {{ location.value.province }}, {{ location.value.autonomousCommunity }}
             </li>
@@ -216,7 +217,7 @@
         </div>
 
         <!-- Submit button -->
-        <button type="submit" class="btn btn-primary mt-2">Añadir</button>
+        <button type="submit" class="btn btn-primary mt-2"> {{ editBrand ? 'Editar' : 'Añadir' }}</button>
     </form>
 </div>
   

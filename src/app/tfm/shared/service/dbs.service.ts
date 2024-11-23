@@ -61,6 +61,12 @@ export class DbsService {
     return this.http.post<Brand>(`${this.apiUrl}brand`, brand, { headers });
   }
 
+  editBrand(brand: Brand): Observable<Brand> {
+    console.log(brand);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.put<Brand>(`${this.apiUrl}brand`, brand, { headers });
+  }
+
   deleteBrand(brand: string): Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}brand?brandName=${brand}`);
   }

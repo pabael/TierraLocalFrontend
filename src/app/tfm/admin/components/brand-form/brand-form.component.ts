@@ -21,6 +21,9 @@ export class BrandFormComponent implements OnInit{
     allLocations:               []
   };
 
+  @Input()
+  public editBrand: Brand | null = null;
+
   @Output()
   public onSubmit: EventEmitter<Brand> = new EventEmitter<Brand>();
 
@@ -35,14 +38,13 @@ export class BrandFormComponent implements OnInit{
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-
       this.form = new FormGroup({
         name:                   new FormControl('', Validators.required),
         summary:                new FormControl(''),
         url:                    new FormControl(''),
         materials:              new FormControl(''),
-        crueltyFree:            new FormControl('null'),
-        vegan:                  new FormControl('null'),
+        crueltyFree:            new FormControl(null),
+        vegan:                  new FormControl(null),
         commitment:             new FormControl(''),
         production:             new FormControl(''),
         categories:             this.fb.array([]),
@@ -50,7 +52,15 @@ export class BrandFormComponent implements OnInit{
         consumers:              this.fb.array([]),
         price:                  new FormControl(1),
         locations:               this.fb.array([])
-      });    
+      }); 
+      
+      if(this.editBrand!= null){
+        this.form.patchValue(this.editBrand); 
+        this.editBrand.consumers?.map(consumer => this.consumersArray.push(this.fb.control(consumer)));
+        this.editBrand.labels?.map(label => this.labelsArray.push(this.fb.control(label)));
+        this.editBrand.categories?.map(category => this.categoriesArray.push(this.fb.control(category)));
+        this.editBrand.locations?.map(location => this.locationsArray.push(this.fb.control(location)));
+      }
   }
 
   currentSubcategories: string[] | null = null;

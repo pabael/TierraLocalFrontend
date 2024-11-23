@@ -1,5 +1,7 @@
 <app-brand-form
+  *ngIf="(editMode && editBrand) || !editMode"
   [formInfo] = "formInfo"
+  [editBrand] = "editBrand"
   (onSubmit)="formSubmited($event)"
   (onAutonomousCommunityChange)="autonomousCommunityChange($event)"
   (onProvinceChange)="provinceChange($event)">

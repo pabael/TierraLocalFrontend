@@ -21,6 +21,10 @@ const routes: Routes = [
       {
         path: 'edit',
         component: EditPageComponent
+      },
+      {
+        path: 'edit/:name',
+        component: BrandFormPageComponent
       }
     ]
   }

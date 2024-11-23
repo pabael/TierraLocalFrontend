@@ -29,6 +29,7 @@ export class BrandDetailComponent implements OnInit {
   private setBrand(){
     this.dbsService.getBrand(this.brand.name).subscribe({
       next: brandResponse => {
+        console.log(brandResponse);
         this.brand = brandResponse;
       },
       error: (error:HttpErrorResponse) => {

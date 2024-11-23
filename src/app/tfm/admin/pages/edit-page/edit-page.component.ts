@@ -3,6 +3,7 @@ import { AdminService } from '../../services/admin.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SharedService } from '../../../shared/service/shared.service';
 import { DbsService } from '../../../shared/service/dbs.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-page',
@@ -13,7 +14,7 @@ export class EditPageComponent implements OnInit {
 
   brandsList: string[] = [];
 
-  constructor(private adminService: AdminService, private sharedService: SharedService, private dbsService: DbsService){
+  constructor(private adminService: AdminService, private sharedService: SharedService, private dbsService: DbsService,private router: Router){
   }
 
   ngOnInit(): void {
@@ -31,8 +32,8 @@ export class EditPageComponent implements OnInit {
     });
   }
 
-  public editBrand(brand:string):void{
-
+  editBrand(brand:string):void{
+    this.router.navigate(['/edit', brand]);
   }
 
   deleteBrand(brand: string): void{

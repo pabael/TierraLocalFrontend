@@ -27,6 +27,19 @@ export class AdminService {
     })
   }
 
+  editBrand(brand: Brand): void{
+    this.DbsService.editBrand(brand).subscribe({
+      next:() => {
+        console.log(brand);
+        this.router.navigate(['/brand', brand.name]);
+      },
+      error: (error:HttpErrorResponse) => {
+        this.sharedService.setError = error;
+      }
+    })
+  }
+
+
   createCategory(category: Category): void{
     this.DbsService.createCategory(category).subscribe({
       next:() => {
@@ -66,16 +79,4 @@ export class AdminService {
     );
   }
 
-  deleteBrand(brand: string): void{
-    this.DbsService.deleteBrand(brand).subscribe({
-      next:() => {
-        console.log("brand deleted")
-      },
-      error: (error:HttpErrorResponse) => {
-        this.sharedService.setError = error;
-      }
-    })
-  }
-
-  
 }
