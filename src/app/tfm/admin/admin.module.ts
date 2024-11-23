@@ -12,6 +12,8 @@ import { CreatePageComponent } from './pages/create-page/create-page.component';
 import { CategoriesFormComponent } from './components/categories-form/categories-form.component';
 import { LabelsFormComponent } from './components/labels-form/labels-form.component';
 import { ConsumersFormComponent } from './components/consumers-form/consumers-form.component';
+import { BrandsListComponent } from './components/brands-list/brands-list.component';
+import { EditPageComponent } from './pages/edit-page/edit-page.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { ConsumersFormComponent } from './components/consumers-form/consumers-fo
     CreatePageComponent,
     CategoriesFormComponent,
     LabelsFormComponent,
-    ConsumersFormComponent
+    ConsumersFormComponent,
+    BrandsListComponent,
+    EditPageComponent
   ],
   imports: [
     CommonModule,

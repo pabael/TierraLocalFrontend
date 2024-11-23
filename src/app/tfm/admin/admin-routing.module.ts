@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrandFormPageComponent } from './pages/brand-form-page/brand-form-page.component';
 import { CreatePageComponent } from './pages/create-page/create-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { EditPageComponent } from './pages/edit-page/edit-page.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'create',
         component: CreatePageComponent
+      },
+      {
+        path: 'edit',
+        component: EditPageComponent
       }
     ]
   }

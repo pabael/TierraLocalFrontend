@@ -56,13 +56,21 @@ export class DbsService {
     );  
   }
 
-  createBrand(brand: Brand): any {
+  createBrand(brand: Brand): Observable<Brand> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(`${this.apiUrl}brand`, brand, { headers });
+    return this.http.post<Brand>(`${this.apiUrl}brand`, brand, { headers });
+  }
+
+  deleteBrand(brand: string): Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}brand?brandName=${brand}`);
   }
 
   getBrand(brandName: string): Observable<Brand>{
-    return this.http.get<Brand>(`${this.apiUrl}brand?brand=${brandName}`)
+    return this.http.get<Brand>(`${this.apiUrl}brand?brand=${brandName}`);
+  }
+
+  getAllBrands(): Observable<Brand[]>{
+    return this.http.get<Brand[]>(`${this.apiUrl}brands`);
   }
 
   createCategory(category: Category): any {

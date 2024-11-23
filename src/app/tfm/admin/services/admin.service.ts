@@ -7,6 +7,7 @@ import { DbsService } from '../../shared/service/dbs.service';
 import { Category } from '../../shared/models/Category';
 import { Consumer } from '../../shared/models/Consumer';
 import { Label } from '../../shared/models/Label';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,23 @@ export class AdminService {
     this.DbsService.createLabel(label).subscribe({
       next:() => {
         console.log("label created")
+      },
+      error: (error:HttpErrorResponse) => {
+        this.sharedService.setError = error;
+      }
+    })
+  }
+
+  getallBrandsName(): Observable<string[]>{
+    return this.DbsService.getAllBrands().pipe(
+      map(list => list.map(brand => brand.name))
+    );
+  }
+
+  deleteBrand(brand: string): void{
+    this.DbsService.deleteBrand(brand).subscribe({
+      next:() => {
+        console.log("brand deleted")
       },
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;

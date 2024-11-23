@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-center mt-4">
+  <ul class="list-group list-container w-50">
+    <li *ngFor="let brand of brandsList; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+      <span>{{ brand }}</span>
+      <div>
+        <button class="btn btn-sm btn-warning me-2" (click)="editBrand(brand)">
+          <i class="bi bi-pencil"></i> Edit
+        </button>
+        <button class="btn btn-sm btn-danger" (click)="deleteBrand(brand)">
+          <i class="bi bi-trash"></i> Delete
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
