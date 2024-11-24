@@ -4,8 +4,13 @@ import { BrandFormPageComponent } from './pages/brand-form-page/brand-form-page.
 import { CreatePageComponent } from './pages/create-page/create-page.component';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { EditPageComponent } from './pages/edit-page/edit-page.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
+  { 
+    path: 'login', 
+    component: LoginComponent
+  },
   {
     path: '',
     component: AdminPageComponent,

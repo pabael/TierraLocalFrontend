@@ -14,6 +14,7 @@ import { LabelsFormComponent } from './components/labels-form/labels-form.compon
 import { ConsumersFormComponent } from './components/consumers-form/consumers-form.component';
 import { BrandsListComponent } from './components/brands-list/brands-list.component';
 import { EditPageComponent } from './pages/edit-page/edit-page.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { EditPageComponent } from './pages/edit-page/edit-page.component';
     LabelsFormComponent,
     ConsumersFormComponent,
     BrandsListComponent,
-    EditPageComponent
+    EditPageComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
