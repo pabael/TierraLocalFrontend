@@ -19,18 +19,18 @@ export class AuthService {
       username === this.adminCredentials.username &&
       password === this.adminCredentials.password
     ) {
-      this.isAuthenticated = true;
+      localStorage.setItem('isAuthenticated', 'true');
       return true;
     }
     return false;
   }
 
   logout(): void {
-    this.isAuthenticated = false;
+    localStorage.removeItem('isAuthenticated');
     this.router.navigate(['/login']);
   }
 
   isLoggedIn(): boolean {
-    return this.isAuthenticated;
+    return localStorage.getItem('isAuthenticated') === 'true';
   }
 }
