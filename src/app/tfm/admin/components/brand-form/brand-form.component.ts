@@ -153,8 +153,8 @@ export class BrandFormComponent implements OnInit{
 
     this.selectedSubcategories = [];
 
-    const existingIndex = this.categoriesArray.controls.findIndex((control) => {
-      return control.get('name')?.value === selectedCategory;
+    const existingIndex = this.categoriesArray.value.findIndex((value: {name: string}) => {
+      return value.name === selectedCategory;
     });
 
     if (existingIndex !== -1) {
