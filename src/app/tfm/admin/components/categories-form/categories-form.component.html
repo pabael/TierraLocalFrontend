@@ -1,23 +1,31 @@
 <div class="container mt-5">
-  <h2>Añadir Categoría</h2>
-  <form [formGroup]="form" (ngSubmit)="submitForm()">
-      <!-- Category -->
-      <div class="mb-3">
-          <label for="name" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="name" formControlName="name" required>
-      </div>
-  
-      <!-- Subcategories -->
-      <div class="mb-3">
-          <label for="subcategories" class="form-label">Subcategorías</label>
-          <textarea 
-          class="form-control" 
-          id="subcategories" 
-          formControlName="subcategories" 
-          rows="3"></textarea>
-      </div>
+    <h2>Añadir Categoría</h2>
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+            <!-- Category -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input 
+                type="text" 
+                class="form-control" 
+                id="name" 
+                formControlName="name" 
+                required
+                (input)="changeInput()">
+        </div>
+    
+        <!-- Subcategories -->
+        <div class="mb-3">
+            <label for="subcategories" class="form-label">Subcategorías</label>
+            <textarea 
+                class="form-control" 
+                id="subcategories" 
+                formControlName="subcategories" 
+                rows="3">
+            </textarea>
+        </div>
 
-      <!-- Submit button -->
-      <button type="submit" class="btn btn-primary mt-2">Añadir</button>
-  </form>
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary mt-2">Añadir</button>
+        <span class="message"> {{ message }} </span>
+    </form>
 </div>

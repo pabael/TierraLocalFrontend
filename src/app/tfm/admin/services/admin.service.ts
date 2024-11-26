@@ -42,9 +42,6 @@ export class AdminService {
 
   createCategory(category: Category): void{
     this.DbsService.createCategory(category).subscribe({
-      next:() => {
-        console.log("category created")
-      },
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
       }
@@ -53,9 +50,6 @@ export class AdminService {
 
   createConsumer(consumer: Consumer): void{
     this.DbsService.createConsumer(consumer).subscribe({
-      next:() => {
-        console.log("consumer created")
-      },
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
       }
@@ -64,9 +58,6 @@ export class AdminService {
 
   createLabel(label: Label): void{
     this.DbsService.createLabel(label).subscribe({
-      next:() => {
-        console.log("label created")
-      },
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
       }

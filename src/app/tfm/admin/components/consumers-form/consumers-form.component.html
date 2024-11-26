@@ -3,10 +3,17 @@
   <form [formGroup]="form" (ngSubmit)="submitForm()">
       <div class="mb-3">
           <label for="type" class="form-label">Tipo de consumidor </label>
-          <input type="text" class="form-control" id="type" formControlName="type" required>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="type" 
+            formControlName="type" 
+            required
+            (input)="changeInput()">
       </div>
 
       <!-- Submit button -->
       <button type="submit" class="btn btn-primary mt-2">Añadir</button>
+      <span class="message"> {{ message }} </span>
   </form>
 </div>

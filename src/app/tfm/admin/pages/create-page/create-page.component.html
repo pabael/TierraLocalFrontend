@@ -1,11 +1,17 @@
 <app-categories-form
+[message] = "messageCategory"
+(onChangeInput) = "cleanMessage()"
 (onSubmit)="categoryFormSubmited($event)">
 </app-categories-form>
 
 <app-consumers-form
+[message] = "messageConsumer"
+(onChangeInput) = "cleanMessage()"
 (onSubmit)="consumerFormSubmited($event)">
 </app-consumers-form>
 
 <app-labels-form
+[message] = "messageLabel"
+(onChangeInput) = "cleanMessage()"
 (onSubmit)="labelFormSubmited($event)">
 </app-labels-form>

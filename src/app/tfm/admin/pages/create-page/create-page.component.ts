@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Category } from '../../../shared/models/Category';
-import { DbsService } from '../../../shared/service/dbs.service';
 import { AdminService } from '../../services/admin.service';
 import { Consumer } from '../../../shared/models/Consumer';
 import { Label } from '../../../shared/models/Label';
@@ -12,18 +11,31 @@ import { Label } from '../../../shared/models/Label';
 })
 export class CreatePageComponent {
 
-  constructor(private dbsService: DbsService, private adminService: AdminService){}
+  public messageCategory: string = "";
+  public messageConsumer: string = "";
+  public messageLabel: string = "";
+
+  constructor(private adminService: AdminService){}
 
   categoryFormSubmited(category: Category): void{
     this.adminService.createCategory(category);
+    this.messageCategory = "La categoría ha sido creada correctamente.";
   }
 
   consumerFormSubmited(consumer: Consumer): void{
     this.adminService.createConsumer(consumer);
+    this.messageConsumer = "El tipo de consumidor ha sido creado correctamente.";
   }
 
   labelFormSubmited(label: Label): void{
     this.adminService.createLabel(label);
+    this.messageLabel = "El certificado ha sido creado correctamente.";
+  }
+
+  cleanMessage(): void {
+    this.messageCategory = "";
+    this.messageConsumer = "";
+    this.messageLabel = "";
   }
 
 }

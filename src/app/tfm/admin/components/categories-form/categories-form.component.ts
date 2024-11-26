@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../../shared/models/Category';
 
@@ -13,8 +13,14 @@ export class CategoriesFormComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
+  @Input()
+  public message: string = '';
+
   @Output()
   public onSubmit: EventEmitter<Category> = new EventEmitter<Category>();
+
+  @Output()
+  public onChangeInput: EventEmitter<void> = new EventEmitter<void>();
 
   constructor() {}
 
@@ -24,6 +30,10 @@ export class CategoriesFormComponent implements OnInit {
       name:           new FormControl('', Validators.required),
       subcategories:  new FormControl(''),
     });    
+  }
+
+  changeInput(): void{
+    this.onChangeInput.emit();
   }
 
   submitForm(): void {

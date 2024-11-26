@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Label } from '../../../shared/models/Label';
 
@@ -9,10 +9,16 @@ import { Label } from '../../../shared/models/Label';
 })
 export class LabelsFormComponent {
 
+  @Input()
+  public message: string = '';
+
   form: FormGroup = new FormGroup({});
 
   @Output()
   public onSubmit: EventEmitter<Label> = new EventEmitter<Label>();
+
+  @Output()
+  public onChangeInput: EventEmitter<void> = new EventEmitter<void>();
 
   ngOnInit(): void {
 
@@ -21,11 +27,13 @@ export class LabelsFormComponent {
     });    
   }
 
+  changeInput(): void{
+    this.onChangeInput.emit();
+  }
+
   submitForm(): void {
     if (this.form.valid) {
       this.onSubmit.emit(this.form.value);
     }
   }
-
-
 }
