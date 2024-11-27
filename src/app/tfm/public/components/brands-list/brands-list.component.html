@@ -1,0 +1,14 @@
+<div class="d-flex justify-content-center mt-4">
+  <div class="container">
+    <div class="row g-4">
+      <div 
+        class="col-12 col-sm-6 col-md-4 col-lg-3"
+        *ngFor="let brand of brandsList; let i = index">
+        <app-brand-card 
+          [brand]="brand"
+          (onBrandDetails)="brandDetails($event)">
+        </app-brand-card>
+      </div>
+    </div>
+  </div>
+</div>

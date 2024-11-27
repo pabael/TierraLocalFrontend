@@ -5,13 +5,19 @@ import { BrandDetailComponent } from './components/brand-detail/brand-detail.com
 import { BrandDetailPageComponent } from './pages/brand-detail-page/brand-detail-page.component';
 import { PublicRoutingModule } from "./public-routing.module";
 import { CapitalizeFirstLetterPipe } from "./pipes/default-image.pipe";
+import { BrandCardComponent } from './components/brand-card/brand-card.component';
+import { BrandsListComponent } from './components/brands-list/brands-list.component';
+import { BrandListPageComponent } from './pages/brand-list-page/brand-list-page.component';
 
 @NgModule({
   declarations: [
     MainPageComponent,
     BrandDetailComponent,
     BrandDetailPageComponent,
-    CapitalizeFirstLetterPipe
+    CapitalizeFirstLetterPipe,
+    BrandCardComponent,
+    BrandsListComponent,
+    BrandListPageComponent
   ],
   imports: [
     CommonModule,
