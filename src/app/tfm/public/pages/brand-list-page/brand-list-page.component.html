@@ -1,3 +1,8 @@
+<app-filters
+  [filters] = "filters"
+  (onAutonomousCommunityChange)="autonomousCommunityChange($event)"
+  (onProvinceChange)="provinceChange($event)">
+</app-filters>
 <app-brands-list
   [brandsList] = brandsList
   (onBrandDetails)="brandDetails($event)">

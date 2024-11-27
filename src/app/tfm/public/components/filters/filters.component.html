@@ -1,0 +1,107 @@
+<div class="container mt-5">
+  <form [formGroup]="form">
+    <div class="row">
+      <!-- CrueltyFree -->
+      <div class="col-md-4 mb-3">
+        <label class="form-label">No probado en animales</label>
+        <input 
+          type="checkbox" 
+          class="form-check-input" 
+          [id]="isCrueltyFree"
+          [value]="true"
+          formControlName="isCrueltyFree"
+        >
+      </div>
+
+      <!-- Vegan -->
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Vegano</label>
+        <input 
+          type="checkbox" 
+          class="form-check-input" 
+          [id]="isVegan"
+          [value]="true"
+          formControlName="isVegan"
+        >
+      </div>
+
+      <!-- Categories -->
+      <div class="col-md-4 mb-3">
+        <label class="form-label" for="category">Category:</label>
+        <div class="d-flex">
+          <select class="form-select" id="category" formControlName="categories" (change)="loadSubcategories()">
+            <option *ngFor="let cat of filters.allCategories" [value]="cat.name">{{ cat.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Subcategories -->
+      <div class="col-md-4 mb-3" *ngIf="filteredSubcategories && filteredSubcategories.length > 0">
+        <label class="form-label">Subcategories:</label>
+        <select class="form-select" id="subcategories" formControlName="subcategories">
+          <option *ngFor="let subcat of filteredSubcategories" [value]="subcat">{{ subcat }}</option>
+        </select>
+      </div>
+
+      <!-- Labels -->
+      <!-- <div class="col-md-4 mb-3">
+        <label class="form-label">Etiquetas</label>
+        <div class="d-flex" formGroupName="labels">
+          <div *ngFor="let label of filters.allLabels" class="form-check me-3">
+            <input 
+                type="checkbox" 
+                class="form-check-input" 
+                [id]="label"
+                [value]="label"
+                [checked]="this.form.get('labels')?.value?.includes(label)"
+                (change)="onLabelChange($event, label)"
+            >
+            <label class="form-check-label" [for]="label">
+                {{ label }}
+            </label>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Consumer -->
+      <div class="col-md-4 mb-3">
+        <label for="consumers" class="form-label">Consumidores</label>
+        <select class="form-select" id="consumer" formControlName="consumer">
+          <option *ngFor="let consumer of filters.allConsumers" [value]="consumer">{{ consumer }}</option>
+        </select>
+      </div>
+
+      <!-- Price -->
+      <div class="col-md-4 mb-3">
+        <label class="form-label">Price</label>
+        <select class="form-select" id="price" formControlName="price">
+          <option *ngFor="let price of filters.allPrices" [value]="price">{{ price }}</option>
+        </select>
+      </div>
+
+      <!-- Autonomous Community -->
+      <div class="col-md-4 mb-3">
+        <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
+        <select class="form-select" id="autonomousCommunity" formControlName="autonomousCommunity" (change)="autonomousCommunityChange($event)">
+          <option *ngFor="let community of filters.allAutonomousCommunities" [value]="community">{{ community }}</option>
+        </select>
+      </div>
+
+      <!-- Province -->
+      <div class="col-md-4 mb-3" *ngIf="filters.allProvinces.length > 0">
+        <label for="province" class="form-label">Provincia</label>
+        <select class="form-select" id="province" formControlName="province" (change)="provinceChange($event)">
+          <option *ngFor="let province of filters.allProvinces" [value]="province">{{ province }}</option>
+        </select>
+      </div>
+
+      <!-- Location -->
+      <div class="col-md-4 mb-3" *ngIf="filters.allLocations.length > 0">
+        <label for="location" class="form-label">Location</label>
+        <select class="form-select" id="location" formControlName="location">
+          <option *ngFor="let location of filters.allLocations" [value]="location">{{ location }}</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>

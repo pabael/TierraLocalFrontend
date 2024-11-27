@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Category } from '../models/Category';
 import { Brand } from '../models/Brand';
-import { BrandFormInfo } from '../../admin/models/BrandFormInfo';
+import { Filters } from '../models/Filters';
 import { Consumer } from '../models/Consumer';
 import { Label } from '../models/Label';
 
@@ -94,9 +94,9 @@ export class DbsService {
   }
 
 
-  getAllDataForBrandForm() : BrandFormInfo{
+  getAllDataForBrandForm() : Filters{
     
-    let formInfo: BrandFormInfo = {
+    let formInfo: Filters = {
       allCategories: [],
       allLabels:    [],
       allConsumers: [],

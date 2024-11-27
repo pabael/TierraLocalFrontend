@@ -1,6 +1,6 @@
-import { Category } from "../../shared/models/Category";
+import { Category } from "./Category";
 
-export interface BrandFormInfo {
+export interface Filters {
   allCategories:              Category[];
   allLabels:                  string[];
   allConsumers:               string[];

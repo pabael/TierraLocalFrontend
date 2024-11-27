@@ -8,6 +8,8 @@ import { CapitalizeFirstLetterPipe } from "./pipes/default-image.pipe";
 import { BrandCardComponent } from './components/brand-card/brand-card.component';
 import { BrandsListComponent } from './components/brands-list/brands-list.component';
 import { BrandListPageComponent } from './pages/brand-list-page/brand-list-page.component';
+import { FiltersComponent } from './components/filters/filters.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -17,10 +19,13 @@ import { BrandListPageComponent } from './pages/brand-list-page/brand-list-page.
     CapitalizeFirstLetterPipe,
     BrandCardComponent,
     BrandsListComponent,
-    BrandListPageComponent
+    BrandListPageComponent,
+    FiltersComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule,    
+    FormsModule,
+    ReactiveFormsModule,
     PublicRoutingModule
   ],
   exports: [
