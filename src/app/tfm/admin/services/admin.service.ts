@@ -30,7 +30,6 @@ export class AdminService {
   editBrand(brand: Brand): void{
     this.DbsService.editBrand(brand).subscribe({
       next:() => {
-        console.log(brand);
         this.router.navigate(['/brand', brand.name]);
       },
       error: (error:HttpErrorResponse) => {

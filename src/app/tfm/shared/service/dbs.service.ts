@@ -62,7 +62,6 @@ export class DbsService {
   }
 
   editBrand(brand: Brand): Observable<Brand> {
-    console.log(brand);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.put<Brand>(`${this.apiUrl}brand`, brand, { headers });
   }
