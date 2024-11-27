@@ -58,6 +58,8 @@ export class BrandFormComponent implements OnInit{
         this.form.patchValue(this.editBrand); 
         this.editBrand.consumers?.map(consumer => this.consumersArray.push(this.fb.control(consumer)));
         this.editBrand.labels?.map(label => this.labelsArray.push(this.fb.control(label)));
+        console.log(this.labelsArray.value);
+
         this.editBrand.categories?.map(category => this.categoriesArray.push(this.fb.control(category)));
         this.editBrand.locations?.map(location => this.locationsArray.push(this.fb.control(location)));
       }
@@ -80,16 +82,17 @@ export class BrandFormComponent implements OnInit{
   
   onLabelChange(event: Event, label: string): void {
     const checkbox = event.target as HTMLInputElement;
-    const value = checkbox.value;
-
+  
     if (checkbox.checked) {
       this.labelsArray.push(this.fb.control(label));
-
     } else {
       const existingIndex = this.labelsArray.controls.findIndex((control) => {
-        return control?.value === value;
+        return control?.value === label;
       });
-      this.labelsArray.removeAt(existingIndex);
+  
+      if (existingIndex !== -1) {
+        this.labelsArray.removeAt(existingIndex);
+      }
     }
   }
 
@@ -100,18 +103,16 @@ export class BrandFormComponent implements OnInit{
   
   onConsumerChange(event: Event, consumer: string): void {
     const checkbox = event.target as HTMLInputElement;
-    const value = checkbox.value;
 
     if (checkbox.checked) {
       this.consumersArray.push(this.fb.control(consumer));
 
     } else {
       const existingIndex = this.consumersArray.controls.findIndex((control) => {
-        return control?.value === value;
+        return control?.value === consumer;
       });
       this.consumersArray.removeAt(existingIndex);
     }
-
   }
 
   //Categories and subcategories
@@ -212,7 +213,9 @@ export class BrandFormComponent implements OnInit{
       autonomousCommunity: community
     };
 
-    const locationExists = this.locationsArray.controls.some(control => control.value.name === location);
+    const locationExists = this.locationsArray.value.some((value: {name: string}) => {
+      return value.name === location;
+    });
 
     if (!locationExists) {
       this.locationsArray.push(this.fb.group(locationData));
