@@ -33,8 +33,8 @@ export class FiltersComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      isCrueltyFree:            new FormControl(null),
-      isVegan:                  new FormControl(null),
+      crueltyFree:            new FormControl(null),
+      vegan:                  new FormControl(null),
       category:                 new FormControl("TODAS"),
       subcategory:              new FormControl(null),
       labels:                   this.fb.array([]),
@@ -124,13 +124,11 @@ export class FiltersComponent implements OnInit {
 
   filterChange(): void {
 
-    
 
     const filteredFormValue = Object.fromEntries(
       Object.entries(this.form.value)
-        .filter(([_, value]) => value !== null && value !== '' && value !== undefined && (!Array.isArray(value) || value.length > 0) && value !== "0" && value != "TODAS")
+        .filter(([_, value]) => value !== null && value !== '' && value !== undefined && value !== false && (!Array.isArray(value) || value.length > 0) && value !== "0" && value != "TODAS")
     );
-
     this.onChange.emit(filteredFormValue);
   }
 }

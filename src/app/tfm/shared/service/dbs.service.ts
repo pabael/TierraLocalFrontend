@@ -107,6 +107,7 @@ export class DbsService {
         }
       }
     });
+
     return this.http.get<Brand[]>(`${this.apiUrl}brands/filter?`, { params });
   } 
 
