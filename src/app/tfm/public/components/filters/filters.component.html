@@ -47,26 +47,6 @@
         </select>
       </div>
 
-      <!-- Labels -->
-      <!-- <div class="col-md-4 mb-3">
-        <label class="form-label">Etiquetas</label>
-        <div class="d-flex" formGroupName="labels">
-          <div *ngFor="let label of filters.allLabels" class="form-check me-3">
-            <input 
-                type="checkbox" 
-                class="form-check-input" 
-                [id]="label"
-                [value]="label"
-                [checked]="this.form.get('labels')?.value?.includes(label)"
-                (change)="onLabelChange($event, label)"
-            >
-            <label class="form-check-label" [for]="label">
-                {{ label }}
-            </label>
-          </div>
-        </div>
-      </div> -->
-
       <!-- Consumer -->
       <div class="col-md-4 mb-3">
         <label for="consumers" class="form-label">Consumidores</label>
@@ -112,5 +92,26 @@
         </select>
       </div>
     </div>
+    
+    <!-- Labels -->
+    <div class="col-md-4 mb-3">
+      <label class="form-label">Etiquetas</label>
+      <div class="d-grid" formGroupName="labels">
+        <div *ngFor="let label of filters.allLabels" class="form-check me-3">
+          <input 
+              type="checkbox" 
+              class="form-check-input" 
+              [id]="label"
+              [value]="label"
+              [checked]="this.form.get('labels')?.value?.includes(label)"
+              (change)="onLabelChange($event, label)"
+          >
+          <label class="form-check-label" [for]="label">
+              {{ label }}
+          </label>
+        </div>
+      </div>
+    </div>
+
   </form>
 </div>
