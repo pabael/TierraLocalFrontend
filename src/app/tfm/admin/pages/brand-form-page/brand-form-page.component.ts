@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Filters } from '../../../shared/models/Filters';
+import { Data } from '../../../shared/models/Data';
 import { AdminService } from '../../services/admin.service';
 import { Brand } from '../../../shared/models/Brand';
 import { DbsService } from '../../../shared/service/dbs.service';
@@ -14,7 +14,7 @@ import { SharedService } from '../../../shared/service/shared.service';
 })
 export class BrandFormPageComponent implements OnInit{
 
-  formInfo: Filters = {
+  formInfo: Data = {
     allCategories: [],
     allLabels:    [],
     allConsumers: [],

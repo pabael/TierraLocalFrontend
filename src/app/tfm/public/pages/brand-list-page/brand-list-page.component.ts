@@ -3,7 +3,7 @@ import { SharedService } from '../../../shared/service/shared.service';
 import { Router } from '@angular/router';
 import { PublicService } from '../../services/public.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Filters } from '../../../shared/models/Filters';
+import { Data } from '../../../shared/models/Data';
 import { DbsService } from '../../../shared/service/dbs.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class BrandListPageComponent implements OnInit {
 
   brandsList: string[] = [];
 
-  filters: Filters = {
+  filters: Data = {
     allCategories: [],
     allLabels:    [],
     allConsumers: [],
@@ -48,19 +48,15 @@ export class BrandListPageComponent implements OnInit {
     this.router.navigate(['/brand', brand]);
   }
 
-  autonomousCommunityChange(autonomousCommunity: string){
-    this.dbsService.getAllProvinces(autonomousCommunity).subscribe(
-      (data) => {
-        this.filters.allProvinces = data;
+  filterChange(filters: any){
+    console.log(filters);
+    this.publicService.getBrandsNameWithFilters(filters).subscribe({
+      next:(result) => {
+        this.brandsList = result;
+      },
+      error: (error:HttpErrorResponse) => {
+        this.sharedService.setError = error;
       }
-    );
-  }
-
-  provinceChange(province: string){
-    this.dbsService.getAllLocations(province).subscribe(
-      (data) => {
-        this.filters.allLocations = data;
-      }
-    );
+    })
   }
 }

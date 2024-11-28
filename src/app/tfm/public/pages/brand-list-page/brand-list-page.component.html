@@ -1,7 +1,6 @@
 <app-filters
   [filters] = "filters"
-  (onAutonomousCommunityChange)="autonomousCommunityChange($event)"
-  (onProvinceChange)="provinceChange($event)">
+  (onChange)="filterChange($event)">
 </app-filters>
 <app-brands-list
   [brandsList] = brandsList

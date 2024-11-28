@@ -1,6 +1,6 @@
 import { Category } from "./Category";
 
-export interface Filters {
+export interface Data {
   allCategories:              Category[];
   allLabels:                  string[];
   allConsumers:               string[];

@@ -10,6 +10,7 @@
           [id]="isCrueltyFree"
           [value]="true"
           formControlName="isCrueltyFree"
+          (change)="filterChange()"
         >
       </div>
 
@@ -22,6 +23,7 @@
           [id]="isVegan"
           [value]="true"
           formControlName="isVegan"
+          (change)="filterChange()"
         >
       </div>
 
@@ -29,16 +31,18 @@
       <div class="col-md-4 mb-3">
         <label class="form-label" for="category">Category:</label>
         <div class="d-flex">
-          <select class="form-select" id="category" formControlName="categories" (change)="loadSubcategories()">
+          <select class="form-select" id="category" formControlName="category" (change)="loadSubcategories()">
+            <option> TODAS </option>
             <option *ngFor="let cat of filters.allCategories" [value]="cat.name">{{ cat.name }}</option>
           </select>
         </div>
       </div>
 
       <!-- Subcategories -->
-      <div class="col-md-4 mb-3" *ngIf="filteredSubcategories && filteredSubcategories.length > 0">
+      <div class="col-md-4 mb-3">
         <label class="form-label">Subcategories:</label>
-        <select class="form-select" id="subcategories" formControlName="subcategories">
+        <select class="form-select" id="subcategory" formControlName="subcategory" (change)="filterChange()">
+          <option> TODAS </option>
           <option *ngFor="let subcat of filteredSubcategories" [value]="subcat">{{ subcat }}</option>
         </select>
       </div>
@@ -66,7 +70,8 @@
       <!-- Consumer -->
       <div class="col-md-4 mb-3">
         <label for="consumers" class="form-label">Consumidores</label>
-        <select class="form-select" id="consumer" formControlName="consumer">
+        <select class="form-select" id="consumer" formControlName="consumer" (change)="filterChange()">
+          <option> TODAS </option>
           <option *ngFor="let consumer of filters.allConsumers" [value]="consumer">{{ consumer }}</option>
         </select>
       </div>
@@ -74,7 +79,8 @@
       <!-- Price -->
       <div class="col-md-4 mb-3">
         <label class="form-label">Price</label>
-        <select class="form-select" id="price" formControlName="price">
+        <select class="form-select" id="price" formControlName="price" (change)="filterChange()">
+          <option [value]="0"> TODAS </option>
           <option *ngFor="let price of filters.allPrices" [value]="price">{{ price }}</option>
         </select>
       </div>
@@ -82,23 +88,26 @@
       <!-- Autonomous Community -->
       <div class="col-md-4 mb-3">
         <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
-        <select class="form-select" id="autonomousCommunity" formControlName="autonomousCommunity" (change)="autonomousCommunityChange($event)">
+        <select class="form-select" id="autonomousCommunity" formControlName="autonomousCommunity" (change)="filterChange()">
+          <option> TODAS </option>
           <option *ngFor="let community of filters.allAutonomousCommunities" [value]="community">{{ community }}</option>
         </select>
       </div>
 
       <!-- Province -->
-      <div class="col-md-4 mb-3" *ngIf="filters.allProvinces.length > 0">
+      <div class="col-md-4 mb-3">
         <label for="province" class="form-label">Provincia</label>
-        <select class="form-select" id="province" formControlName="province" (change)="provinceChange($event)">
+        <select class="form-select" id="province" formControlName="province" (change)="filterChange()">
+          <option> TODAS </option>
           <option *ngFor="let province of filters.allProvinces" [value]="province">{{ province }}</option>
         </select>
       </div>
 
       <!-- Location -->
-      <div class="col-md-4 mb-3" *ngIf="filters.allLocations.length > 0">
+      <div class="col-md-4 mb-3">
         <label for="location" class="form-label">Location</label>
-        <select class="form-select" id="location" formControlName="location">
+        <select class="form-select" id="location" formControlName="location" (change)="filterChange()">
+          <option> TODAS </option>
           <option *ngFor="let location of filters.allLocations" [value]="location">{{ location }}</option>
         </select>
       </div>

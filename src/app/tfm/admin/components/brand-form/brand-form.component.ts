@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { Filters } from '../../../shared/models/Filters';
+import { Data } from '../../../shared/models/Data';
 import { Brand } from '../../../shared/models/Brand';
 
 @Component({
@@ -11,7 +11,7 @@ import { Brand } from '../../../shared/models/Brand';
 export class BrandFormComponent implements OnInit{
 
   @Input() 
-  public formInfo: Filters = {
+  public formInfo: Data = {
     allCategories:              [],
     allLabels:                  [],
     allConsumers:               [],

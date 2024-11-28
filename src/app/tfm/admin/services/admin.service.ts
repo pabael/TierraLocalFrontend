@@ -14,10 +14,10 @@ import { map, Observable } from 'rxjs';
 })
 export class AdminService {
 
-  constructor(private DbsService: DbsService, private sharedService: SharedService, private router: Router) { }
+  constructor(private dbsService: DbsService, private sharedService: SharedService, private router: Router) { }
   
   createBrand(brand: Brand): void{
-    this.DbsService.createBrand(brand).subscribe({
+    this.dbsService.createBrand(brand).subscribe({
       next:() => {
         this.router.navigate(['/brand', brand.name]);
       },
@@ -28,7 +28,7 @@ export class AdminService {
   }
 
   editBrand(brand: Brand): void{
-    this.DbsService.editBrand(brand).subscribe({
+    this.dbsService.editBrand(brand).subscribe({
       next:() => {
         this.router.navigate(['/brand', brand.name]);
       },
@@ -40,7 +40,7 @@ export class AdminService {
 
 
   createCategory(category: Category): void{
-    this.DbsService.createCategory(category).subscribe({
+    this.dbsService.createCategory(category).subscribe({
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
       }
@@ -48,7 +48,7 @@ export class AdminService {
   }
 
   createConsumer(consumer: Consumer): void{
-    this.DbsService.createConsumer(consumer).subscribe({
+    this.dbsService.createConsumer(consumer).subscribe({
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
       }
@@ -56,7 +56,7 @@ export class AdminService {
   }
 
   createLabel(label: Label): void{
-    this.DbsService.createLabel(label).subscribe({
+    this.dbsService.createLabel(label).subscribe({
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
       }
@@ -64,7 +64,7 @@ export class AdminService {
   }
 
   getallBrandsName(): Observable<string[]>{
-    return this.DbsService.getAllBrands().pipe(
+    return this.dbsService.getAllBrands().pipe(
       map(list => list.map(brand => brand.name))
     );
   }

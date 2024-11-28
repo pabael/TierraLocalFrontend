@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Category } from '../models/Category';
 import { Brand } from '../models/Brand';
-import { Filters } from '../models/Filters';
+import { Data } from '../models/Data';
 import { Consumer } from '../models/Consumer';
 import { Label } from '../models/Label';
 
@@ -93,10 +93,9 @@ export class DbsService {
     return this.http.post<any>(`${this.apiUrl}label`, label, { headers });
   }
 
-
-  getAllDataForBrandForm() : Filters{
+  getAllDataForBrandForm() : Data{
     
-    let formInfo: Filters = {
+    let formInfo: Data = {
       allCategories: [],
       allLabels:    [],
       allConsumers: [],
@@ -138,4 +137,20 @@ export class DbsService {
     return formInfo;
   }
 
+  getBrandsWithFilters(filters: any): Observable<Brand[]>{
+    let params = new HttpParams();
+    Object.keys(filters).forEach((key) => {
+      const value = filters[key];
+      if (value !== null && value !== undefined && value !== '') {
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            params = params.append(key, item);
+          });
+        } else {
+          params = params.append(key, value);
+        }
+      }
+    });
+    return this.http.get<Brand[]>(`${this.apiUrl}brands/filter?`, { params });
+  } 
 }

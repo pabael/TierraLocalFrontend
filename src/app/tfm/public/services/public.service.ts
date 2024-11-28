@@ -9,10 +9,17 @@ import { map, Observable } from 'rxjs';
 })
 export class PublicService {
 
-  constructor(private DbsService: DbsService, private sharedService: SharedService, private router: Router) { }
+  constructor(private dbsService: DbsService) { }
   
   getallBrandsName(): Observable<string[]>{
-    return this.DbsService.getAllBrands().pipe(
+    return this.dbsService.getAllBrands().pipe(
+      map(list => list.map(brand => brand.name))
+    );
+  }
+
+  getBrandsNameWithFilters(filters: any): Observable<string[]>{
+    return this.dbsService.getBrandsWithFilters(filters)
+    .pipe(
       map(list => list.map(brand => brand.name))
     );
   }

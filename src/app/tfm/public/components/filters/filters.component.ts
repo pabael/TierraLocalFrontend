@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Filters } from '../../../shared/models/Filters';
+import { Data } from '../../../shared/models/Data';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 })
 export class FiltersComponent implements OnInit {
   @Input()
-  filters: Filters = {
+  filters: Data = {
     allCategories: [],
     allLabels:    [],
     allConsumers: [],
@@ -20,10 +20,7 @@ export class FiltersComponent implements OnInit {
   }; 
 
   @Output()
-  public onAutonomousCommunityChange: EventEmitter<string> = new EventEmitter<string>();
-
-  @Output()
-  public onProvinceChange: EventEmitter<string> = new EventEmitter<string>();
+  public onChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private fb: FormBuilder){}
 
@@ -38,18 +35,19 @@ export class FiltersComponent implements OnInit {
     this.form = new FormGroup({
       isCrueltyFree:            new FormControl(null),
       isVegan:                  new FormControl(null),
-      categories:             new FormControl(null),
+      category:             new FormControl("TODAS"),
+      subcategory:             new FormControl(null),
       labels:                 this.fb.array([]),
-      consumer:              new FormControl(null),
-      price:                  new FormControl(1),
-      autonomousCommunity:  new FormControl(null),
-      province:              new FormControl(null),
-      location:              new FormControl(null)
+      consumer:              new FormControl("TODAS"),
+      price:                  new FormControl("0"),
+      autonomousCommunity:  new FormControl("TODAS"),
+      province:              new FormControl("TODAS"),
+      location:              new FormControl("TODAS")
     }); 
   }
 
   loadSubcategories() {
-    const selectedCategory = this.form.get('categories')?.value;
+    const selectedCategory = this.form.get('category')?.value;
 
     this.filteredSubcategories = [];
 
@@ -59,7 +57,10 @@ export class FiltersComponent implements OnInit {
 
     if (selectedCategoryObj && selectedCategoryObj.subcategories) {
       this.filteredSubcategories = selectedCategoryObj.subcategories;
+      this.form.get("subcategory")?.setValue("TODAS");
     }
+
+    this.filterChange();
   }
 
     //label
@@ -81,19 +82,16 @@ export class FiltersComponent implements OnInit {
           this.labelsArray.removeAt(existingIndex);
         }
       }
+
+      this.filterChange();
     }
-  
-    autonomousCommunityChange(event: Event): void {
-      const selectElement = event.target as HTMLSelectElement;
-      const communityName = selectElement.value;
-      this.onAutonomousCommunityChange.emit(communityName);
-  
-      this.form.get('province')?.reset(); 
-    }
-  
-    provinceChange(event: Event): void {
-      const selectElement = event.target as HTMLSelectElement;
-      const provinceName = selectElement.value;
-      this.onProvinceChange.emit(provinceName);
+
+    filterChange(): void {
+      const filteredFormValue = Object.fromEntries(
+        Object.entries(this.form.value)
+          .filter(([_, value]) => value !== null && value !== '' && value !== undefined && (!Array.isArray(value) || value.length > 0) && value !== "0" && value != "TODAS")
+      );
+
+      this.onChange.emit(filteredFormValue);
     }
 }
