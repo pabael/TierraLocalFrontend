@@ -2,7 +2,7 @@
   <form [formGroup]="form">
     <div class="row">
       <!-- CrueltyFree -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 mb-3">
         <label class="form-label">No probado en animales</label>
         <input 
           type="checkbox" 
@@ -15,7 +15,7 @@
       </div>
 
       <!-- Vegan -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 mb-3">
         <label class="form-label">Vegano</label>
         <input 
           type="checkbox" 
@@ -28,7 +28,7 @@
       </div>
 
       <!-- Categories -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 mb-3">
         <label class="form-label" for="category">Categoría:</label>
         <div class="d-flex">
           <select class="form-select" id="category" formControlName="category" (change)="loadSubcategories()">
@@ -39,7 +39,7 @@
       </div>
 
       <!-- Subcategories -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 mb-3">
         <label class="form-label">Subcategoría:</label>
         <select class="form-select" id="subcategory" formControlName="subcategory" (change)="filterChange()">
           <option> TODAS </option>
@@ -48,7 +48,7 @@
       </div>
 
       <!-- Consumer -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 mb-3">
         <label for="consumers" class="form-label">Consumidores</label>
         <select class="form-select" id="consumer" formControlName="consumer" (change)="filterChange()">
           <option> TODAS </option>
@@ -57,7 +57,7 @@
       </div>
 
       <!-- Price -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 mb-3">
         <label class="form-label">Rango de precio</label>
         <select class="form-select" id="price" formControlName="price" (change)="filterChange()">
           <option [value]="0"> TODAS </option>
@@ -66,7 +66,7 @@
       </div>
 
       <!-- Autonomous Community -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 mb-3">
         <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
         <select class="form-select" id="autonomousCommunity" formControlName="autonomousCommunity" (change)="onAutonomousCommunityChange()" [disabled]="form.get('autonomousCommunity')?.disabled ?? false">
           <option> TODAS </option>
@@ -75,7 +75,7 @@
       </div>
 
       <!-- Province -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 mb-3">
         <label for="province" class="form-label">Provincia</label>
         <select class="form-select" id="province" formControlName="province" (change)="onProvinceChange()" [disabled]="form.get('province')?.disabled ?? false">
           <option> TODAS </option>
@@ -84,34 +84,34 @@
       </div>
 
       <!-- Location -->
-      <div class="col-md-4 mb-3">
+      <div class="col-12 mb-3">
         <label for="location" class="form-label">Localidad</label>
         <select class="form-select" id="location" formControlName="location" (change)="onLocationChange()" [disabled]="form.get('location')?.disabled ?? false">
           <option> TODAS </option>
           <option *ngFor="let location of filters.allLocations" [value]="location">{{ location }}</option>
         </select>
       </div>
-    </div>
-    
-    <!-- Labels -->
-    <div class="col-md-4 mb-3">
-      <label class="form-label">Etiquetas</label>
-      <div class="d-grid" formGroupName="labels">
-        <div *ngFor="let label of filters.allLabels" class="form-check me-3">
-          <input 
-              type="checkbox" 
-              class="form-check-input" 
-              [id]="label"
-              [value]="label"
-              [checked]="this.form.get('labels')?.value?.includes(label)"
-              (change)="onLabelChange($event, label)"
-          >
-          <label class="form-check-label" [for]="label">
-              {{ label }}
-          </label>
+
+      <!-- Labels -->
+      <div class="col-12 mb-3">
+        <label class="form-label">Etiquetas</label>
+        <div class="d-grid" formGroupName="labels">
+          <div *ngFor="let label of filters.allLabels" class="form-check me-3">
+            <input 
+                type="checkbox" 
+                class="form-check-input" 
+                [id]="label"
+                [value]="label"
+                [checked]="this.form.get('labels')?.value?.includes(label)"
+                (change)="onLabelChange($event, label)"
+            >
+            <label class="form-check-label" [for]="label">
+                {{ label }}
+            </label>
+          </div>
         </div>
       </div>
-    </div>
 
+    </div>
   </form>
 </div>
