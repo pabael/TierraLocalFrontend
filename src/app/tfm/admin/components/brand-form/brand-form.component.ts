@@ -58,7 +58,6 @@ export class BrandFormComponent implements OnInit{
         this.form.patchValue(this.editBrand); 
         this.editBrand.consumers?.map(consumer => this.consumersArray.push(this.fb.control(consumer)));
         this.editBrand.labels?.map(label => this.labelsArray.push(this.fb.control(label)));
-        console.log(this.labelsArray.value);
 
         this.editBrand.categories?.map(category => this.categoriesArray.push(this.fb.control(category)));
         this.editBrand.locations?.map(location => this.locationsArray.push(this.fb.control(location)));

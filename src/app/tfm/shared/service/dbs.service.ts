@@ -44,13 +44,13 @@ export class DbsService {
     );  
   }
 
-  getAllProvinces(autonomousCommunity: string ): Observable<string[]>{
+  getAllProvincesOfAutonomousCommunities(autonomousCommunity: string ): Observable<string[]>{
     return this.http.get<{ name: string }[]>(`${this.apiUrl}provinces?autonomousCommunity=${autonomousCommunity}`).pipe(
       map(provinces => provinces.map(province => province.name))
     );  
   }
 
-  getAllLocations(province: string): Observable<string[]>{
+  getAllLocationsOfProvince(province: string): Observable<string[]>{
     return this.http.get<{ name: string }[]>(`${this.apiUrl}locations?province=${province}`).pipe(
       map(locations => locations.map(location => location.name))
     );  
@@ -93,50 +93,6 @@ export class DbsService {
     return this.http.post<any>(`${this.apiUrl}label`, label, { headers });
   }
 
-  getAllDataForBrandForm() : Data{
-    
-    let formInfo: Data = {
-      allCategories: [],
-      allLabels:    [],
-      allConsumers: [],
-      allPrices: [],
-      allAutonomousCommunities: [],
-      allProvinces: [],
-      allLocations: []
-    };    
-
-    this.getAllCategories().subscribe(
-      (data) => {
-        formInfo.allCategories = data;
-      }
-    );
-
-    this.getAllLabels().subscribe(
-      (data) => {
-        formInfo.allLabels = data;
-      }
-    );
-
-    this.getAllConsumers().subscribe(
-      (data) => {
-        formInfo.allConsumers = data;
-      }
-    );
-
-    this.getAllPrices().subscribe(
-      (data) => {
-        formInfo.allPrices = data;
-      }
-    );
-
-    this.getAllAutonomousCommunities().subscribe(
-      (data) => {
-        formInfo.allAutonomousCommunities = data;
-      }
-    );
-    return formInfo;
-  }
-
   getBrandsWithFilters(filters: any): Observable<Brand[]>{
     let params = new HttpParams();
     Object.keys(filters).forEach((key) => {
@@ -153,4 +109,17 @@ export class DbsService {
     });
     return this.http.get<Brand[]>(`${this.apiUrl}brands/filter?`, { params });
   } 
+
+  getLocationsWithBrands(): Observable<string[]>{
+    return this.http.get<{ name: string }[]>(`${this.apiUrl}locations/with-brands`).pipe(
+      map(locations => locations.map(location => location.name))
+    );  
+  }
+
+  getProvincesWithBrands(): Observable<string[]>{
+    return this.http.get<{ name: string }[]>(`${this.apiUrl}provinces/with-brands`).pipe(
+      map(provinces => provinces.map(province => province.name))
+    );  
+  }
+
 }

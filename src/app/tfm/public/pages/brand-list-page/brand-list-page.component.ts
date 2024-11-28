@@ -25,12 +25,12 @@ export class BrandListPageComponent implements OnInit {
     allLocations: []
   }; 
 
-  constructor(private publicService: PublicService, private dbsService: DbsService, private sharedService: SharedService,private router: Router){
+  constructor(private publicService: PublicService, private sharedService: SharedService,private router: Router){
   }
 
   ngOnInit(): void {
     this.updateList();
-    this.filters = this.dbsService.getAllDataForBrandForm();
+    this.filters = this.publicService.getAllDataForFilters();
   }
 
   private updateList(){
@@ -49,7 +49,6 @@ export class BrandListPageComponent implements OnInit {
   }
 
   filterChange(filters: any){
-    console.log(filters);
     this.publicService.getBrandsNameWithFilters(filters).subscribe({
       next:(result) => {
         this.brandsList = result;

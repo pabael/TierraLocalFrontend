@@ -1,15 +1,15 @@
+import { Data } from './../../shared/models/Data';
 import { Injectable } from '@angular/core';
 import { DbsService } from '../../shared/service/dbs.service';
-import { SharedService } from '../../shared/service/shared.service';
-import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
+import { AdminService } from '../../admin/services/admin.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublicService {
 
-  constructor(private dbsService: DbsService) { }
+  constructor(private dbsService: DbsService, private adminService: AdminService) { }
   
   getallBrandsName(): Observable<string[]>{
     return this.dbsService.getAllBrands().pipe(
@@ -22,5 +22,22 @@ export class PublicService {
     .pipe(
       map(list => list.map(brand => brand.name))
     );
+  }
+
+  getAllDataForFilters(): Data{
+
+    let filtersInfo: Data =  this.adminService.getAllDataForBrandForm();
+    this.dbsService.getLocationsWithBrands().subscribe(
+      (data) => {
+        filtersInfo.allLocations = data;
+      }
+    );
+
+    this.dbsService.getProvincesWithBrands().subscribe(
+      (data) => {
+        filtersInfo.allProvinces = data;
+      }
+    );
+    return filtersInfo;
   }
 }

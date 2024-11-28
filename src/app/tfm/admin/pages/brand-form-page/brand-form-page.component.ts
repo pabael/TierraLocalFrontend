@@ -31,7 +31,7 @@ export class BrandFormPageComponent implements OnInit{
   constructor(private route: ActivatedRoute, private dbsService: DbsService, private adminService: AdminService, private sharedService: SharedService){}
 
   ngOnInit(){
-    this.formInfo = this.dbsService.getAllDataForBrandForm();
+    this.formInfo = this.adminService.getAllDataForBrandForm();
     this.route.params.subscribe(params => {
       if (params['name']) {
         this.editMode = true;
@@ -60,7 +60,7 @@ export class BrandFormPageComponent implements OnInit{
   }
 
   autonomousCommunityChange(autonomousCommunity: string){
-    this.dbsService.getAllProvinces(autonomousCommunity).subscribe(
+    this.dbsService.getAllProvincesOfAutonomousCommunities(autonomousCommunity).subscribe(
       (data) => {
         this.formInfo.allProvinces = data;
       }
@@ -68,7 +68,7 @@ export class BrandFormPageComponent implements OnInit{
   }
 
   provinceChange(province: string){
-    this.dbsService.getAllLocations(province).subscribe(
+    this.dbsService.getAllLocationsOfProvince(province).subscribe(
       (data) => {
         this.formInfo.allLocations = data;
       }

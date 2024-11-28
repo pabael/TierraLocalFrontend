@@ -29,7 +29,7 @@
 
       <!-- Categories -->
       <div class="col-md-4 mb-3">
-        <label class="form-label" for="category">Category:</label>
+        <label class="form-label" for="category">Categoría:</label>
         <div class="d-flex">
           <select class="form-select" id="category" formControlName="category" (change)="loadSubcategories()">
             <option> TODAS </option>
@@ -40,7 +40,7 @@
 
       <!-- Subcategories -->
       <div class="col-md-4 mb-3">
-        <label class="form-label">Subcategories:</label>
+        <label class="form-label">Subcategoría:</label>
         <select class="form-select" id="subcategory" formControlName="subcategory" (change)="filterChange()">
           <option> TODAS </option>
           <option *ngFor="let subcat of filteredSubcategories" [value]="subcat">{{ subcat }}</option>
@@ -78,7 +78,7 @@
 
       <!-- Price -->
       <div class="col-md-4 mb-3">
-        <label class="form-label">Price</label>
+        <label class="form-label">Rango de precio</label>
         <select class="form-select" id="price" formControlName="price" (change)="filterChange()">
           <option [value]="0"> TODAS </option>
           <option *ngFor="let price of filters.allPrices" [value]="price">{{ price }}</option>
@@ -88,7 +88,7 @@
       <!-- Autonomous Community -->
       <div class="col-md-4 mb-3">
         <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
-        <select class="form-select" id="autonomousCommunity" formControlName="autonomousCommunity" (change)="filterChange()">
+        <select class="form-select" id="autonomousCommunity" formControlName="autonomousCommunity" (change)="onAutonomousCommunityChange()" [disabled]="form.get('autonomousCommunity')?.disabled ?? false">
           <option> TODAS </option>
           <option *ngFor="let community of filters.allAutonomousCommunities" [value]="community">{{ community }}</option>
         </select>
@@ -97,7 +97,7 @@
       <!-- Province -->
       <div class="col-md-4 mb-3">
         <label for="province" class="form-label">Provincia</label>
-        <select class="form-select" id="province" formControlName="province" (change)="filterChange()">
+        <select class="form-select" id="province" formControlName="province" (change)="onProvinceChange()" [disabled]="form.get('province')?.disabled ?? false">
           <option> TODAS </option>
           <option *ngFor="let province of filters.allProvinces" [value]="province">{{ province }}</option>
         </select>
@@ -105,8 +105,8 @@
 
       <!-- Location -->
       <div class="col-md-4 mb-3">
-        <label for="location" class="form-label">Location</label>
-        <select class="form-select" id="location" formControlName="location" (change)="filterChange()">
+        <label for="location" class="form-label">Localidad</label>
+        <select class="form-select" id="location" formControlName="location" (change)="onLocationChange()" [disabled]="form.get('location')?.disabled ?? false">
           <option> TODAS </option>
           <option *ngFor="let location of filters.allLocations" [value]="location">{{ location }}</option>
         </select>

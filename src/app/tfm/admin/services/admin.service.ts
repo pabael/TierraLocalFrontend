@@ -1,3 +1,4 @@
+import { Data } from './../../shared/models/Data';
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -15,6 +16,50 @@ import { map, Observable } from 'rxjs';
 export class AdminService {
 
   constructor(private dbsService: DbsService, private sharedService: SharedService, private router: Router) { }
+
+  getAllDataForBrandForm() : Data{
+    
+    let formInfo: Data = {
+      allCategories: [],
+      allLabels:    [],
+      allConsumers: [],
+      allPrices: [],
+      allAutonomousCommunities: [],
+      allProvinces: [],
+      allLocations: []
+    };    
+
+    this.dbsService.getAllCategories().subscribe(
+      (data) => {
+        formInfo.allCategories = data;
+      }
+    );
+
+    this.dbsService.getAllLabels().subscribe(
+      (data) => {
+        formInfo.allLabels = data;
+      }
+    );
+
+    this.dbsService.getAllConsumers().subscribe(
+      (data) => {
+        formInfo.allConsumers = data;
+      }
+    );
+
+    this.dbsService.getAllPrices().subscribe(
+      (data) => {
+        formInfo.allPrices = data;
+      }
+    );
+
+    this.dbsService.getAllAutonomousCommunities().subscribe(
+      (data) => {
+        formInfo.allAutonomousCommunities = data;
+      }
+    );
+    return formInfo;
+  }
   
   createBrand(brand: Brand): void{
     this.dbsService.createBrand(brand).subscribe({
@@ -37,7 +82,6 @@ export class AdminService {
       }
     })
   }
-
 
   createCategory(category: Category): void{
     this.dbsService.createCategory(category).subscribe({
