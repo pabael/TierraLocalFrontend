@@ -15,6 +15,7 @@ import { ConsumersFormComponent } from './components/consumers-form/consumers-fo
 import { BrandsListComponent } from './components/brands-list/brands-list.component';
 import { EditPageComponent } from './pages/edit-page/edit-page.component';
 import { LoginComponent } from './components/login/login.component';
+import { SubcategoriesFormComponent } from './components/subcategories-form/subcategories-form.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LoginComponent } from './components/login/login.component';
     ConsumersFormComponent,
     BrandsListComponent,
     EditPageComponent,
-    LoginComponent
+    LoginComponent,
+    SubcategoriesFormComponent
   ],
   imports: [
     CommonModule,

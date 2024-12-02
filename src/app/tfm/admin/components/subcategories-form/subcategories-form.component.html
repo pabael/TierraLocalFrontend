@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <h2>Añadir subcategoría a una categoría ya creada</h2>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+      <!-- Categories -->
+      <div class="mb-3">
+          <label class="form-label" for="category">Categoría:</label>
+          <div class="d-flex">
+              <select class="form-select" id="category" formControlName="name">
+                  <option *ngFor="let cat of allCategories" [value]="cat.name">{{ cat.name }}</option>
+              </select>
+          </div>
+      </div>
+  
+      <!-- Subcategories -->
+      <div class="mb-3">
+          <label for="subcategories" class="form-label">Subcategorías</label>
+          <textarea 
+              class="form-control" 
+              id="subcategories" 
+              formControlName="subcategories" 
+              rows="3"
+              (input)="changeInput()">
+          </textarea>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary mt-2">Añadir</button>
+      <span class="message"> {{ message }} </span>
+  </form>
+</div>

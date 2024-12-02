@@ -83,6 +83,11 @@ export class DbsService {
     return this.http.post<any>(`${this.apiUrl}category`, category, { headers });
   }
 
+  createSubcategory({ name, category }: { name: string; category: string }): any {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<any>(`${this.apiUrl}subcategory`, {name: name, category: category}, { headers });
+  }
+
   createConsumer(consumer: Consumer): any {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(`${this.apiUrl}consumer`, consumer, { headers });

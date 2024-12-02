@@ -75,7 +75,7 @@
             
             <!-- Categories -->
             <div class="mb-3">
-                <label class="form-label" for="category">Category:</label>
+                <label class="form-label" for="category">Categoría:</label>
                 <div class="d-flex">
                     <select class="form-select" id="category" [formControl]="categoryControl" (change)="onCategoryChange($event)">
                         <option *ngFor="let cat of formInfo.allCategories" [value]="cat.name">{{ cat.name }}</option>
@@ -85,7 +85,7 @@
             
             <!-- Subcategories -->
             <div *ngIf="currentSubcategories && currentSubcategories.length > 0" class="mb-3">
-                <label class="form-label">Subcategories:</label>
+                <label class="form-label">Subcategorías:</label>
                 <div *ngFor="let subcat of currentSubcategories">
                   <input
                     type="checkbox"
@@ -97,7 +97,7 @@
                 </div>
             </div>
     
-            <button type="button" class="btn btn-secondary mt-2" (click)="addCategory()">Add Category</button>
+            <button type="button" class="btn btn-secondary mt-2" (click)="addCategory()">Añadir categoría</button>
         </div>
 
         <!-- Categories selected -->
@@ -115,12 +115,12 @@
         <!-- Labels -->
         <div class="mb-3">
             <label class="form-label">Etiquetas</label>
-            <div class="d-flex" formGroupName="labels">
-                <div *ngFor="let label of formInfo.allLabels" class="form-check me-3">
+            <div class="row" formGroupName="labels">
+                <div *ngFor="let label of formInfo.allLabels" class="col-md-4 form-check">
                     <input 
                         type="checkbox" 
                         class="form-check-input" 
-                        [id]=label
+                        [id]="label"
                         [value]="label"
                         [checked]="this.form.get('labels')?.value?.includes(label)"
                         (change)="onLabelChange($event, label)"

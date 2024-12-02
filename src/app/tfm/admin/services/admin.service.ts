@@ -91,6 +91,16 @@ export class AdminService {
     })
   }
 
+  createSubcategory(category: Category): void{
+    category.subcategories?.forEach(subcategory => {
+      this.dbsService.createSubcategory({name: subcategory, category: category.name}).subscribe({
+        error: (error:HttpErrorResponse) => {
+          this.sharedService.setError = error;
+        }
+      })
+    });
+  }
+
   createConsumer(consumer: Consumer): void{
     this.dbsService.createConsumer(consumer).subscribe({
       error: (error:HttpErrorResponse) => {

@@ -4,6 +4,13 @@
 (onSubmit)="categoryFormSubmited($event)">
 </app-categories-form>
 
+<app-subcategories-form
+[message] = "messageSubcategory"
+[allCategories] = "allCategories"
+(onChangeInput) = "cleanMessage()"
+(onSubmit)="subcategoryFormSubmited($event)">
+</app-subcategories-form>
+
 <app-consumers-form
 [message] = "messageConsumer"
 (onChangeInput) = "cleanMessage()"
