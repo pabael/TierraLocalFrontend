@@ -40,4 +40,12 @@ export class PublicService {
     );
     return filtersInfo;
   }
+
+  getBrandsNameForProvince(province: string): Observable<string[]>{
+    return this.dbsService.getBrandsForProvince(province)
+    .pipe(
+      map(list => list.map(brand => brand.name))
+    );
+  }
+
 }

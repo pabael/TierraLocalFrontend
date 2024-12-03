@@ -10,6 +10,7 @@ import { BrandsListComponent } from './components/brands-list/brands-list.compon
 import { BrandListPageComponent } from './pages/brand-list-page/brand-list-page.component';
 import { FiltersComponent } from './components/filters/filters.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     BrandCardComponent,
     BrandsListComponent,
     BrandListPageComponent,
-    FiltersComponent
+    FiltersComponent,
+    MapComponent
   ],
   imports: [
     CommonModule,    

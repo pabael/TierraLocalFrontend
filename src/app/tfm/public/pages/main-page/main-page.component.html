@@ -12,5 +12,19 @@
   </nav>
 </header>
 <main>
+  <div class="d-flex flex-row">
+    <app-map class="flex-grow-1" *ngIf="provinces.length > 0" 
+      [provinces]="provinces"
+      (onProvince)="provinceClicked($event)"></app-map>
+  
+    <div class="col-md-4 d-flex flex-column" style="overflow-y: auto; height: 100%;">
+      <app-brands-list 
+        *ngIf="brandsList.length > 0" 
+        [brandsList]="brandsList" 
+        (onBrandDetails)="brandDetails($event)">
+      </app-brands-list>
+    </div>
+  </div>
+  
   <router-outlet></router-outlet>
 </main>

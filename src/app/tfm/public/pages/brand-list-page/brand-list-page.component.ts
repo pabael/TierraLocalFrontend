@@ -25,7 +25,7 @@ export class BrandListPageComponent implements OnInit {
     allLocations: []
   }; 
 
-  constructor(private publicService: PublicService, private sharedService: SharedService,private router: Router){
+  constructor(private publicService: PublicService, private sharedService: SharedService, private router: Router){
   }
 
   ngOnInit(): void {

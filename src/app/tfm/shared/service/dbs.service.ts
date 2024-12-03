@@ -128,4 +128,8 @@ export class DbsService {
     );  
   }
 
+  getBrandsForProvince(province: string): Observable<Brand[]>{
+    return this.http.get<Brand[]>(`${this.apiUrl}brands/province?province=${province}`);
+  }
+
 }
