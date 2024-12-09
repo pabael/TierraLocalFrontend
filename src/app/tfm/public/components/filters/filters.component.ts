@@ -123,8 +123,6 @@ export class FiltersComponent implements OnInit {
   }
 
   filterChange(): void {
-
-
     const filteredFormValue = Object.fromEntries(
       Object.entries(this.form.value)
         .filter(([_, value]) => value !== null && value !== '' && value !== undefined && value !== false && (!Array.isArray(value) || value.length > 0) && value !== "0" && value != "TODAS")

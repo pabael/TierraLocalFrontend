@@ -12,7 +12,11 @@
   </nav>
 </header>
 <main>
-  <div class="d-flex flex-row">
+  <div class="d-flex flex-column">
+    <app-categories-menu *ngIf="allCategories.length > 0" 
+    [categories]="allCategories">
+    </app-categories-menu>
+
     <app-map class="flex-grow-1" *ngIf="provinces.length > 0" 
       [provinces]="provinces"
       (onProvince)="provinceClicked($event)"></app-map>

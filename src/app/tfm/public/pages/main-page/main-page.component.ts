@@ -14,6 +14,7 @@ export class MainPageComponent implements OnInit{
 
   brandsList: string[] = [];
   provinces: string[] = [];
+  allCategories: string[] = [];
 
   constructor(private router: Router, private publicService: PublicService, private sharedService: SharedService, private dbsService: DbsService){  }
 
@@ -26,6 +27,15 @@ export class MainPageComponent implements OnInit{
         this.sharedService.setError = error;
       }
     });
+
+    this.dbsService.getAllCategories().subscribe({
+      next:(categories)=>{
+        this.allCategories = categories.map(category => category.name);
+      },
+      error: (error:HttpErrorResponse) => {
+        this.sharedService.setError = error;
+      }
+    })
   }
 
   provinceClicked(province: string): void{

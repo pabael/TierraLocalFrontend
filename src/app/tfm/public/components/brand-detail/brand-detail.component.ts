@@ -13,7 +13,7 @@ import { SharedService } from '../../../shared/service/shared.service';
 export class BrandDetailComponent implements OnInit {
 
   public brand: Brand = {
-    name:                       ''
+    name: ''
   };
 
   constructor(private route: ActivatedRoute, private dbsService: DbsService, private sharedService: SharedService) {

@@ -1,0 +1,12 @@
+<div class="categories-container">
+  <nav class="navbar">
+    <ul class="navbar-nav">
+      <li class="nav-item" *ngFor="let category of categories">
+        <a class="nav-link" [routerLink]="['/brands', category]">
+          <i class="fa-solid fa-shirt"></i>
+          <p>{{ category }}</p>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

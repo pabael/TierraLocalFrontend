@@ -11,6 +11,7 @@ import { BrandListPageComponent } from './pages/brand-list-page/brand-list-page.
 import { FiltersComponent } from './components/filters/filters.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MapComponent } from './components/map/map.component';
+import { CategoriesMenuComponent } from './components/categories-menu/categories-menu.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MapComponent } from './components/map/map.component';
     BrandsListComponent,
     BrandListPageComponent,
     FiltersComponent,
-    MapComponent
+    MapComponent,
+    CategoriesMenuComponent
   ],
   imports: [
     CommonModule,    

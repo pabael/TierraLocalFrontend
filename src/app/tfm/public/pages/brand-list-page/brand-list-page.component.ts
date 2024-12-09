@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../../../shared/service/shared.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PublicService } from '../../services/public.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Data } from '../../../shared/models/Data';
@@ -25,12 +25,19 @@ export class BrandListPageComponent implements OnInit {
     allLocations: []
   }; 
 
-  constructor(private publicService: PublicService, private sharedService: SharedService, private router: Router){
+  constructor(private route: ActivatedRoute, private publicService: PublicService, private sharedService: SharedService, private router: Router){
   }
 
   ngOnInit(): void {
-    this.updateList();
     this.filters = this.publicService.getAllDataForFilters();
+
+    this.route.params.subscribe(params => {
+      if (params['category']) {
+        this.filterChange({category: params['category']});
+      }else{
+        this.updateList();
+      }
+    });
   }
 
   private updateList(){

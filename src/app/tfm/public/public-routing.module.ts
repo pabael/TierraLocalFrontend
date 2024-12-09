@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'brands',
     component: BrandListPageComponent
+  },
+  {
+    path: 'brands/:category',
+    component: BrandListPageComponent
   }
 ];
 

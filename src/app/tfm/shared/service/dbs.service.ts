@@ -132,4 +132,12 @@ export class DbsService {
     return this.http.get<Brand[]>(`${this.apiUrl}brands/province?province=${province}`);
   }
 
+  getBrandsForCategory(category: string): Observable<Brand[]>{
+    return this.http.get<Brand[]>(`${this.apiUrl}brands/category?category=${category}`);
+  }
+
+  getBrandsForSubcategory(category: string, subcategory: string): Observable<Brand[]>{
+    return this.http.get<Brand[]>(`${this.apiUrl}brands/subcategory?subcategory=${subcategory}&category=${category}`);
+  }
+
 }
