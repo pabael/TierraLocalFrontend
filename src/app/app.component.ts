@@ -3,6 +3,7 @@ import { DbsService } from './tfm/shared/service/dbs.service';
 import { Category } from './tfm/shared/models/Category';
 import { SharedService } from './tfm/shared/service/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AppComponent implements OnInit{
   title = 'tfm-frontend';
 
-  constructor(private dbsService: DbsService, private sharedService: SharedService){}
+  constructor(private router: Router, private dbsService: DbsService, private sharedService: SharedService){}
   allCategories: Category[] = [];
 
   ngOnInit(): void {
@@ -25,4 +26,13 @@ export class AppComponent implements OnInit{
       }
     })
   }
+
+  categoryClicked(category: string){
+    this.router.navigate(['/brands', category]);
+  }
+
+  subcategoryClicked(data: {category: string, subcategory: string}){
+    this.router.navigate(['/brands', data.category, data.subcategory]);
+  }
+
 }

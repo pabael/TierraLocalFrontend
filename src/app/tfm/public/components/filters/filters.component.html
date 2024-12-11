@@ -27,15 +27,6 @@
         >
       </div>
 
-      <!-- Subcategories -->
-      <div class="col-12 mb-3">
-        <label class="form-label">Subcategoría:</label>
-        <select class="form-select" id="subcategory" formControlName="subcategory" (change)="filterChange()">
-          <option> TODAS </option>
-          <option *ngFor="let subcat of filters.allCategories[0]?.subcategories" [value]="subcat">{{ subcat }}</option>
-        </select>
-      </div>
-
       <!-- Consumer -->
       <div class="col-12 mb-3">
         <label for="consumers" class="form-label">Consumidores</label>

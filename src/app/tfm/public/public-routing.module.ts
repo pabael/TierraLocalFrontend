@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'brands/:category',
     component: BrandListPageComponent
+  },
+  {
+    path: 'brands/:category/:subcategory',
+    component: BrandListPageComponent
   }
 ];
 

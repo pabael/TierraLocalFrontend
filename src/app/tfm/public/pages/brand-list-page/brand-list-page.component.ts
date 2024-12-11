@@ -34,9 +34,11 @@ export class BrandListPageComponent implements OnInit {
       next:(result) => {
         this.filters = result;
         this.route.params.subscribe(params => {
-          if (params['category']) {
+          if(params['subcategory']){
+            this.filterChange({category: params['category'], subcategory: params['subcategory']});
+          }
+          else if (params['category']) {
             this.filterChange({category: params['category']});
-            this.filters.allCategories = this.filters.allCategories.filter(category => category.name == params['category']);
           }else{
             this.updateList();
           }

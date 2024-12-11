@@ -1,63 +1,45 @@
-/* menu.component.css */
-.menu-container 
+.menu-container
   position: relative
 
-
-.menu-toggle 
-  background-color: #007bff
-  color: white
-  border: none
-  padding: 10px 20px
-  cursor: pointer
-  font-size: 18px
-
-
-.menu 
-  position: absolute
-  top: 50px
-  left: 0
-  background-color: white
-  width: 250px
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+.menu
   display: none
-  z-index: 1000
+  flex-direction: column
 
-
-.menu.active 
+.menu.active
   display: block
 
+.category-toggle
+  display: block
+  padding: 10px
+  width: 100%
+  background-color: #f0f0f0
+  border: none
+  text-align: left
+  cursor: pointer
 
-.menu-list 
+.submenu
+  display: none
+  position: absolute
+  left: 100%
+  top: 0
+  background-color: #fff
+  box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1)
+  width: 200px
+  z-index: 10
+  list-style: none
+  padding: 10px
+  cursor: pointer
+
+.submenu.active
+  display: block
+
+.menu-list
   list-style: none
   padding: 0
   margin: 0
 
+.menu-list li
+  position: relative
 
-.menu-list > li 
-  border-bottom: 1px solid #f1f1f1
-
-
-.category-toggle 
-  background: none
-  border: none
-  width: 100%
-  text-align: left
-  padding: 10px 15px
-  cursor: pointer
-  font-size: 16px
-
-
-.submenu 
-  list-style: none
-  padding-left: 20px
-  display: none
-
-
-.submenu.active 
+.menu-list li:hover .submenu
   display: block
-
-
-.submenu li 
-  padding: 5px 0
-  font-size: 14px
-

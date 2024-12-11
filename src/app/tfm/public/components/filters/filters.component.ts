@@ -27,8 +27,6 @@ export class FiltersComponent implements OnInit {
   isVegan: boolean = false;
   isCrueltyFree: boolean = false;
 
-  filteredSubcategories: string[] = [];
-
   form: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
@@ -36,7 +34,6 @@ export class FiltersComponent implements OnInit {
     this.form = new FormGroup({
       crueltyFree:            new FormControl(null),
       vegan:                  new FormControl(null),
-      subcategory:              new FormControl("TODAS"),
       labels:                   this.fb.array([]),
       consumer:                 new FormControl("TODAS"),
       price:                    new FormControl("0"),
@@ -111,7 +108,6 @@ export class FiltersComponent implements OnInit {
       Object.entries(this.form.value)
         .filter(([_, value]) => value !== null && value !== '' && value !== undefined && value !== false && (!Array.isArray(value) || value.length > 0) && value !== "0" && value != "TODAS")
     );
-    filteredFormValue['category'] = this.filters.allCategories[0].name;
     this.onChange.emit(filteredFormValue);
   }
 }

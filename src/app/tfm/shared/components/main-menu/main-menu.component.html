@@ -3,11 +3,11 @@
   <nav class="menu" [class.active]="menuOpen">
     <ul class="menu-list">
       <li *ngFor="let category of categories">
-        <button class="category-toggle" (click)="toggleSubmenu(category)">
+        <button class="category-toggle" (click)="categoryClicked(category.name)">
           {{ category.name }}
         </button>
         <ul class="submenu" [class.active]="isSubmenuActive(category)">
-          <li *ngFor="let subcategory of category.subcategories">
+          <li *ngFor="let subcategory of category.subcategories" (click)="subcategoryClicked(category.name, subcategory)">
             {{ subcategory }}
           </li>
         </ul>

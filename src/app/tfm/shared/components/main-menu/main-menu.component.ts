@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Category } from '../../models/Category';
 
 @Component({
@@ -12,17 +12,28 @@ export class MainMenuComponent {
   categories: Category[] = [];
   activeCategory: Category | null = null;
 
+  @Output()
+  public onCategoryClicked: EventEmitter<string> = new EventEmitter<string>();
+
+  @Output()
+  public onSubcategoryClicked: EventEmitter<{category: string, subcategory: string}> = new EventEmitter<{category: string, subcategory: string}>();
+
   menuOpen = false;
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
 
-  toggleSubmenu(selectedCategory: Category) {
-    this.activeCategory = this.activeCategory === selectedCategory ? null : selectedCategory;
-  }
 
   isSubmenuActive(category: Category): boolean {
     return this.activeCategory === category;
+  }
+
+  categoryClicked(category: string){
+    this.onCategoryClicked.emit(category);
+  }
+
+  subcategoryClicked(category: string, subcategory: string){
+    this.onSubcategoryClicked.emit({category, subcategory});
   }
 }

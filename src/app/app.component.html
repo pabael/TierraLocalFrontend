@@ -1,6 +1,8 @@
 
 <header>
   <app-main-menu *ngIf = "allCategories.length> 0"
+    (onCategoryClicked)="categoryClicked($event)"
+    (onSubcategoryClicked)="subcategoryClicked($event)"
     [categories]="allCategories">
   </app-main-menu>
   <a class="navbar-brand" routerLink="/main">TierraLocal</a>
