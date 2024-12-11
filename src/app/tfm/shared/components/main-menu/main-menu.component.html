@@ -1,0 +1,17 @@
+<div class="menu-container">
+  <button class="menu-toggle" (click)="toggleMenu()">☰ Menú</button>
+  <nav class="menu" [class.active]="menuOpen">
+    <ul class="menu-list">
+      <li *ngFor="let category of categories">
+        <button class="category-toggle" (click)="toggleSubmenu(category)">
+          {{ category.name }}
+        </button>
+        <ul class="submenu" [class.active]="isSubmenuActive(category)">
+          <li *ngFor="let subcategory of category.subcategories">
+            {{ subcategory }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>

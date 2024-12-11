@@ -38,6 +38,10 @@ export class MainPageComponent implements OnInit{
     })
   }
 
+  categoryClicked(category: string): void{
+    this.router.navigate(['/brands', category]);
+  }
+
   provinceClicked(province: string): void{
     this.publicService.getBrandsNameForProvince(province).subscribe({
       next:(list) => {

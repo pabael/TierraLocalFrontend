@@ -1,7 +1,7 @@
 import { Data } from './../../shared/models/Data';
 import { Injectable } from '@angular/core';
 import { DbsService } from '../../shared/service/dbs.service';
-import { map, Observable } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
 import { AdminService } from '../../admin/services/admin.service';
 
 @Injectable({
@@ -24,21 +24,19 @@ export class PublicService {
     );
   }
 
-  getAllDataForFilters(): Data{
-
-    let filtersInfo: Data =  this.adminService.getAllDataForBrandForm();
-    this.dbsService.getLocationsWithBrands().subscribe(
-      (data) => {
-        filtersInfo.allLocations = data;
-      }
+  getAllDataForFilters(): Observable<Data> {
+    const filtersInfo: Data = this.adminService.getAllDataForBrandForm();
+  
+    return forkJoin({
+      allLocations: this.dbsService.getLocationsWithBrands(),
+      allProvinces: this.dbsService.getProvincesWithBrands(),
+    }).pipe(
+      map(results => ({
+        ...filtersInfo,
+        allLocations: results.allLocations, 
+        allProvinces: results.allProvinces,
+      }))
     );
-
-    this.dbsService.getProvincesWithBrands().subscribe(
-      (data) => {
-        filtersInfo.allProvinces = data;
-      }
-    );
-    return filtersInfo;
   }
 
   getBrandsNameForProvince(province: string): Observable<string[]>{

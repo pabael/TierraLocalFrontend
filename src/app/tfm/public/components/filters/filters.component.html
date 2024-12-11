@@ -27,23 +27,12 @@
         >
       </div>
 
-      <!-- Categories -->
-      <div class="col-12 mb-3">
-        <label class="form-label" for="category">Categoría:</label>
-        <div class="d-flex">
-          <select class="form-select" id="category" formControlName="category" (change)="loadSubcategories()">
-            <option> TODAS </option>
-            <option *ngFor="let cat of filters.allCategories" [value]="cat.name">{{ cat.name }}</option>
-          </select>
-        </div>
-      </div>
-
       <!-- Subcategories -->
       <div class="col-12 mb-3">
         <label class="form-label">Subcategoría:</label>
         <select class="form-select" id="subcategory" formControlName="subcategory" (change)="filterChange()">
           <option> TODAS </option>
-          <option *ngFor="let subcat of filteredSubcategories" [value]="subcat">{{ subcat }}</option>
+          <option *ngFor="let subcat of filters.allCategories[0]?.subcategories" [value]="subcat">{{ subcat }}</option>
         </select>
       </div>
 

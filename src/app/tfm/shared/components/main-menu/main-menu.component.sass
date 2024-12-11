@@ -1,0 +1,63 @@
+/* menu.component.css */
+.menu-container 
+  position: relative
+
+
+.menu-toggle 
+  background-color: #007bff
+  color: white
+  border: none
+  padding: 10px 20px
+  cursor: pointer
+  font-size: 18px
+
+
+.menu 
+  position: absolute
+  top: 50px
+  left: 0
+  background-color: white
+  width: 250px
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)
+  display: none
+  z-index: 1000
+
+
+.menu.active 
+  display: block
+
+
+.menu-list 
+  list-style: none
+  padding: 0
+  margin: 0
+
+
+.menu-list > li 
+  border-bottom: 1px solid #f1f1f1
+
+
+.category-toggle 
+  background: none
+  border: none
+  width: 100%
+  text-align: left
+  padding: 10px 15px
+  cursor: pointer
+  font-size: 16px
+
+
+.submenu 
+  list-style: none
+  padding-left: 20px
+  display: none
+
+
+.submenu.active 
+  display: block
+
+
+.submenu li 
+  padding: 5px 0
+  font-size: 14px
+

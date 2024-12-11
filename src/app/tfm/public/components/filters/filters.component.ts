@@ -32,11 +32,11 @@ export class FiltersComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
+    console.log(this.filters);
     this.form = new FormGroup({
       crueltyFree:            new FormControl(null),
       vegan:                  new FormControl(null),
-      category:                 new FormControl("TODAS"),
-      subcategory:              new FormControl(null),
+      subcategory:              new FormControl("TODAS"),
       labels:                   this.fb.array([]),
       consumer:                 new FormControl("TODAS"),
       price:                    new FormControl("0"),
@@ -44,23 +44,7 @@ export class FiltersComponent implements OnInit {
       province:                 new FormControl({ value: "TODAS", disabled: false }),
       location:                 new FormControl({ value: "TODAS", disabled: false })
     }); 
-  }
-  
-  loadSubcategories() {
-    const selectedCategory = this.form.get('category')?.value;
 
-    this.filteredSubcategories = [];
-
-    const selectedCategoryObj = this.filters.allCategories.find(
-      category => category.name === selectedCategory
-    );
-
-    if (selectedCategoryObj && selectedCategoryObj.subcategories) {
-      this.filteredSubcategories = selectedCategoryObj.subcategories;
-      this.form.get("subcategory")?.setValue("TODAS");
-    }
-
-    this.filterChange();
   }
 
   onAutonomousCommunityChange(){
@@ -127,6 +111,7 @@ export class FiltersComponent implements OnInit {
       Object.entries(this.form.value)
         .filter(([_, value]) => value !== null && value !== '' && value !== undefined && value !== false && (!Array.isArray(value) || value.length > 0) && value !== "0" && value != "TODAS")
     );
+    filteredFormValue['category'] = this.filters.allCategories[0].name;
     this.onChange.emit(filteredFormValue);
   }
 }

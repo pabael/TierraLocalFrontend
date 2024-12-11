@@ -14,6 +14,7 @@
 <main>
   <div class="d-flex flex-column">
     <app-categories-menu *ngIf="allCategories.length > 0" 
+    (onCategoryClicked) = "categoryClicked($event)"
     [categories]="allCategories">
     </app-categories-menu>
     <div class="map d-flex flex-row">

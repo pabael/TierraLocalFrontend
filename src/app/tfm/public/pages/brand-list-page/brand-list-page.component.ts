@@ -29,15 +29,23 @@ export class BrandListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filters = this.publicService.getAllDataForFilters();
 
-    this.route.params.subscribe(params => {
-      if (params['category']) {
-        this.filterChange({category: params['category']});
-      }else{
-        this.updateList();
+    this.publicService.getAllDataForFilters().subscribe({
+      next:(result) => {
+        this.filters = result;
+        this.route.params.subscribe(params => {
+          if (params['category']) {
+            this.filterChange({category: params['category']});
+            this.filters.allCategories = this.filters.allCategories.filter(category => category.name == params['category']);
+          }else{
+            this.updateList();
+          }
+        });
+      },
+      error: (error:HttpErrorResponse) => {
+        this.sharedService.setError = error;
       }
-    });
+    })
   }
 
   private updateList(){
