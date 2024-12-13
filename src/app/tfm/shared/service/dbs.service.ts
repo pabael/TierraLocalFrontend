@@ -13,7 +13,7 @@ import { Label } from '../models/Label';
 })
 export class DbsService {
 
-  apiUrl: string = 'http://localhost:8080/';
+  apiUrl: string = 'https://tierralocal.onrender.com/';
   constructor(private http:HttpClient, private router: Router) { }
 
   getAllCategories(): Observable<Category[]>{
