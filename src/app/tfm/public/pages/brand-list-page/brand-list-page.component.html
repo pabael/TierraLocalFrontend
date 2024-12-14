@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col-md-2">
       <app-filters *ngIf="filtersLoaded"
-        [categoryApplied]="categoryApplied"
         [filters]="filters" 
         (onChange)="filterChange($event)"
         (onSubcategoryChange)="subcategoryChange($event)">

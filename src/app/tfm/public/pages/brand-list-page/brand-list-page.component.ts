@@ -26,8 +26,6 @@ export class BrandListPageComponent implements OnInit {
     allLocations: []
   }; 
 
-  categoryApplied: Category | null = null;
-
   filtersLoaded: boolean = false;
 
   constructor(private route: ActivatedRoute, private publicService: PublicService, private sharedService: SharedService, private router: Router){
@@ -41,11 +39,9 @@ export class BrandListPageComponent implements OnInit {
         this.route.params.subscribe(params => {
           if(params['subcategory']){
             this.filterChange({category: params['category'], subcategory: params['subcategory']});
-            this.categoryApplied = {name:params['category'], subcategories: [params['subcategory']]};
           }
           else if (params['category']) {
             this.filterChange({category: params['category']});
-            this.categoryApplied = {name:params['category'], subcategories: []};
           }else{
             this.updateList();
           }

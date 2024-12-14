@@ -16,12 +16,23 @@
         </ol>
       </nav>
 
+      <!-- Categories -->
+      <div class="col-12 mb-3" *ngIf="!categoryApplied">
+        <label class="form-label" for="category">Categoría:</label>
+        <div class="d-flex">
+          <select class="form-select" id="category" formControlName="category" (change)="loadSubcategories()">
+            <option> TODAS </option>
+            <option *ngFor="let cat of filters.allCategories" [value]="cat.name">{{ cat.name }}</option>
+          </select>
+        </div>
+      </div>
+
       <!-- Subcategories -->
-      <div class="col-12 mb-3" *ngIf="subcategoriesAfterFilter">
+      <div class="col-12 mb-3" *ngIf="filteredSubcategories">
         <label class="form-label">Subcategoría:</label>
         <select class="form-select" id="subcategory" formControlName="subcategory" (change)="subcategoryChange()">
           <option> TODAS </option>
-          <option *ngFor="let subcat of subcategoriesAfterFilter" [value]="subcat">{{ subcat }}</option>
+          <option *ngFor="let subcat of filteredSubcategories" [value]="subcat">{{ subcat }}</option>
         </select>
       </div>
       

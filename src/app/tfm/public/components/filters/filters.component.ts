@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Data } from '../../../shared/models/Data';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../../../shared/models/Category';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-filters',
@@ -20,10 +21,8 @@ export class FiltersComponent implements OnInit {
     allLocations: []
   }; 
 
-  @Input()
   categoryApplied: Category | null = null;
-
-  subcategoriesAfterFilter: string[] | null = null;
+  filteredSubcategories: string[] | null = null;
 
   @Output()
   public onChange: EventEmitter<any> = new EventEmitter<any>();
@@ -31,7 +30,7 @@ export class FiltersComponent implements OnInit {
   @Output()
   public onSubcategoryChange: EventEmitter<{category: string, subcategory: string}> = new EventEmitter<{category: string, subcategory: string}>();
 
-  constructor(private fb: FormBuilder){}
+  constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder){}
 
   isVegan: boolean = false;
   isCrueltyFree: boolean = false;
@@ -39,6 +38,19 @@ export class FiltersComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
+
+    this.route.params.subscribe(params => {
+      if(params['subcategory']){
+        this.categoryApplied = {name:params['category'], subcategories: [params['subcategory']]};
+        this.onChange.emit({category: params['category'], subcategory: params['subcategory']});
+      }
+      else if (params['category']) {
+        this.categoryApplied = {name:params['category'], subcategories: []};
+        this.filteredSubcategories = this.filters.allCategories.filter(category => category.name == params['category'])[0].subcategories;
+        this.onChange.emit({category: params['category']});
+      }
+    });
+    
     const categoryValue = this.categoryApplied ? this.categoryApplied.name : "TODAS";
 
     const subcategoryValue = (this.categoryApplied && this.categoryApplied.subcategories && this.categoryApplied.subcategories.length > 0)
@@ -58,11 +70,28 @@ export class FiltersComponent implements OnInit {
       location:                 new FormControl({ value: "TODAS", disabled: false })
     }); 
 
-    if(this.categoryApplied && this.categoryApplied.subcategories && this.categoryApplied.subcategories.length == 0) this.subcategoriesAfterFilter = this.filters.allCategories.filter(category => category.name == this.categoryApplied?.name)[0].subcategories;
+  }
+
+  loadSubcategories() {
+    const selectedCategory = this.form.get('category')?.value;
+
+    this.filteredSubcategories = [];
+
+    const selectedCategoryObj = this.filters.allCategories.find(
+      category => category.name === selectedCategory
+    );
+
+    if (selectedCategoryObj && selectedCategoryObj.subcategories) {
+      this.filteredSubcategories = selectedCategoryObj.subcategories;
+      this.form.get("subcategory")?.setValue("TODAS");
+    }
+
+    this.filterChange();
   }
 
   subcategoryChange(){
-    this.onSubcategoryChange.emit({category: this.categoryApplied!.name, subcategory: this.form.get('subcategory')?.value});
+    this.filterChange();
+    // this.onSubcategoryChange.emit({category: this.categoryApplied!.name, subcategory: this.form.get('subcategory')?.value});
   }
 
   onAutonomousCommunityChange(){
@@ -127,9 +156,48 @@ export class FiltersComponent implements OnInit {
   filterChange(): void {
     const filteredFormValue = Object.fromEntries(
       Object.entries(this.form.value)
-        .filter(([_, value]) => value !== null && value !== '' && value !== undefined && value !== false && (!Array.isArray(value) || value.length > 0) && value !== "0" && value != "TODAS")
+        .filter(([_, value]) => 
+          value !== null && 
+          value !== '' && 
+          value !== undefined && 
+          value !== false && 
+          (!Array.isArray(value) || value.length > 0) && 
+          value !== "0" && 
+          value !== "TODAS"
+        )
     );
-
+  
     this.onChange.emit(filteredFormValue);
+  
+    const { category, subcategory, ...otherFilters } = filteredFormValue;
+  
+    let targetRoute = ['/brands'];
+    if (category) {
+      targetRoute.push(String(category));
+      if (subcategory && subcategory !== "TODAS") {
+        targetRoute.push(String(subcategory));
+      }
+    }
+
+    const {vegan, crueltyFree, labels, consumer, price, autonomousCommunity, province, location } = filteredFormValue;
+
+    const labelsArray = this.labelsArray.value as string[];
+  
+    const queryParams: any = {
+      vegan: vegan || null,
+      crueltyFree: crueltyFree || null,
+      labels: labelsArray && labelsArray.length > 0 ? labelsArray.join(',') : null,
+      consumer: consumer || null,
+      price: price || null,
+      autonomousCommunity: autonomousCommunity || null,
+      province: province || null,
+      location: location || null
+    };
+
+    this.router.navigate(targetRoute, {
+      queryParams: queryParams,
+      queryParamsHandling: 'merge'
+    });
   }
+  
 }
