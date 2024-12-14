@@ -1,4 +1,20 @@
 <div class="container mt-4">
+  <div class="route">
+    <nav aria-label="breadcrumb" *ngIf="categoryApplied">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a routerLink="/brands" class="vtmn-block">TODAS</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/brands', categoryApplied.name]" class="vtmn-block">{{ categoryApplied.name }}</a>
+        </li>
+        <li class="breadcrumb-item" *ngIf="categoryApplied.subcategories && categoryApplied.subcategories.length > 0">
+          <a [routerLink]="['/brands', categoryApplied.name, categoryApplied.subcategories[0]]" class="vtmn-block">{{ categoryApplied.subcategories[0] }}</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+
   <div class="row">
     <div class="col-md-2">
       <app-filters *ngIf="filtersLoaded"
