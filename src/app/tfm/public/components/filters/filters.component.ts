@@ -24,6 +24,8 @@ export class FiltersComponent implements OnInit {
   categoryApplied: Category | null = null;
   filteredSubcategories: string[] | null = null;
 
+  showAdditionalFilters: boolean = false;
+
   @Output()
   public onChange: EventEmitter<any> = new EventEmitter<any>();
 
@@ -70,6 +72,10 @@ export class FiltersComponent implements OnInit {
       location:                 new FormControl({ value: "TODAS", disabled: false })
     }); 
 
+  }
+
+  toggleAdditionalFilters() {
+    this.showAdditionalFilters = !this.showAdditionalFilters;
   }
 
   loadSubcategories() {

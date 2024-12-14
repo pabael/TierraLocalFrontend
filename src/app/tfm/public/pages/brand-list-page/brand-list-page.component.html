@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4" style="padding-bottom: 40px;">
   <div class="route">
     <nav aria-label="breadcrumb" *ngIf="categoryApplied">
       <ol class="breadcrumb">
@@ -16,7 +16,7 @@
   </div>
 
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <app-filters *ngIf="filtersLoaded"
         [filters]="filters" 
         (onChange)="filterChange($event)"

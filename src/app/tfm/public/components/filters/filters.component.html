@@ -21,33 +21,6 @@
         </select>
       </div>
       
-
-      <!-- CrueltyFree -->
-      <div class="col-12 mb-3">
-        <label class="form-label">No probado en animales</label>
-        <input 
-          type="checkbox" 
-          class="form-check-input" 
-          [id]="isCrueltyFree"
-          [value]="true"
-          formControlName="crueltyFree"
-          (change)="filterChange()"
-        >
-      </div>
-
-      <!-- Vegan -->
-      <div class="col-12 mb-3">
-        <label class="form-label">Vegano</label>
-        <input 
-          type="checkbox" 
-          class="form-check-input" 
-          [id]="isVegan"
-          [value]="true"
-          formControlName="vegan"
-          (change)="filterChange()"
-        >
-      </div>
-
       <!-- Consumer -->
       <div class="col-12 mb-3">
         <label for="consumers" class="form-label">Consumidores</label>
@@ -56,7 +29,7 @@
           <option *ngFor="let consumer of filters.allConsumers" [value]="consumer">{{ consumer }}</option>
         </select>
       </div>
-
+      
       <!-- Price -->
       <div class="col-12 mb-3">
         <label class="form-label">Rango de precio</label>
@@ -64,6 +37,32 @@
           <option [value]="0"> TODAS </option>
           <option *ngFor="let price of filters.allPrices" [value]="price">{{ price }}</option>
         </select>
+      </div>
+
+      <!-- CrueltyFree -->
+      <div class="col-12 mb-3">
+        <input 
+          type="checkbox" 
+          class="form-check-input" 
+          [id]="isCrueltyFree"
+          [value]="true"
+          formControlName="crueltyFree"
+          (change)="filterChange()"
+        >
+        <label class="form-label">No probado en animales</label>
+      </div>
+
+      <!-- Vegan -->
+      <div class="col-12 mb-3">
+        <input 
+          type="checkbox" 
+          class="form-check-input" 
+          [id]="isVegan"
+          [value]="true"
+          formControlName="vegan"
+          (change)="filterChange()"
+        >
+        <label class="form-label">Vegano</label>
       </div>
 
       <!-- Autonomous Community -->
@@ -75,44 +74,50 @@
         </select>
       </div>
 
-      <!-- Province -->
-      <div class="col-12 mb-3">
-        <label for="province" class="form-label">Provincia</label>
-        <select class="form-select" id="province" formControlName="province" (change)="onProvinceChange()" [disabled]="form.get('province')?.disabled ?? false">
-          <option> TODAS </option>
-          <option *ngFor="let province of filters.allProvinces" [value]="province">{{ province }}</option>
-        </select>
-      </div>
+       <!-- Mostrar/ocultar filtros adicionales -->
+       <div *ngIf="showAdditionalFilters">
+        <!-- Province -->
+        <div class="col-12 mb-3">
+          <label for="province" class="form-label">Provincia</label>
+          <select class="form-select" id="province" formControlName="province" (change)="onProvinceChange()" [disabled]="form.get('province')?.disabled ?? false">
+            <option> TODAS </option>
+            <option *ngFor="let province of filters.allProvinces" [value]="province">{{ province }}</option>
+          </select>
+        </div>
 
-      <!-- Location -->
-      <div class="col-12 mb-3">
-        <label for="location" class="form-label">Localidad</label>
-        <select class="form-select" id="location" formControlName="location" (change)="onLocationChange()" [disabled]="form.get('location')?.disabled ?? false">
-          <option> TODAS </option>
-          <option *ngFor="let location of filters.allLocations" [value]="location">{{ location }}</option>
-        </select>
-      </div>
+        <!-- Location -->
+        <div class="col-12 mb-3">
+          <label for="location" class="form-label">Localidad</label>
+          <select class="form-select" id="location" formControlName="location" (change)="onLocationChange()" [disabled]="form.get('location')?.disabled ?? false">
+            <option> TODAS </option>
+            <option *ngFor="let location of filters.allLocations" [value]="location">{{ location }}</option>
+          </select>
+        </div>
 
-      <!-- Labels -->
-      <div class="col-12 mb-3">
-        <label class="form-label">Etiquetas</label>
-        <div class="d-grid" formGroupName="labels">
-          <div *ngFor="let label of filters.allLabels" class="form-check me-3">
-            <input 
-                type="checkbox" 
-                class="form-check-input" 
-                [id]="label"
-                [value]="label"
-                [checked]="this.form.get('labels')?.value?.includes(label)"
-                (change)="onLabelChange($event, label)"
-            >
-            <label class="form-check-label" [for]="label">
-                {{ label }}
-            </label>
+        <!-- Labels -->
+        <div class="col-12 mb-3 labels">
+          <label class="form-label">Etiquetas</label>
+          <div class="d-grid labels-container" formGroupName="labels">
+            <div *ngFor="let label of filters.allLabels" class="form-check me-3">
+              <input 
+                  type="checkbox" 
+                  class="form-check-input" 
+                  [id]="label"
+                  [value]="label"
+                  [checked]="this.form.get('labels')?.value?.includes(label)"
+                  (change)="onLabelChange($event, label)"
+              >
+              <label class="form-check-label" [for]="label">
+                  {{ label }}
+              </label>
+            </div>
           </div>
         </div>
       </div>
 
+      <button type="button" class="btn btn-link" (click)="toggleAdditionalFilters()">
+        {{ showAdditionalFilters ? 'Ver menos filtros' : 'Ver más filtros' }}
+      </button>
     </div>
   </form>
 </div>
