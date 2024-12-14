@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Data } from '../../../shared/models/Data';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Category } from '../../../shared/models/Category';
 
 @Component({
   selector: 'app-filters',
@@ -19,8 +20,16 @@ export class FiltersComponent implements OnInit {
     allLocations: []
   }; 
 
+  @Input()
+  categoryApplied: Category | null = null;
+
+  subcategoriesAfterFilter: string[] | null = null;
+
   @Output()
   public onChange: EventEmitter<any> = new EventEmitter<any>();
+
+  @Output()
+  public onSubcategoryChange: EventEmitter<{category: string, subcategory: string}> = new EventEmitter<{category: string, subcategory: string}>();
 
   constructor(private fb: FormBuilder){}
 
@@ -30,10 +39,17 @@ export class FiltersComponent implements OnInit {
   form: FormGroup = new FormGroup({});
 
   ngOnInit(): void {
-    console.log(this.filters);
+    const categoryValue = this.categoryApplied ? this.categoryApplied.name : "TODAS";
+
+    const subcategoryValue = (this.categoryApplied && this.categoryApplied.subcategories && this.categoryApplied.subcategories.length > 0)
+    ? this.categoryApplied.subcategories[0]
+    : "TODAS";
+    
     this.form = new FormGroup({
-      crueltyFree:            new FormControl(null),
-      vegan:                  new FormControl(null),
+      category:                 new FormControl(categoryValue),
+      subcategory:              new FormControl(subcategoryValue),
+      crueltyFree:              new FormControl(null),
+      vegan:                    new FormControl(null),
       labels:                   this.fb.array([]),
       consumer:                 new FormControl("TODAS"),
       price:                    new FormControl("0"),
@@ -42,6 +58,11 @@ export class FiltersComponent implements OnInit {
       location:                 new FormControl({ value: "TODAS", disabled: false })
     }); 
 
+    if(this.categoryApplied && this.categoryApplied.subcategories && this.categoryApplied.subcategories.length == 0) this.subcategoriesAfterFilter = this.filters.allCategories.filter(category => category.name == this.categoryApplied?.name)[0].subcategories;
+  }
+
+  subcategoryChange(){
+    this.onSubcategoryChange.emit({category: this.categoryApplied!.name, subcategory: this.form.get('subcategory')?.value});
   }
 
   onAutonomousCommunityChange(){
@@ -108,6 +129,7 @@ export class FiltersComponent implements OnInit {
       Object.entries(this.form.value)
         .filter(([_, value]) => value !== null && value !== '' && value !== undefined && value !== false && (!Array.isArray(value) || value.length > 0) && value !== "0" && value != "TODAS")
     );
+
     this.onChange.emit(filteredFormValue);
   }
 }

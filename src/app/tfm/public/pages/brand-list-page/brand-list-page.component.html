@@ -1,9 +1,11 @@
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-2">
-      <app-filters 
+      <app-filters *ngIf="filtersLoaded"
+        [categoryApplied]="categoryApplied"
         [filters]="filters" 
-        (onChange)="filterChange($event)">
+        (onChange)="filterChange($event)"
+        (onSubcategoryChange)="subcategoryChange($event)">
       </app-filters>
     </div>
 

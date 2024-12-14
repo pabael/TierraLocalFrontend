@@ -5,6 +5,7 @@ import { PublicService } from '../../services/public.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Data } from '../../../shared/models/Data';
 import { DbsService } from '../../../shared/service/dbs.service';
+import { Category } from '../../../shared/models/Category';
 
 @Component({
   selector: 'app-brand-list-page',
@@ -25,6 +26,10 @@ export class BrandListPageComponent implements OnInit {
     allLocations: []
   }; 
 
+  categoryApplied: Category | null = null;
+
+  filtersLoaded: boolean = false;
+
   constructor(private route: ActivatedRoute, private publicService: PublicService, private sharedService: SharedService, private router: Router){
   }
 
@@ -36,16 +41,20 @@ export class BrandListPageComponent implements OnInit {
         this.route.params.subscribe(params => {
           if(params['subcategory']){
             this.filterChange({category: params['category'], subcategory: params['subcategory']});
+            this.categoryApplied = {name:params['category'], subcategories: [params['subcategory']]};
           }
           else if (params['category']) {
             this.filterChange({category: params['category']});
+            this.categoryApplied = {name:params['category'], subcategories: []};
           }else{
             this.updateList();
           }
+          this.filtersLoaded = true;
         });
       },
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
+        this.filtersLoaded = true;
       }
     })
   }
@@ -74,5 +83,9 @@ export class BrandListPageComponent implements OnInit {
         this.sharedService.setError = error;
       }
     })
+  }
+
+  subcategoryChange(data: {category: string, subcategory: string}){
+    this.router.navigate(['/brands', data.category, data.subcategory]);
   }
 }

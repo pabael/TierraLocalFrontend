@@ -1,6 +1,31 @@
 <div class="container mt-5">
   <form [formGroup]="form">
     <div class="row">
+
+      <nav aria-label="breadcrumb" *ngIf="categoryApplied">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/brands" class="vtmn-block">TODAS</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a [routerLink]="['/brands', categoryApplied.name]" class="vtmn-block">{{ categoryApplied.name }}</a>
+          </li>
+          <li class="breadcrumb-item" *ngIf="categoryApplied.subcategories && categoryApplied.subcategories.length > 0">
+            {{ categoryApplied.subcategories[0] }}
+          </li>
+        </ol>
+      </nav>
+
+      <!-- Subcategories -->
+      <div class="col-12 mb-3" *ngIf="subcategoriesAfterFilter">
+        <label class="form-label">Subcategoría:</label>
+        <select class="form-select" id="subcategory" formControlName="subcategory" (change)="subcategoryChange()">
+          <option> TODAS </option>
+          <option *ngFor="let subcat of subcategoriesAfterFilter" [value]="subcat">{{ subcat }}</option>
+        </select>
+      </div>
+      
+
       <!-- CrueltyFree -->
       <div class="col-12 mb-3">
         <label class="form-label">No probado en animales</label>
