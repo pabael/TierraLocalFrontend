@@ -2,6 +2,16 @@
   <button class="menu-toggle" (click)="toggleMenu()">☰ Menú</button>
   <nav class="menu" [class.active]="menuOpen">
     <ul class="menu-list">
+      <li class="nav-item">
+        <button class="category-toggle" (click)="otherClicked('home')">
+          Inicio
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="category-toggle" (click)="otherClicked('brands')">
+          Ver todas las marcas
+        </button>
+      </li>
       <li *ngFor="let category of categories">
         <button class="category-toggle" (click)="categoryClicked(category.name)">
           {{ category.name }}

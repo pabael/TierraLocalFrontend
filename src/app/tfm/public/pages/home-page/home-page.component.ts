@@ -6,11 +6,11 @@ import { SharedService } from '../../../shared/service/shared.service';
 import { DbsService } from '../../../shared/service/dbs.service';
 
 @Component({
-  selector: 'app-main-page',
-  templateUrl: './main-page.component.html',
-  styleUrl: './main-page.component.sass'
+  selector: 'app-home-page',
+  templateUrl: './home-page.component.html',
+  styleUrl: './home-page.component.sass'
 })
-export class MainPageComponent implements OnInit{
+export class HomePageComponent implements OnInit{
 
   brandsList: string[] = [];
   provinces: string[] = [];

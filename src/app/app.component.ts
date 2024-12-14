@@ -27,6 +27,10 @@ export class AppComponent implements OnInit{
     })
   }
 
+  otherClicked(page: string){
+    this.router.navigate([`/${page}`]);
+  }
+
   categoryClicked(category: string){
     this.router.navigate(['/brands', category]);
   }

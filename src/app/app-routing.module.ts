@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainPageComponent } from './tfm/public/pages/main-page/main-page.component';
+import { HomePageComponent } from './tfm/public/pages/home-page/home-page.component';
 import { ErrorPageComponent } from './tfm/shared/error-page/error-page.component';
 import { AdminPageComponent } from './tfm/admin/pages/admin-page/admin-page.component';
 import { AuthGuard } from './tfm/admin/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'main',
-    component: MainPageComponent
+    path: 'home',
+    component: HomePageComponent
   },
   {
     path: 'admin',
