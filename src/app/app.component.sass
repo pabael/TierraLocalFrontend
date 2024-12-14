@@ -1,5 +1,46 @@
+@import '../styles'
+
+h1, h2
+  font-family: $font-title
+
+
 header
-  justify-content: space-between
-  display: flex
-  flex-direction: row
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  z-index: 1000
+  background-color: #fff
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)
   padding: 20px 40px
+  background-color: lighten($primary-color, 10%)
+  font-family: $font-title
+  font-size: 1.5em
+  height: 80px
+
+  .title
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translateX(-50%) translateY(-50%)
+    font-size: 1.3em
+
+  .dashboard
+    position: absolute
+    top: 50%
+    right: 40px
+    transform: translateY(-50%)
+    font-size: 0.7em
+
+main
+  padding-top: 90px
+  background-color: lighten($light-background, 15%)
+
+app-main-menu
+  position: absolute
+  left: 40px
+  z-index: 10
+  width: fit-content
+
+app-main-menu.active
+  display: block

@@ -6,12 +6,14 @@
     (onSubcategoryClicked)="subcategoryClicked($event)"
     [categories]="allCategories">
   </app-main-menu>
-  <a class="navbar-brand" routerLink="/home">TierraLocal</a>
-  <a class="nav-link" routerLink="/admin">Dashboard</a>
+  <div class="links">
+    <a class="nav-link title" routerLink="/home">TierraLocal</a>
+    <a class="nav-link dashboard" routerLink="/admin">Dashboard</a>
+  </div>
 </header>
 <main>
   <router-outlet></router-outlet>
 </main>
-<footer class="bg-dark text-white text-center py-4 mt-5">
+<footer class="bg-dark text-white text-center py-4">
   <p class="mb-0">&copy; 2024 Paloma Balmori Elósegui.</p>
 </footer>

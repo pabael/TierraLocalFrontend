@@ -1,6 +1,8 @@
+@import '../../../../../styles'
+
 .menu-container
   position: relative
-
+  
 .menu
   display: none
   flex-direction: column
@@ -12,7 +14,6 @@
   display: block
   padding: 10px
   width: 100%
-  background-color: #f0f0f0
   border: none
   text-align: left
   cursor: pointer
@@ -43,3 +44,9 @@
 
 .menu-list li:hover .submenu
   display: block
+
+.category-toggle:hover, .submenu li:hover
+  background-color: $link-color
+
+.menu-list li:hover > .category-toggle
+  background-color: $link-color
