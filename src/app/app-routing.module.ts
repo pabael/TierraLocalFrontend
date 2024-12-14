@@ -7,6 +7,10 @@ import { AuthGuard } from './tfm/admin/guards/auth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    component: HomePageComponent
+  },
+  {
     path: 'home',
     component: HomePageComponent
   },
@@ -18,7 +22,7 @@ const routes: Routes = [
   {
     path: 'error',
     component: ErrorPageComponent
-  },
+  }
 ];
 
 @NgModule({
