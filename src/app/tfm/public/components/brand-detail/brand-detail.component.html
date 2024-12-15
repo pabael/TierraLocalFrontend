@@ -11,18 +11,16 @@
         <div class="card-body">
           
           <!-- Categories -->
-          <div class="mb-3 categories">
-            <ul *ngIf="brand.categories?.length; else noCategories" class="list-unstyled">
+          <div class="mb-3 categories" *ngIf="brand.categories?.length" >
+            <ul class="list-unstyled">
               <li *ngFor="let category of brand.categories"> 
                 <h4 class="d-inline"> {{ category.name }} :</h4>
                 <h5 *ngIf="category.subcategories && category.subcategories.length > 0" class="d-inline">{{ category.subcategories.join(', ') }}</h5>
               </li>
             </ul>
-            <ng-template #noCategories><p>No hay categorías disponibles.</p></ng-template>
           </div>
           
           <div class="mb-3 row">
-            
             <div class="col-md-6">
               <!-- Attributes -->
               <ul class="list-unstyled attributes">
@@ -39,8 +37,8 @@
                     €
                   </strong>
                 </li>
-                <li>
-                  <p *ngIf="brand.consumers?.length">{{ brand.consumers?.join(', ') }}</p>
+                <li *ngIf="brand.consumers?.length">
+                  <p>{{ brand.consumers?.join(', ') }}</p>
                 </li>
               </ul>
             </div>
@@ -49,19 +47,16 @@
               <!-- URL -->
               <div class="mb-3">
                 <a *ngIf="brand.url" href="{{ brand.url }}" target="_blank">{{ brand.url }}</a>
-                <span *ngIf="!brand.url">No disponible</span>
               </div>
           
               <!-- Labels -->
-              <div class="mb-3">
+              <div class="mb-3" *ngIf="brand.labels?.length">
                 <strong>Certificados:</strong>
-                <p *ngIf="brand.labels?.length; else noLabels">{{ brand.labels?.join(', ') }}</p>
-                <ng-template #noLabels><p>No hay certificados disponibles.</p></ng-template>
+                <p>{{ brand.labels?.join(', ') }}</p>
               </div>
             </div>
           </div>
-          <p class="text-muted mb-0 summary">{{ brand.summary || 'Sin descripción disponible' }}</p>
-
+          <p class="text-muted mb-0 summary">{{ brand.summary }}</p>
         </div>
       </div>
     </div>
