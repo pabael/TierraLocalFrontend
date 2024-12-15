@@ -4,6 +4,7 @@ import { DbsService } from '../../../shared/service/dbs.service';
 import { SharedService } from '../../../shared/service/shared.service';
 import { Brand } from '../../../shared/models/Brand';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-brand-detail-page',
@@ -18,7 +19,7 @@ export class BrandDetailPageComponent implements OnInit {
 
   isLoading: boolean = true; 
 
-  constructor(private route: ActivatedRoute, private dbsService: DbsService, private sharedService: SharedService) {
+  constructor(private route: ActivatedRoute, private dbsService: DbsService, private sharedService: SharedService, private location: Location) {
   }
 
   ngOnInit(): void {
@@ -41,4 +42,7 @@ export class BrandDetailPageComponent implements OnInit {
     })
   }
 
+  goBack(): void {
+    this.location.back();
+  }
 }

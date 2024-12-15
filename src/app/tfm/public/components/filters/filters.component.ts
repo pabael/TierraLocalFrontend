@@ -21,6 +21,9 @@ export class FiltersComponent implements OnInit {
     allLocations: []
   }; 
 
+  @Input()
+  actualFilters: any = null;
+
   categoryApplied: Category | null = null;
   filteredSubcategories: string[] | null = null;
 
@@ -41,12 +44,10 @@ export class FiltersComponent implements OnInit {
     this.route.params.subscribe(params => {
       if(params['subcategory']){
         this.categoryApplied = {name:params['category'], subcategories: [params['subcategory']]};
-        this.onChange.emit({category: params['category'], subcategory: params['subcategory']});
       }
       else if (params['category']) {
         this.categoryApplied = {name:params['category'], subcategories: []};
         this.filteredSubcategories = this.filters.allCategories.filter(category => category.name == params['category'])[0].subcategories;
-        this.onChange.emit({category: params['category']});
       }
     });
     
@@ -59,14 +60,14 @@ export class FiltersComponent implements OnInit {
     this.form = new FormGroup({
       category:                 new FormControl(categoryValue),
       subcategory:              new FormControl(subcategoryValue),
-      crueltyFree:              new FormControl(null),
-      vegan:                    new FormControl(null),
-      labels:                   this.fb.array([]),
-      consumer:                 new FormControl("TODAS"),
-      price:                    new FormControl("0"),
-      autonomousCommunity:      new FormControl({ value: "TODAS", disabled: false }),
-      province:                 new FormControl({ value: "TODAS", disabled: false }),
-      location:                 new FormControl({ value: "TODAS", disabled: false })
+      crueltyFree:              new FormControl(this.actualFilters?.crueltyFree),
+      vegan:                    new FormControl(this.actualFilters?.vegan),
+      labels:                   this.fb.array(this.actualFilters?.labels ? this.actualFilters.labels : []),
+      consumer:                 new FormControl(this.actualFilters?.consumer ? this.actualFilters.consumer : "TODAS"),
+      price:                    new FormControl(this.actualFilters?.price ? this.actualFilters.price : "0"),
+      autonomousCommunity:      new FormControl({ value: this.actualFilters?.autonomousCommunity ? this.actualFilters.autonomousCommunity : "TODAS", disabled: false }),
+      province:                 new FormControl({ value: this.actualFilters?.province ? this.actualFilters.province : "TODAS", disabled: false }),
+      location:                 new FormControl({ value: this.actualFilters?.location ? this.actualFilters.location : "TODAS", disabled: false })
     }); 
 
   }

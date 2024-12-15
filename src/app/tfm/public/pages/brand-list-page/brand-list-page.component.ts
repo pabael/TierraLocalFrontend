@@ -17,7 +17,7 @@ export class BrandListPageComponent implements OnInit {
 
   brandsList: string[] = [];
 
-  filters: Data = {
+  allfilters: Data = {
     allCategories: [],
     allLabels:    [],
     allConsumers: [],
@@ -27,6 +27,8 @@ export class BrandListPageComponent implements OnInit {
     allLocations: []
   }; 
 
+  actualFilters: any = null
+
   filtersLoaded: boolean = false;
   categoryApplied: Category | null = null;
 
@@ -34,16 +36,25 @@ export class BrandListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filters = this.publicService.getAllDataForFilters();
+    this.allfilters = this.publicService.getAllDataForFilters();
+
+    this.actualFilters = this.publicService.getFiltersLocalStorage();
+
+    if(this.actualFilters)  this.filterChange(this.actualFilters);
     this.route.params.subscribe(params => {
-      if(params['subcategory']){
+      if(this.actualFilters){
+        this.categoryApplied = {name: this.actualFilters.category, subcategories: []};
+        if(this.actualFilters.subcategory) this.categoryApplied.subcategories = [this.actualFilters.subcategory];
+      }
+      else if(params['subcategory']){
         this.categoryApplied = {name:params['category'], subcategories: [params['subcategory']]};
         this.filterChange({category: params['category'], subcategory: params['subcategory']});
       }
       else if (params['category']) {
         this.categoryApplied = {name:params['category'], subcategories: []};
         this.filterChange({category: params['category']});
-      }else{
+      }
+      else{
         this.updateList();
       }
     });
@@ -62,10 +73,12 @@ export class BrandListPageComponent implements OnInit {
   }
 
   brandDetails(brand: string): void {
+    this.publicService.saveFiltersLocalStorage(this.actualFilters);
     this.router.navigate(['/brand', brand]);
   }
 
   filterChange(filters: any){
+    this.actualFilters = filters;
     this.publicService.getBrandsNameWithFilters(filters).subscribe({
       next:(result) => {
         this.brandsList = result;

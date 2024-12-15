@@ -10,6 +10,20 @@ import { AdminService } from '../../admin/services/admin.service';
 export class PublicService {
 
   constructor(private dbsService: DbsService, private adminService: AdminService) { }
+
+  saveFiltersLocalStorage(data: any): void{
+    const filters = {
+      filters: data,
+    };
+    localStorage.setItem('filters', JSON.stringify(filters));
+  }
+
+  getFiltersLocalStorage(): any {
+    const savedState = localStorage.getItem('filters');
+    localStorage.removeItem('filters');
+    if (!savedState) return null;
+    return JSON.parse(savedState).filters;
+  }
   
   getallBrandsName(): Observable<string[]>{
     return this.dbsService.getAllBrands().pipe(

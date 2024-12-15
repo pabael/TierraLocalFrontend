@@ -37,7 +37,8 @@
   <div class="row" *ngIf="!isLoading">
     <div class="col-md-3">
       <app-filters
-        [filters]="filters" 
+        [filters]="allfilters" 
+        [actualFilters]="actualFilters"
         (onChange)="filterChange($event)">
       </app-filters>
     </div>

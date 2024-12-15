@@ -5,6 +5,10 @@
   </div>
 </div>
 
+<button *ngIf="!isLoading" (click)="goBack()">
+  <i class="fa-solid fa-arrow-left"></i>
+</button>
+
 <app-brand-detail *ngIf="!isLoading"
 [brand]="brand">
 </app-brand-detail>
