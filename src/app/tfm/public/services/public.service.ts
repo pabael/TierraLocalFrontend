@@ -38,10 +38,11 @@ export class PublicService {
     );
   }
 
-  getAllDataForFilters(): Data {
+  getAllDataForFilters(): Observable<Data> {
     const filtersInfo: Data = this.adminService.getAllDataForBrandForm();
   
-    forkJoin({
+    return forkJoin({
+      
       allLocations: this.dbsService.getLocationsWithBrands(),
       allProvinces: this.dbsService.getProvincesWithBrands(),
     }).pipe(
@@ -51,8 +52,6 @@ export class PublicService {
         allProvinces: results.allProvinces,
       }))
     );
-
-    return filtersInfo;
   }
 
   getBrandsNameForProvince(province: string): Observable<string[]>{

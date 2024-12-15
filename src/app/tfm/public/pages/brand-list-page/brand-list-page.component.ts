@@ -36,7 +36,15 @@ export class BrandListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.allfilters = this.publicService.getAllDataForFilters();
+    this.publicService.getAllDataForFilters().subscribe({
+      next:(data) => {
+        this.allfilters = data;
+        this.filtersLoaded = true;
+      },
+      error: (error:HttpErrorResponse) => {
+        this.sharedService.setError = error;
+      }
+    });
 
     this.actualFilters = this.publicService.getFiltersLocalStorage();
 

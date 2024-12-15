@@ -16,7 +16,7 @@
   </div>
 
 
-  <div class="row" *ngIf="isLoading" >
+  <div class="row" *ngIf="isLoading && !filtersLoaded" >
     <div class="col-md-3">
       <div class="skeleton skeleton-filters"></div>
     </div>
@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="!isLoading">
+  <div class="row" *ngIf="!isLoading && filtersLoaded">
     <div class="col-md-3">
       <app-filters
         [filters]="allfilters" 
@@ -44,7 +44,7 @@
     </div>
 
     <div class="col-md-8"  style="margin-left: auto; margin-right: auto;">
-      <app-brands-list *ngIf="!isLoading"
+      <app-brands-list
         [brandsList]="brandsList" 
         (onBrandDetails)="brandDetails($event)">
       </app-brands-list>
