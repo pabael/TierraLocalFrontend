@@ -1,96 +1,107 @@
-<div class="container mt-5">
+<div class="container brand-detail-contianer mt-5">
   <div class="card">
-    <div class="card-header">
-      <h2 class="card-title">{{ brand.name || 'Nombre no disponible' }}</h2>
-      <p class="text-muted mb-0">{{ brand.summary || 'Sin descripción disponible' }}</p>
+    <div class="row g-0 align-items-center justify-content-center">
+      <div class="col-md-5 d-flex justify-content-center">
+        <div class="card-header">
+          <h2 class="card-title">{{ brand.name || 'Nombre no disponible' }}</h2>
+        </div>
+      </div>
+
+      <div class="col-md-7 first-part">
+        <div class="card-body">
+          
+          <!-- Categories -->
+          <div class="mb-3 categories">
+            <ul *ngIf="brand.categories?.length; else noCategories" class="list-unstyled">
+              <li *ngFor="let category of brand.categories"> 
+                <h4 class="d-inline"> {{ category.name }} :</h4>
+                <h5 *ngIf="category.subcategories && category.subcategories.length > 0" class="d-inline">{{ category.subcategories.join(', ') }}</h5>
+              </li>
+            </ul>
+            <ng-template #noCategories><p>No hay categorías disponibles.</p></ng-template>
+          </div>
+          
+          <div class="mb-3 row">
+            
+            <div class="col-md-6">
+              <!-- Attributes -->
+              <ul class="list-unstyled attributes">
+                <li *ngIf="brand.crueltyFree != null">
+                  <i class="bi bi-check-circle text-success" *ngIf="brand.crueltyFree">Cruelty-Free</i>
+                  <i class="bi bi-x-circle text-danger" *ngIf="!brand.crueltyFree">No Cruelty-Free</i>
+                </li>
+                <li *ngIf="brand.vegan != null">
+                  <i class="bi bi-check-circle text-success" *ngIf="brand.vegan">Vegan</i>
+                  <i class="bi bi-x-circle text-danger" *ngIf="!brand.vegan">No Vegan</i>
+                </li>
+                <li class="price">
+                  <strong *ngFor="let _ of [].constructor(brand.price); let i = index">
+                    €
+                  </strong>
+                </li>
+                <li>
+                  <p *ngIf="brand.consumers?.length">{{ brand.consumers?.join(', ') }}</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-md-6">
+              <!-- URL -->
+              <div class="mb-3">
+                <a *ngIf="brand.url" href="{{ brand.url }}" target="_blank">{{ brand.url }}</a>
+                <span *ngIf="!brand.url">No disponible</span>
+              </div>
+          
+              <!-- Labels -->
+              <div class="mb-3">
+                <strong>Certificados:</strong>
+                <p *ngIf="brand.labels?.length; else noLabels">{{ brand.labels?.join(', ') }}</p>
+                <ng-template #noLabels><p>No hay certificados disponibles.</p></ng-template>
+              </div>
+            </div>
+          </div>
+          <p class="text-muted mb-0 summary">{{ brand.summary || 'Sin descripción disponible' }}</p>
+
+        </div>
+      </div>
     </div>
-    <div class="card-body">
-      <!-- URL -->
-      <div class="mb-3">
-        <strong>Website: </strong>
-        <a *ngIf="brand.url" href="{{ brand.url }}" target="_blank">{{ brand.url }}</a>
-        <span *ngIf="!brand.url">No disponible</span>
-      </div>
 
-      <!-- Materials -->
-      <div class="mb-3">
-        <strong>Materiales:</strong>
-        <p>{{ brand.materials || 'Información no disponible' }}</p>
-      </div>
-
-      <!-- Attributes -->
-      <div class="mb-3">
-        <strong>Atributos:</strong>
-        <ul class="list-unstyled">
-          <li *ngIf="brand.crueltyFree != null">
-            <i class="bi bi-check-circle text-success" *ngIf="brand.crueltyFree">Cruelty-Free</i>
-            <i class="bi bi-x-circle text-danger" *ngIf="!brand.crueltyFree">No Cruelty-Free</i>
-
-          </li>
-          <li *ngIf="brand.vegan != null">
-            <i class="bi bi-check-circle text-success" *ngIf="brand.vegan">Vegan</i>
-            <i class="bi bi-x-circle text-danger" *ngIf="!brand.vegan">No Vegan</i>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Commitment -->
-      <div class="mb-3">
-        <strong>Compromiso:</strong>
-        <p>{{ brand.commitment || 'No especificado' }}</p>
-      </div>
-
-      <!-- Production -->
-      <div class="mb-3">
-        <strong>Producción:</strong>
-        <p>{{ brand.production || 'No especificado' }}</p>
-      </div>
-
-      <!-- Categories -->
-      <div class="mb-3">
-        <strong>Categorías:</strong>
-        <ul *ngIf="brand.categories?.length; else noCategories" class="list-unstyled">
-          <li *ngFor="let category of brand.categories"> 
-            {{ category.name }} 
-            <span *ngIf="category.subcategories && category.subcategories.length > 0">- {{ category.subcategories.join(', ') }}</span>
-          </li>
-        </ul>
-        <ng-template #noCategories><p>No hay categorías disponibles.</p></ng-template>
-      </div>
-
-      <!-- Labels -->
-      <div class="mb-3">
-        <strong>Etiquetas:</strong>
-        <p *ngIf="brand.labels?.length; else noLabels">{{ brand.labels?.join(', ') }}</p>
-        <ng-template #noLabels><p>No hay etiquetas disponibles.</p></ng-template>
-      </div>
-
-      <!-- Consumers -->
-      <div class="mb-3">
-        <strong>Consumidores:</strong>
-        <p *ngIf="brand.consumers?.length; else noConsumers">{{ brand.consumers?.join(', ') }}</p>
-        <ng-template #noConsumers><p>No hay consumidores especificados.</p></ng-template>
-      </div>
-
-      <!-- Price -->
-      <div class="mb-3">
-        <strong>Rango de precio:</strong>
-        <p>
-          <span *ngFor="let _ of [].constructor(brand.price); let i = index">
-            €
-          </span>
-        </p>
-      </div>
-
-      <!-- Locations -->
-      <div class="mb-3">
-        <strong>Ubicaciones:</strong>
-        <ul *ngIf="brand.locations?.length; else noLocations" class="list-unstyled">
-          <li *ngFor="let location of brand.locations">
-            {{ location.name }}, {{ location.province | capitalizeFirstLetter }}, {{ location.autonomousCommunity | capitalizeFirstLetter }}
-          </li>
-        </ul>
-        <ng-template #noLocations><p>No hay ubicaciones disponibles.</p></ng-template>
+    <div class="row g-0">
+      <div class="col-12 second-part">
+        <div class="card-body">
+          <!-- Commitment -->
+          <div class="mb-3" class="commitment" *ngIf="brand.commitment">
+            <p>{{ brand.commitment}}</p>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <!-- Materials -->
+              <div class="mb-3">
+                <strong>Materiales:</strong>
+                <p>{{ brand.materials || 'Información no disponible' }}</p>
+              </div>
+            </div>
+  
+            <div class="col-md-5">
+              <!-- Production -->
+              <div class="mb-3">
+                <strong>Producción:</strong>
+                <p>{{ brand.production || 'No especificado' }}</p>
+              </div>
+  
+              <!-- Locations -->
+              <div class="mb-3">
+                <strong>Ubicaciones:</strong>
+                <ul *ngIf="brand.locations?.length; else noLocations" class="list-unstyled">
+                  <li *ngFor="let location of brand.locations">
+                    {{ location.name }}, {{ location.province | capitalizeFirstLetter }}, {{ location.autonomousCommunity | capitalizeFirstLetter }}
+                  </li>
+                </ul>
+                <ng-template #noLocations><p>No hay ubicaciones disponibles.</p></ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

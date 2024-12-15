@@ -1,0 +1,73 @@
+@import '../../../../../styles.sass'
+
+.brand-detail-contianer 
+  padding-bottom: 40px
+  max-width: 70vw
+    
+  .card
+    background-color: lighten($secondary-color, 40%)
+    overflow: hidden
+    
+    .first-part
+      margin-top: 30px
+      padding: 0 30px
+
+    .second-part  
+      padding: 0 30px
+
+      .card-body
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+
+        .row
+          max-width: 90%
+
+
+.card-header
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: space-between
+  background-color: lighten($primary-color, 25%)
+  height: fit-content
+  width: fit-content
+  padding: 20px 20px 60px 20px
+  margin: 40px
+  transform: rotate(-10deg)
+  
+  .card-title
+    z-index: 1
+    display: flex
+    align-items: center
+    justify-content: center
+    width: fit-content
+    min-width: 200px
+    padding: 30px 10px
+    background-color: lighten($secondary-color, 15%)
+    font-size: 3.5em
+    font-family: $font-title
+    text-align: center
+
+.categories 
+  h5
+    margin-top: auto
+    margin-left:  10px
+
+.attributes
+  max-height: 100px
+  li
+    padding-bottom: 10px
+
+  .price
+    font-size: 1.3em
+
+.summary
+  max-width: 60ch
+
+.commitment
+  border: 4px solid $primary-color
+  padding: 14px
+  max-width: 80ch
+  margin-bottom: 20px
