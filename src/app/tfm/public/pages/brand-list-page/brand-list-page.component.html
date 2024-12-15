@@ -15,9 +15,28 @@
     </nav>
   </div>
 
-  <div class="row">
+
+  <div class="row" *ngIf="isLoading" >
     <div class="col-md-3">
-      <app-filters *ngIf="filtersLoaded"
+      <div class="skeleton skeleton-filters"></div>
+    </div>
+
+    <div class="col-md-8"  style="margin-left: auto; margin-right: auto;">
+      <div class="skeleton-brands">
+        <div *ngFor="let _ of [].constructor(20)" class="brand-item">
+          <div class="card skeleton">
+            <div class="card-body">
+              <h5 class="card-title"></h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading">
+    <div class="col-md-3">
+      <app-filters
         [filters]="filters" 
         (onChange)="filterChange($event)"
         (onSubcategoryChange)="subcategoryChange($event)">
@@ -25,7 +44,7 @@
     </div>
 
     <div class="col-md-8"  style="margin-left: auto; margin-right: auto;">
-      <app-brands-list 
+      <app-brands-list *ngIf="!isLoading"
         [brandsList]="brandsList" 
         (onBrandDetails)="brandDetails($event)">
       </app-brands-list>

@@ -11,3 +11,33 @@
     
   a:hover
     color: $link-color  
+
+.skeleton 
+  background: linear-gradient(90deg,rgb(172, 171, 171) 25%,rgb(80, 79, 79) 50%,rgb(172, 171, 171) 75%)
+  border-radius: 4px
+  background-size: 200% 100%
+  animation: shimmer 3s infinite
+
+.skeleton-filters 
+  height: 400px
+  width: 100%
+  margin-bottom: 20px
+
+
+.skeleton-brands 
+  height: 400px
+  width: 100%
+  margin: auto
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))
+  gap: 40px
+
+
+
+@keyframes shimmer 
+  0% 
+    background-position: 200% 0
+  
+  100% 
+    background-position: -200% 0
+  

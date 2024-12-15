@@ -14,6 +14,8 @@ import { Category } from '../../../shared/models/Category';
 })
 export class BrandListPageComponent implements OnInit {
 
+  isLoading: boolean = true; 
+
   brandsList: string[] = [];
 
   filters: Data = {
@@ -48,12 +50,11 @@ export class BrandListPageComponent implements OnInit {
           }else{
             this.updateList();
           }
-          this.filtersLoaded = true;
         });
       },
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
-        this.filtersLoaded = true;
+        this.isLoading = false;
       }
     })
   }
@@ -62,6 +63,7 @@ export class BrandListPageComponent implements OnInit {
     this.publicService.getallBrandsName().subscribe({
       next:(list) => {
         this.brandsList = list;
+        this.isLoading = false;
       },
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
@@ -77,6 +79,7 @@ export class BrandListPageComponent implements OnInit {
     this.publicService.getBrandsNameWithFilters(filters).subscribe({
       next:(result) => {
         this.brandsList = result;
+        this.isLoading = false;
       },
       error: (error:HttpErrorResponse) => {
         this.sharedService.setError = error;
