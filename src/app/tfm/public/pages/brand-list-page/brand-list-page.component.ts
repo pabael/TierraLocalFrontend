@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PublicService } from '../../services/public.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Data } from '../../../shared/models/Data';
-import { DbsService } from '../../../shared/service/dbs.service';
 import { Category } from '../../../shared/models/Category';
 
 @Component({
@@ -35,28 +34,19 @@ export class BrandListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.publicService.getAllDataForFilters().subscribe({
-      next:(result) => {
-        this.filters = result;
-        this.route.params.subscribe(params => {
-          if(params['subcategory']){
-            this.categoryApplied = {name:params['category'], subcategories: [params['subcategory']]};
-            this.filterChange({category: params['category'], subcategory: params['subcategory']});
-          }
-          else if (params['category']) {
-            this.categoryApplied = {name:params['category'], subcategories: []};
-            this.filterChange({category: params['category']});
-          }else{
-            this.updateList();
-          }
-        });
-      },
-      error: (error:HttpErrorResponse) => {
-        this.sharedService.setError = error;
-        this.isLoading = false;
+    this.filters = this.publicService.getAllDataForFilters();
+    this.route.params.subscribe(params => {
+      if(params['subcategory']){
+        this.categoryApplied = {name:params['category'], subcategories: [params['subcategory']]};
+        this.filterChange({category: params['category'], subcategory: params['subcategory']});
       }
-    })
+      else if (params['category']) {
+        this.categoryApplied = {name:params['category'], subcategories: []};
+        this.filterChange({category: params['category']});
+      }else{
+        this.updateList();
+      }
+    });
   }
 
   private updateList(){
@@ -85,9 +75,5 @@ export class BrandListPageComponent implements OnInit {
         this.sharedService.setError = error;
       }
     })
-  }
-
-  subcategoryChange(data: {category: string, subcategory: string}){
-    this.router.navigate(['/brands', data.category, data.subcategory]);
   }
 }

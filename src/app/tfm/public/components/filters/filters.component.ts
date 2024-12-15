@@ -29,9 +29,6 @@ export class FiltersComponent implements OnInit {
   @Output()
   public onChange: EventEmitter<any> = new EventEmitter<any>();
 
-  @Output()
-  public onSubcategoryChange: EventEmitter<{category: string, subcategory: string}> = new EventEmitter<{category: string, subcategory: string}>();
-
   constructor(private route: ActivatedRoute, private router: Router, private fb: FormBuilder){}
 
   isVegan: boolean = false;
@@ -97,7 +94,6 @@ export class FiltersComponent implements OnInit {
 
   subcategoryChange(){
     this.filterChange();
-    // this.onSubcategoryChange.emit({category: this.categoryApplied!.name, subcategory: this.form.get('subcategory')?.value});
   }
 
   onAutonomousCommunityChange(){
