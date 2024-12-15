@@ -4,6 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { PublicService } from '../../services/public.service';
 import { SharedService } from '../../../shared/service/shared.service';
 import { DbsService } from '../../../shared/service/dbs.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -16,26 +17,25 @@ export class HomePageComponent implements OnInit{
   provinces: string[] = [];
   allCategories: string[] = [];
 
+  isLoading: boolean = true;
+
   constructor(private router: Router, private publicService: PublicService, private sharedService: SharedService, private dbsService: DbsService){  }
 
   ngOnInit(): void {
-    this.dbsService.getProvincesWithBrands().subscribe({
-      next:(provinces) => {
+    forkJoin({
+      provinces: this.dbsService.getProvincesWithBrands(),
+      categories: this.dbsService.getAllCategories()
+    }).subscribe({
+      next: ({ provinces, categories }) => {
         this.provinces = provinces;
+        this.allCategories = categories.map(category => category.name);
+        this.isLoading = false; 
       },
-      error: (error:HttpErrorResponse) => {
+      error: (error: HttpErrorResponse) => {
         this.sharedService.setError = error;
+        this.isLoading = false;
       }
     });
-
-    this.dbsService.getAllCategories().subscribe({
-      next:(categories)=>{
-        this.allCategories = categories.map(category => category.name);
-      },
-      error: (error:HttpErrorResponse) => {
-        this.sharedService.setError = error;
-      }
-    })
   }
 
   categoryClicked(category: string): void{
