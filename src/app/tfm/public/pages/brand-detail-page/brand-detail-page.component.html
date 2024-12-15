@@ -1,2 +1,10 @@
-<app-brand-detail>
+<div class="container brand-detail-contianer mt-5" *ngIf="isLoading" >
+  <div class="skeleton">
+    <div class="card">
+    </div>
+  </div>
+</div>
+
+<app-brand-detail *ngIf="!isLoading"
+[brand]="brand">
 </app-brand-detail>

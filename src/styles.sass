@@ -1,14 +1,19 @@
 $primary-color: #78b395
 $secondary-color: #917c67
 $light-background: #ebe7a7
+$medium-background: lighten($secondary-color, 40%)
 $dark-background: #5e5953
 $primary-text:rgb(0, 0, 0)
 $secondary-text: #7f8c8d
-$link-color: #a7ebc9
+$link-color:rgb(143, 243, 193)
 $error-color: #e74c3c
 
 $font-family: "Roboto", sans-serif
 $font-title: "Arima"
+
+@function gradient() 
+  @return linear-gradient(90deg, $medium-background 25%,$secondary-color 50%, $medium-background 75%)
+
 
 html, body 
   height: 100%
