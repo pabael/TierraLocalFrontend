@@ -65,17 +65,17 @@
         <label class="form-label">Vegano</label>
       </div>
 
-      <!-- Autonomous Community -->
-      <div class="col-12 mb-3">
-        <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
-        <select class="form-select" id="autonomousCommunity" formControlName="autonomousCommunity" (change)="onAutonomousCommunityChange()" [disabled]="form.get('autonomousCommunity')?.disabled ?? false">
-          <option> TODAS </option>
-          <option *ngFor="let community of filters.allAutonomousCommunities" [value]="community">{{ community }}</option>
-        </select>
-      </div>
-
        <!-- Mostrar/ocultar filtros adicionales -->
        <div *ngIf="showAdditionalFilters">
+        <!-- Autonomous Community -->
+        <div class="col-12 mb-3">
+          <label for="autonomousCommunity" class="form-label">Comunidad Autónoma</label>
+          <select class="form-select" id="autonomousCommunity" formControlName="autonomousCommunity" (change)="onAutonomousCommunityChange()" [disabled]="form.get('autonomousCommunity')?.disabled ?? false">
+            <option> TODAS </option>
+            <option *ngFor="let community of filters.allAutonomousCommunities" [value]="community">{{ community }}</option>
+          </select>
+        </div>
+
         <!-- Province -->
         <div class="col-12 mb-3">
           <label for="province" class="form-label">Provincia</label>
