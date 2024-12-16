@@ -128,6 +128,12 @@ export class DbsService {
     );  
   }
 
+  getAutonomousCommunitiesWithBrands(): Observable<string[]>{
+    return this.http.get<{ name: string }[]>(`${this.apiUrl}autonomousCommunities/with-brands`).pipe(
+      map(autonomousCommunities => autonomousCommunities.map(autonomousCommunity => autonomousCommunity.name))
+    );  
+  }
+
   getBrandsForProvince(province: string): Observable<Brand[]>{
     return this.http.get<Brand[]>(`${this.apiUrl}brands/province?province=${province}`);
   }

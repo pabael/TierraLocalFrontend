@@ -45,11 +45,13 @@ export class PublicService {
       
       allLocations: this.dbsService.getLocationsWithBrands(),
       allProvinces: this.dbsService.getProvincesWithBrands(),
+      allAutonomousCommunities: this.dbsService.getAutonomousCommunitiesWithBrands()
     }).pipe(
       map(results => ({
         ...filtersInfo,
         allLocations: results.allLocations, 
         allProvinces: results.allProvinces,
+        allAutonomousCommunities: results.allAutonomousCommunities
       }))
     );
   }
