@@ -23,7 +23,7 @@
 
     <div class="col-md-8"  style="margin-left: auto; margin-right: auto;">
       <div class="skeleton-brands">
-        <div *ngFor="let _ of [].constructor(20)" class="brand-item">
+        <div *ngFor="let _ of [].constructor(12)" class="brand-item">
           <div class="card skeleton">
             <div class="card-body">
               <h5 class="card-title"></h5>
@@ -43,11 +43,20 @@
       </app-filters>
     </div>
 
-    <div class="col-md-8"  style="margin-left: auto; margin-right: auto;">
+    <div class="col-md-8" style="margin-left: auto; margin-right: auto;">
       <app-brands-list
-        [brandsList]="brandsList" 
+        [brandsList]="paginatedBrands" 
         (onBrandDetails)="brandDetails($event)">
       </app-brands-list>
+    
+      <div class="pagination" style="text-align: center; margin-top: 20px;">
+        <button 
+          *ngFor="let page of [].constructor(totalPages); let i = index" 
+          (click)="changePage(i + 1)" 
+          [class.active]="currentPage === i + 1">
+          {{ i + 1 }}
+        </button>
+      </div>
     </div>
   </div>
 </div>

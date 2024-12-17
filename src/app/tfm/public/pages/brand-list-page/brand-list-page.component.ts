@@ -33,6 +33,9 @@ export class BrandListPageComponent implements OnInit {
   filtersLoaded: boolean = false;
   categoryApplied: Category | null = null;
 
+  currentPage: number = 1;
+  itemsPerPage: number = 12;
+
   constructor(private route: ActivatedRoute, private publicService: PublicService, private sharedService: SharedService, private router: Router){
   }
 
@@ -97,5 +100,19 @@ export class BrandListPageComponent implements OnInit {
         this.sharedService.setError = error;
       }
     })
+  }
+
+  get paginatedBrands() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.brandsList.slice(startIndex, endIndex);
+  }
+
+  changePage(page: number) {
+    this.currentPage = page;
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.brandsList.length / this.itemsPerPage);
   }
 }

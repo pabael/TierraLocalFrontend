@@ -33,10 +33,29 @@
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr))
   gap: 40px
 
+  .card
+    height: 80px
+
 @keyframes shimmer 
   0% 
     background-position: 200% 0
   
   100% 
     background-position: -200% 0
-  
+
+.pagination button
+  margin: 0 5px
+  padding: 5px 10px
+  background-color: $medium-background
+  color: black
+  border: none
+  border-radius: 5px
+  cursor: pointer
+
+.pagination button.active
+  background-color:$secondary-color
+  color: white
+
+.pagination button:hover
+  background-color: $secondary-color
+  color: white
