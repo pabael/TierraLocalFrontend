@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CategoryIcons } from '../../models/CategoryIcons';
 
 @Component({
   selector: 'app-categories-menu',
@@ -16,5 +17,9 @@ export class CategoriesMenuComponent {
 
   categoryClicked(category: string){
     this.onCategoryClicked.emit(category);
+  }
+
+  getIconForCategory(category: string): string {
+    return CategoryIcons[category as keyof typeof CategoryIcons] || 'fa-brands fa-shopify';
   }
 }

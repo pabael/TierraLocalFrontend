@@ -78,6 +78,7 @@ export class AdminService {
         this.router.navigate(['/brand', brand.name]);
       },
       error: (error:HttpErrorResponse) => {
+        console.log(error)
         this.sharedService.setError = error;
       }
     })

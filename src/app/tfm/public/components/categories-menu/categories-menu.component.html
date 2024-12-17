@@ -2,7 +2,7 @@
   <nav class="navbar">
     <ul class="navbar-nav">
       <li class="nav-item" *ngFor="let category of categories"  (click)="categoryClicked(category)">
-          <i class="fa-solid fa-shirt"></i>
+        <i [class]="'fa-solid ' + getIconForCategory(category)"></i>
           <p>{{ category }}</p>
       </li>
     </ul>

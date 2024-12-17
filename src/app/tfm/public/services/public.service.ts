@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { DbsService } from '../../shared/service/dbs.service';
 import { forkJoin, map, Observable } from 'rxjs';
 import { AdminService } from '../../admin/services/admin.service';
+import { CardBrand } from '../models/CardBrand';
 
 @Injectable({
   providedIn: 'root'
@@ -25,16 +26,22 @@ export class PublicService {
     return JSON.parse(savedState).filters;
   }
   
-  getallBrandsName(): Observable<string[]>{
+  getAllBrandsNameAndCategory(): Observable<CardBrand[]> {
     return this.dbsService.getAllBrands().pipe(
-      map(list => list.map(brand => brand.name))
+      map(list => list.map(brand => ({
+        name: brand.name,
+        categories: brand.categories ? brand.categories.map(category => category.name) : []
+      })))
     );
   }
 
-  getBrandsNameWithFilters(filters: any): Observable<string[]>{
+  getBrandsNameAndCategoryWithFilters(filters: any): Observable<CardBrand[]>{
     return this.dbsService.getBrandsWithFilters(filters)
     .pipe(
-      map(list => list.map(brand => brand.name))
+      map(list => list.map(brand => ({
+        name: brand.name,
+        categories: brand.categories ? brand.categories.map(category => category.name) : []
+      })))
     );
   }
 
@@ -56,10 +63,13 @@ export class PublicService {
     );
   }
 
-  getBrandsNameForProvince(province: string): Observable<string[]>{
+  getBrandsNameAndCategoryForProvince(province: string): Observable<CardBrand[]>{
     return this.dbsService.getBrandsForProvince(province)
     .pipe(
-      map(list => list.map(brand => brand.name))
+      map(list => list.map(brand => ({
+        name: brand.name,
+        categories: brand.categories ? brand.categories.map(category => category.name) : []
+      })))
     );
   }
 

@@ -5,6 +5,7 @@ import { PublicService } from '../../services/public.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Data } from '../../../shared/models/Data';
 import { Category } from '../../../shared/models/Category';
+import { CardBrand } from '../../models/CardBrand';
 
 @Component({
   selector: 'app-brand-list-page',
@@ -15,7 +16,7 @@ export class BrandListPageComponent implements OnInit {
 
   isLoading: boolean = true; 
 
-  brandsList: string[] = [];
+  brandsList: CardBrand[] = [];
 
   allfilters: Data = {
     allCategories: [],
@@ -69,7 +70,7 @@ export class BrandListPageComponent implements OnInit {
   }
 
   private updateList(){
-    this.publicService.getallBrandsName().subscribe({
+    this.publicService.getAllBrandsNameAndCategory().subscribe({
       next:(list) => {
         this.brandsList = list;
         this.isLoading = false;
@@ -87,7 +88,7 @@ export class BrandListPageComponent implements OnInit {
 
   filterChange(filters: any){
     this.actualFilters = filters;
-    this.publicService.getBrandsNameWithFilters(filters).subscribe({
+    this.publicService.getBrandsNameAndCategoryWithFilters(filters).subscribe({
       next:(result) => {
         this.brandsList = result;
         this.isLoading = false;

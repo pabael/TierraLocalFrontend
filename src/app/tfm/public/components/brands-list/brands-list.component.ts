@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CardBrand } from '../../models/CardBrand';
 
 @Component({
   selector: 'app-brands-list',
@@ -8,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class BrandsListComponent {
 
   @Input()
-  brandsList: string[] = [];
+  brandsList: CardBrand[] = [];
 
   @Output()
   public onBrandDetails: EventEmitter<string> = new EventEmitter<string>();

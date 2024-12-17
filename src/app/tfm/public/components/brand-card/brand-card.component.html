@@ -1,5 +1,10 @@
 <div class="card" (click)="brandDetails()">
   <div class="card-body">
-    <h5 class="card-title">{{ brand }}</h5>
+    <h5 class="card-title">{{ brand.name }}</h5>
+    <ul>
+      <li *ngFor="let category of brand.categories">
+        <i [class]="'fa-solid ' + getIconForCategory(category)"></i>
+      </li>
+    </ul>
   </div>
-</div>
+</div> 

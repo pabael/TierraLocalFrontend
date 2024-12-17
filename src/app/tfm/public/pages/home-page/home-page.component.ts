@@ -5,6 +5,7 @@ import { PublicService } from '../../services/public.service';
 import { SharedService } from '../../../shared/service/shared.service';
 import { DbsService } from '../../../shared/service/dbs.service';
 import { forkJoin } from 'rxjs';
+import { CardBrand } from '../../models/CardBrand';
 
 @Component({
   selector: 'app-home-page',
@@ -13,7 +14,7 @@ import { forkJoin } from 'rxjs';
 })
 export class HomePageComponent implements OnInit{
 
-  brandsList: string[] = [];
+  brandsList: CardBrand[] = [];
   provinces: string[] = [];
   allCategories: string[] = [];
 
@@ -43,7 +44,7 @@ export class HomePageComponent implements OnInit{
   }
 
   provinceClicked(province: string): void{
-    this.publicService.getBrandsNameForProvince(province).subscribe({
+    this.publicService.getBrandsNameAndCategoryForProvince(province).subscribe({
       next:(list) => {
         this.brandsList = list;
       },
