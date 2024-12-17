@@ -3,7 +3,7 @@ import { DbsService } from './tfm/shared/service/dbs.service';
 import { Category } from './tfm/shared/models/Category';
 import { SharedService } from './tfm/shared/service/shared.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,13 @@ export class AppComponent implements OnInit{
   allCategories: Category[] = [];
 
   ngOnInit(): void {
+    
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0);
+      }
+    });
+
     this.dbsService.getAllCategories().subscribe({
       next:(categories)=>{
         this.allCategories = categories;
