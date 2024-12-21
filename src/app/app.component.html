@@ -6,11 +6,19 @@
     [categories]="allCategories">
   </app-main-menu>
   <a class="nav-link title" routerLink="/home">TierraLocal</a>
-  <a class="nav-link dashboard" routerLink="/admin">Dashboard</a>
 </header>
 <main>
   <router-outlet></router-outlet>
 </main>
 <footer class="text-center py-4">
-  <p class="mb-0">&copy; 2024 Paloma Balmori Elósegui.</p>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md text-md-start text-center">
+        <p class="mb-0">&copy; 2024 Paloma Balmori Elósegui.</p>
+      </div>
+      <div class="col-md text-md-end text-center">
+        <a class="nav-link dashboard d-inline-block" routerLink="/admin">Dashboard</a>
+      </div>
+    </div>
+  </div>
 </footer>
