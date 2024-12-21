@@ -70,6 +70,14 @@ export class FiltersComponent implements OnInit {
       location:                 new FormControl({ value: this.actualFilters?.location ? this.actualFilters.location : "TODAS", disabled: false })
     }); 
 
+    const screenWidth = window.innerWidth;
+    this.filtersHidden = screenWidth < 769;
+  }
+
+  filtersHidden = false; 
+
+  toggleFilters(): void {
+    this.filtersHidden = !this.filtersHidden;
   }
 
   toggleAdditionalFilters() {
