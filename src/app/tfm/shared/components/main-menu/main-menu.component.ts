@@ -30,6 +30,9 @@ export class MainMenuComponent {
     this.menuOpen = !this.menuOpen;
   }
 
+  toggleSubmenu(category: Category): void {
+    this.activeCategory = this.isSubmenuActive(category) ? null : category;
+  }
 
   isSubmenuActive(category: Category): boolean {
     return this.activeCategory === category;

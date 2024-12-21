@@ -20,12 +20,8 @@
 
 .submenu
   display: none
-  position: absolute
-  left: 100%
-  top: 0
   background-color: #fff
   box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1)
-  width: 200px
   z-index: 10
   list-style: none
   padding: 10px
@@ -38,15 +34,38 @@
   list-style: none
   padding: 0
   margin: 0
+  overflow-y: auto
+  max-height: 80vh
 
-.menu-list li
-  position: relative
+.categories
+  display: flex
+  flex-direction: row
 
-.menu-list li:hover .submenu
-  display: block
+.submenu-toggle
+  border: none
 
-.category-toggle:hover, .submenu li:hover
-  background-color: $link-color
+@media (min-width: 768px)
 
-.menu-list li:hover > .category-toggle
-  background-color: $link-color
+  .submenu
+    position: absolute
+    left: 100%
+    top: 0
+    width: 200px
+
+  .menu-list 
+    overflow-y: unset
+    
+    li
+      position: relative
+
+    li:hover .submenu
+      display: block
+
+  .submenu-toggle 
+    display: none
+  
+  .category-toggle:hover, .submenu li:hover
+    background-color: $link-color
+
+  .menu-list li:hover > .category-toggle
+    background-color: $link-color
