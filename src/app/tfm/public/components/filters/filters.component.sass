@@ -18,7 +18,7 @@ select
 .filters-container
   transition: max-height 0.3s ease-out
   overflow: hidden
-  max-height: 100vh 
+  height: fit-content
 
 .btn-filter-toggle
   position: fixed
@@ -35,3 +35,12 @@ select
   @media (max-width: 768px)
     display: block
   
+@media (max-width: 768px)
+  .filters-container
+    position: fixed
+    top: 100px
+    right: 20px
+    z-index: 999
+    background-color: $medium-background
+    overflow-y: auto
+    height: 60vh
