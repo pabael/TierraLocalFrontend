@@ -49,14 +49,14 @@ export class BrandListPageComponent implements OnInit {
         this.sharedService.setError = error;
       }
     });
-
-    this.actualFilters = this.publicService.getFiltersLocalStorage();
-
-    if(this.actualFilters)  this.filterChange(this.actualFilters);
+    
     this.route.params.subscribe(params => {
+      this.actualFilters = this.publicService.getFiltersLocalStorage();
+    
       if(this.actualFilters){
         this.categoryApplied = {name: this.actualFilters.category, subcategories: []};
         if(this.actualFilters.subcategory) this.categoryApplied.subcategories = [this.actualFilters.subcategory];
+        this.filterChange(this.actualFilters);
       }
       else if(params['subcategory']){
         this.categoryApplied = {name:params['category'], subcategories: [params['subcategory']]};
