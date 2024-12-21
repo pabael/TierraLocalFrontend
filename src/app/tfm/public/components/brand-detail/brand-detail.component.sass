@@ -24,12 +24,7 @@
         .row
           max-width: 90%
 
-
 .card-header
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: space-between
   background-color: lighten($primary-color, 25%)
   height: fit-content
   width: fit-content
@@ -38,10 +33,6 @@
   transform: rotate(-10deg)
   
   .card-title
-    z-index: 1
-    display: flex
-    align-items: center
-    justify-content: center
     width: fit-content
     min-width: 200px
     padding: 30px 10px
@@ -75,3 +66,8 @@
   padding: 14px
   max-width: 80ch
   margin-bottom: 20px
+
+@media(max-width: 426px)
+  .brand-detail-contianer 
+    max-width: 90vw
+    
