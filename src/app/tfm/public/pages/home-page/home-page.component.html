@@ -5,20 +5,23 @@
     (onCategoryClicked) = "categoryClicked($event)"
     [categories]="allCategories">
     </app-categories-menu>
-    <div class="map d-flex flex-row align-items-center">
-      <app-map class="flex-grow-1" *ngIf="provinces.length > 0" 
+    <div class="align-items-center p-5 map-list-container">
+      <app-map class="map" *ngIf="provinces.length > 0" 
         [provinces]="provinces"
-        (onProvince)="provinceClicked($event)"></app-map>
+        (onProvince)="provinceClicked($event)">
+      </app-map>
     
-      <div class="col-md-4 d-flex flex-column" style="overflow-y: auto; height: 100%;">
-        <app-brands-list  class="right-block"
-          *ngIf="brandsList.length > 0" 
-          [brandsList]="brandsList" 
-          (onBrandDetails)="brandDetails($event)">
-        </app-brands-list>
-        <p *ngIf="brandsList.length == 0" class="right-block"> 
-          Aquí encontrarás una selección de empresas comprometidas con el medio ambiente, que crean productos de alta calidad mientras cuidan de nuestro planeta.  
-        </p>
+      <div class="d-flex flex-column flex-grow-1 align-items-center">
+        <div class="brand-list">
+          <app-brands-list
+            *ngIf="brandsList.length > 0" 
+            [brandsList]="brandsList" 
+            (onBrandDetails)="brandDetails($event)">
+          </app-brands-list>
+          <p *ngIf="brandsList.length == 0"> 
+            Aquí encontrarás una selección de empresas comprometidas con el medio ambiente, que crean productos de alta calidad mientras cuidan de nuestro planeta.  
+          </p>
+        </div>
       </div>
     </div>
   </div>

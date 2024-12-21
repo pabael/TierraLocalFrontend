@@ -2,17 +2,23 @@
 
 .home-container
   min-height: 100vh
+  overflow: hidden
 
-.right-block
-  width: 60%
-  height: 30vh
+.map-list-container
+  max-width: 100vw
+  flex-direction: row
+  display: flex
+
+.brand-list
+  width: 30ch
+  height: 40vh
   border: 4px solid $dark-background
-  margin-top: 35px
   padding: 30px
-  overflow: auto
+  overflow-y: auto
+  align-items: center
 
-p
-  margin-bottom: 0
+  p
+    margin-bottom: 0
 
 .loader
   border: 10px solid $primary-color
@@ -28,3 +34,21 @@ p
     transform: rotate(0deg)
   100%
     transform: rotate(360deg)
+
+@media(max-width:1500px)
+  .map
+    width: 750px
+    height: 600px
+
+@media(max-width: 1200px)
+  .map
+    width: 550px
+    height: 400px
+
+@media(max-width: 920px)
+  .map-list-container
+    flex-direction: column
+
+@media(max-width: 426px)
+  .map-list-container
+    display: none
