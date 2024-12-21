@@ -2,15 +2,15 @@ import { Data } from './../../shared/models/Data';
 import { Injectable } from '@angular/core';
 import { DbsService } from '../../shared/service/dbs.service';
 import { forkJoin, map, Observable } from 'rxjs';
-import { AdminService } from '../../admin/services/admin.service';
 import { CardBrand } from '../models/CardBrand';
+import { SharedService } from '../../shared/service/shared.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PublicService {
 
-  constructor(private dbsService: DbsService, private adminService: AdminService) { }
+  constructor(private dbsService: DbsService, private sharedService: SharedService) { }
 
   saveFiltersLocalStorage(data: any): void{
     const filters = {
@@ -46,7 +46,7 @@ export class PublicService {
   }
 
   getAllDataForFilters(): Observable<Data> {
-    const filtersInfo: Data = this.adminService.getAllDataForBrandForm();
+    const filtersInfo: Data = this.sharedService.getAllDataForBrandForm();
   
     return forkJoin({
       

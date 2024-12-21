@@ -31,7 +31,7 @@ export class BrandFormPageComponent implements OnInit{
   constructor(private route: ActivatedRoute, private dbsService: DbsService, private adminService: AdminService, private sharedService: SharedService){}
 
   ngOnInit(){
-    this.formInfo = this.adminService.getAllDataForBrandForm();
+    this.formInfo = this.sharedService.getAllDataForBrandForm();
     this.route.params.subscribe(params => {
       if (params['name']) {
         this.editMode = true;
