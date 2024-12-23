@@ -3,5 +3,6 @@ export enum CategoryIcons {
   Calzado = 'fa-shoe-prints',
   Accesorios = 'fa-bag-shopping',
   'Cuidado personal' = 'fa-face-smile-beam',
-  Hogar = 'fa-couch'
+  Hogar = 'fa-couch',
+  'Alimentación' = 'fa-pizza-slice'
 }

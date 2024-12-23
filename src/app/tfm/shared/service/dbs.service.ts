@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { Category } from '../models/Category';
 import { Brand } from '../models/Brand';
@@ -14,7 +13,7 @@ import { Label } from '../models/Label';
 export class DbsService {
 
   apiUrl: string = 'https://tierralocal.onrender.com/';
-  constructor(private http:HttpClient, private router: Router) { }
+  constructor(private http:HttpClient) { }
 
   getAllCategories(): Observable<Category[]>{
     return this.http.get<Category[]>(`${this.apiUrl}categories`)

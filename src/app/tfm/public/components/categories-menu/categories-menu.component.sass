@@ -1,3 +1,5 @@
+@import '../../../../../styles.sass'
+
 .categories-container
   display: flex
   align-items: center
@@ -19,12 +21,16 @@
       padding: 10px
       border-radius: 50%
       aspect-ratio: 1
-      width: 100px
+      width: 120px
       display: flex
       flex-direction: column
       justify-content: center
       align-items: center
       cursor: pointer
+
+      i
+        color: $link-color
+        -webkit-text-stroke: 1px $secondary-color
 
       p
         margin: 0
